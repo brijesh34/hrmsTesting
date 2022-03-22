@@ -77,6 +77,7 @@ User.findOne({email:email}, (err, user)=>{
                 res.send(err)
             }
             else{
+                
 
                 res.send({message:"Successfully Resitered"})
             }
