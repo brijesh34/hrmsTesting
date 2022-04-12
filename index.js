@@ -11,7 +11,9 @@ const jwt = require('jsonwebtoken');
 //const res = require("express/lib/response")
 //import cors from "cors"
 //import mongoose from "mongoose"
-const { API_PORT } = process.env;
+// const { API_PORT } = process.env;
+
+const API_PORT  =9005;
 const port = process.env.PORT || API_PORT;
 
 //configure
@@ -69,6 +71,46 @@ const userSchema = new mongoose.Schema({
     email: String,
     password: String
 })
+
+//////Role for employees
+const userSchema4 = new mongoose.Schema({
+    id: String,
+    role: String,
+    displayName:String
+  
+})
+
+///////login table with role of Employees
+const userSchema5 = new mongoose.Schema({
+    emp_id: String,
+    emp_role: String,
+    emp_password:String,
+    emp_email:String,
+    emp_status:String
+  
+})
+
+
+/////////////////timesheet
+const userSchema6 = new mongoose.Schema({
+    emp_id: String,
+    logDateTime: Date,
+    projectID:String,
+    logDuration:String,
+    taskDetails:String
+  
+})
+////////////project
+const userSchema7 = new mongoose.Schema({
+   project_id: String,
+   project_role: String,
+   project_startDate:Date,
+   project_lead:String,
+   project_detail:String
+  
+})
+
+
 
 
 ///Employeee Entry form
@@ -148,6 +190,10 @@ const User = new mongoose.model("User", userSchema)
 ///model of employee
 const EmployeeDetails = new mongoose.model("EmployeeDetails", userSchema1);
 const EmployeeDetails1 = new mongoose.model("EmployeeDetails1", userSchema2);
+const EmployeeDetailsLogin = new mongoose.model("EmployeeDetailsLogin", userSchema5);
+const EmployeeRoles = new mongoose.model("EmployeeRoles", userSchema4);
+const ProjectInfo = new mongoose.model("ProjectInfo", userSchema4);
+const EmpTimesheet = new mongoose.model("EmpTimesheet", userSchema4);
 
 // EmployeeDetails.find({}, function(err,user)
 // {
@@ -246,6 +292,46 @@ app.post("/login", async (req, res) => {
 
 });
 
+//////NEW LOGIN SYSTEM???????????????
+
+app.post("/emplogin", async (req, res) => {
+    //res.send("my Api  login")
+    try {
+        // Get user input
+        let jwtSecretKey = process.env.JWT_SECRET_KEY;
+        const { email, password,role } = req.body
+        const employeeDetailsLogin = await EmployeeDetailsLogin.findOne({ email: email }, (err, employeeDetailsLogin) => {
+            if (employeedetails) {
+                if ((password === employeeDetailsLogin.password)&&(role=employeeDetailsLogin.role)) {
+                    const name2 = employeeDetailsLogin.role;
+                    const token = jwt.sign(
+                        { user_id: employeeDetailsLogin._id, email, name2 },
+                        jwtSecretKey,
+                        {
+                            expiresIn: "2h",
+                        }
+                    );
+                    //user.token=token;
+                    res.send({ message: "Login successfully", user: employeeDetailsLogin, val: true, val2: token })
+                }
+                else {
+                    res.send({ message: "Invalid credentials, please recheck and enter again", val: false })
+                }
+            }
+            else {
+
+
+                res.send({ message: "Invalid credentials, please recheck and enter again", val: false })
+            }
+
+        })
+    } catch (err) {
+        console.log(err);
+    }
+
+
+});
+
 
 /////////////////////////////////////////////////////////////
 ///////////////REAL HRMS LOGIN//////////////////////////////
@@ -290,36 +376,41 @@ app.post("/loginHrms", async (req, res) => {
 
 
 });
+///////////////////add role//////////////
+app.post("/register_roles", async (req,res)=>{
+//    res.send("my Api register")
+const {
+    role_id,
+    role_name,
+    
+} = req.body;
+const oldUser = await EmployeeRoles.findOne({ role_name });
+if (oldUser) {
+    return res.status(409).send("User Already Exist. Please Login");
+}
+else {
+    //Encrypt user password
+    //encryptedPassword = await bcrypt.hash(OffPassword, 10);
+    const user = new EmployeeRoles({
+        role_id,
+        role_name,
+    
+    });
 
-// app.post("/register",(req,res)=>{
-// //    res.send("my Api register")
-// //console.log(req.body)
-// const{name, email, password}=req.body
-// //for checking user already registerd or not
-// await User.findOne({email:email}, (err, user)=>{
-//     if(user){
-//         res.send({message:"user already registerd"})
-//     }
-//     else{
-//         const user=new User({
-//             name,
-//             email,
-//             password
-//         })
-//         user.save(err=>{
-//             if(err){
-//                 res.send(err)
-//             }
-//             else{
+    //console.log(req.file);
+    // res.send("single file uploadede successfully")
+    user.save(err => {
+        if (err) {
+            res.send(err)
+        }
 
-//                 res.send({message:"Successfully Resitered"})
-//             }
-//         })
-//     }
-// })
+        else {
 
-
-// })
+            res.send({ message: "Successfully Resitered" })
+        }
+    })
+}
+})
 
 ////add new employee
 app.post("/employeedetailsform", async (req, res) => {
@@ -392,7 +483,6 @@ app.post("/employeedetailsform", async (req, res) => {
 
     //}
 )
-
 
 
 
