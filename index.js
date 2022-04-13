@@ -74,9 +74,9 @@ const userSchema = new mongoose.Schema({
 
 //////Role for employees
 const userSchema4 = new mongoose.Schema({
-    id: String,
-    role: String,
-    displayName:String
+role_id: String,
+    role_name: String,
+    // displayName:String
   
 })
 
@@ -384,6 +384,7 @@ const {
     role_name,
     
 } = req.body;
+console.log(role_id+role_name)
 const oldUser = await EmployeeRoles.findOne({ role_name });
 if (oldUser) {
     return res.status(409).send("User Already Exist. Please Login");
@@ -391,7 +392,7 @@ if (oldUser) {
 else {
     //Encrypt user password
     //encryptedPassword = await bcrypt.hash(OffPassword, 10);
-    const user = new EmployeeRoles({
+    const employeeRoles = new EmployeeRoles({
         role_id,
         role_name,
     
@@ -399,7 +400,7 @@ else {
 
     //console.log(req.file);
     // res.send("single file uploadede successfully")
-    user.save(err => {
+    employeeRoles.save(err => {
         if (err) {
             res.send(err)
         }
@@ -620,6 +621,20 @@ app.get("/employeeDetail", async (req, res, next) => {
         res.send(employeedetails);
     })
 })
+//////////////////////////////////////////////////////
+//////////////////////Role Details/////////////////
+////////////////////////////////////////////////////
+app.get("/rolesDetail", async (req, res, next) => {
+    EmployeeRoles.find({}, (err, employeeRoles) => {
+        if (err) {
+            console.warn(err)
+            return next(err)
+        }
+        console.warn(employeeRoles);
+        //res.json(employeedetails);
+        res.send(employeeRoles);
+    })
+})
 app.get("/employeeDetail1", async (req, res, next) => {
     EmployeeDetails1.find({}, (err, employeedetails1) => {
         if (err) {
@@ -770,6 +785,29 @@ app.put("/update", async (req, res) => {
         console.log(err);
     }
 })
+//Update roles
+app.put("/updateRoles", async (req, res) => {
+    const  id = req.body.id;
+    const name = req.body.name;
+    try {
+        await EmployeeRoles.findOne({role:id}, (err, employeeRoles) => {
+           // employeedetails1.name = newFoodName;
+            // employeedetails.offPassword=newpass;
+
+
+            employeeRoles.role_id=id
+          ;  
+          employeeRoles.role_name=name
+           
+          employeeRoles.save();
+            res.send("Password updated");
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
+
 
 
 /* DELETE BOOK */
