@@ -869,15 +869,15 @@ app.delete('/delete/:id', async (req, res) => {
     res.send("deleted");
 });
 
-const createToken = async () => {
-    const token = await jwt.sign({ name: "brijesh" }, "mynameisbrijeshmaurya1234567891011",
-        { expiresIn: "20 seconds" });
-    console.log(token);
+// const createToken = async () => {
+//     const token = await jwt.sign({ name: "brijesh" }, "mynameisbrijeshmaurya1234567891011",
+//         { expiresIn: "20 seconds" });
+//     console.log(token);
 
-    const userVer = await jwt.verify(token, "mynameisbrijeshmaurya1234567891011");
-    console.log(userVer)
-}
-createToken();
+//     const userVer = await jwt.verify(token, "mynameisbrijeshmaurya1234567891011");
+//     console.log(userVer)
+// }
+// createToken();
 
 app.listen(port, () => {
     console.log("BE started at port 9005")
