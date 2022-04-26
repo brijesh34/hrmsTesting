@@ -268,6 +268,9 @@ app.post("/loginHrms", async (req, res) => {
                     const offEmail = employeedetails1.offEmail;
                     const name2 = employeedetails1.name;
                     const jobtype=employeedetails1.jobType;
+
+                    // const role = await EmployeeRoles.findOne({ role_name: jobtype }, (err, role) => {});
+        
                     const offId = employeedetails1.offId;
                     const token = jwt.sign(
                         { user_id: employeedetails1._id,offEmail,jobtype, offId ,name2},
@@ -485,7 +488,7 @@ app.post("/employeedetailsform1", async (req, res) => {
 
     } = req.body;
     //  encryptedPassword = await bcrypt.hash(password, 10);           EmployeeDetailsLogin
-    const oldUser = await EmployeeDetails1.findOne({ email });
+    const oldUser = await EmployeeDetails1.findOne({ offEmail });
     if (oldUser) {
         return res.status(409).send("User Already Exist. Please Login");
     }
@@ -566,63 +569,66 @@ app.post("/employeedetailsform1", async (req, res) => {
 //////////////////////////////Login database store////
 ////////////////////////////////////////////////////////
 ////add new employee
-app.post("/employeedetailsLogin", async (req, res) => {
+app.post("/employeedetailsLogin", async(req, res) => {
 
-    const {
-        name,
-        fname,
-        email,
-        gender,
-        // offEmail,
-        emp_email,
-        offId,
-        address,
-        aadhaar,
-        pan,
-        bankAccount,
-        bankName,
-        bankIfsc,
-        Country,
-        state,
-        city,
-        pincode,
-        highestDegree,
-        lastCollegeCompany,
-        phoneNo,
-        jobType,
-        dob,
-        salary,
-
-        noExp,
-        status
-
+    // const {
+        const {
+            name,
+            fname,
+            email,
+            gender,
+            offEmail,
+            offId,
+            address,
+            aadhaar,
+            pan,
+            bankAccount,
+            bankName,
+            bankIfsc,
+            Country,
+            state,
+            city,
+            pincode,
+            highestDegree,
+            lastCollegeCompany,
+            phoneNo,
+            jobType,
+            dob,
+            salary,
+    
+            noExp,
+            status
+    
+        } = req.body;
+       
         ///////////////
     //     emp_id,
-    
+    const emp_email=offEmail;
     // emp_password,
     // emp_email,
     // emp_status
-    } = req.body;
+    // } = req.body;
     //  encryptedPassword = await bcrypt.hash(password, 10);           EmployeeDetailsLogin
-    const oldUser = await EmployeeDetailsLogin.findOne({ emp_email });
+    const oldUser = await EmployeeDetailsLogin.findOne({emp_email});
     if (oldUser) {
+        console.log("xxxxxxxxxxxxxxxxxxxx"+err+"xxxxxxxxxxxxxxxx")
         return res.status(409).send("User Already Exist. Please Login");
     }
     else {
         let jwtSecretKey = process.env.JWT_SECRET_KEY;
         const user = await EmployeeDetailsLogin.create({
             emp_id:offId,
+            emp_password:name,
+        emp_email:emp_email,
     
-    emp_password:name,
-    emp_email:emp_email,
-    
-    emp_status:status
+         emp_status:status
         });
 
         
          user.save(err => {
             if (err) {
                 res.send(err)
+                // console.log("xxxxxxxxxxxxxxxxxxxx"+err+"xxxxxxxxxxxxxxxx")
             }
 
             else {
