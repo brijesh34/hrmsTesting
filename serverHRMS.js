@@ -204,9 +204,9 @@ app.post("/sendPasswordResetLink", (req, res) => {
     //res.send("my Api  login")
 
     const { email } = req.body
-    EmployeeDetails.findOne({ email: email }, (err, employeedetails) => {
-        if (employeedetails) {
-            if (email === employeedetails.email) {
+    EmployeeDetailsLogin.findOne({ emp_email: email }, (err, employeeDetailsLogin) => {
+        if (employeeDetailsLogin) {
+            if (email === employeeDetailsLogin.emp_email) {
                 var nodemailer = require('nodemailer');
 
                 var transporter = nodemailer.createTransport({
@@ -231,7 +231,7 @@ app.post("/sendPasswordResetLink", (req, res) => {
                         console.log('Email sent: ' + info.response);
                     }
                 });
-                res.send({ message: "Check Otp on your email", val: data, vemail: employeedetails.email })
+                res.send({ message: "Check Otp on your email", val: data, vemail: employeeDetailsLogin.email })
 
             }
             else {
@@ -265,15 +265,21 @@ app.post("/loginHrms", async (req, res) => {
 
                 if (name === employeedetails1.emp_password) {
                     const emolpoyeedetails2 =  tab.findOne({ offEmail: email }, (err, employeedetails1) => {
+                        
+                    const jobtype=employeedetails1.jobType;
+                     const role =  EmployeeRoles.findOne({ role_name: jobtype }, (err, role) => {
                     const offEmail = employeedetails1.offEmail;
                     const name2 = employeedetails1.name;
                     const jobtype=employeedetails1.jobType;
 
-                    // const role = await EmployeeRoles.findOne({ role_name: jobtype }, (err, role) => {});
+                    //  const role = await EmployeeRoles.findOne({ role_name: jobtype }, (err, role) => {
+                        const rolet=role.role_id;
+
+                    //  });
         
                     const offId = employeedetails1.offId;
                     const token = jwt.sign(
-                        { user_id: employeedetails1._id,offEmail,jobtype, offId ,name2},
+                        { user_id: employeedetails1._id,offEmail,jobtype, offId ,name2,rolet},
                         jwtSecretKey,
                         {
                             expiresIn: "2h",
@@ -281,6 +287,8 @@ app.post("/loginHrms", async (req, res) => {
                     );
                     //user.token=token;
                     res.send({ message: "Login successfully", user: employeedetails1, val: true, val2: token })
+                    
+                });
                 })  }
                 else {
                     res.send({ message: "Invalid credentials, please recheck and enter again", val: false })
@@ -307,9 +315,9 @@ app.post("/loginHrmsfirst", async (req, res) => {
         let jwtSecretKey = process.env.JWT_SECRET_KEY;
         const { email, name } = req.body;
         const tab=EmployeeDetailsLogin;
-        const emolpoyeedetails1 = await tab.findOne({ emp_email: email }, (err, employeedetails1) => {
+        const emolpoyeedetails1 = await tab.findOne({ emp_email: email  }, (err, employeedetails1) => {
             if (employeedetails1) {
-                if (name === employeedetails1.emp_password) {
+                if ((name === employeedetails1.emp_password)&&(EmployeeDetailsLogin.emp_status=="Current")) {
                     // const offEmail = employeedetails1.offEmail;
                     // const name2 = employeedetails1.name;
                     // // const jobtype=employeedetails1.jobType;
@@ -632,7 +640,7 @@ app.post("/employeedetailsLogin", async(req, res) => {
             }
 
             else {
-                res.send({ message: "Successfully Resitered" })
+                res.send({ message: "Successfully Resitered",verify:"true" })
             }
         }
         
@@ -751,11 +759,11 @@ app.put("/updatePassword", async (req, res) => {
 
     const id = req.body.id;
     try {
-        await EmployeeDetails.findById(id, (err, employeedetails) => {
-            employeedetails.name = newFoodName;
+        await EmployeeDetailsLogin.findOne({emp_email:id}, (err, employeeDetailsLogin) => {
+            employeeDetailsLogin.emp_password= newFoodName;
             // employeedetails.offPassword=newpass;
 
-            employeedetails.save();
+            employeeDetailsLogin.save();
             res.send("Password updated");
         });
     }
@@ -836,7 +844,32 @@ app.put("/update", async (req, res) => {
 
 
             employeedetails1.save();
-            res.send("Password updated");
+        //     res.send("Password updated");
+
+        // });
+
+        // await
+         EmployeeDetailsLogin.findOne({emp_email:id}, (err, employeeDetailsLogin) => {
+            // employeedetails1.name = newFoodName;
+             // employeedetails.offPassword=newpass;
+ 
+ 
+           //  employeedetails1.id=id
+             //;
+            //  employeeDetailsLogin.emp_password=name
+            //  ;employeedetails1.fname=fname
+            //  ;employeedetails1.email=email
+            //  ;employeedetails1.gender=gender
+             ;employeeDetailsLogin.emp_email=offEmail
+             ;employeeDetailsLogin.emp_id=offId
+             ;employeeDetailsLogin.emp_status=status
+            
+ 
+ 
+ 
+             employeeDetailsLogin.save();
+             res.send("Password updated");
+         });
         });
     }
     catch (err) {
