@@ -231,7 +231,7 @@ app.post("/sendPasswordResetLink", (req, res) => {
                         console.log('Email sent: ' + info.response);
                     }
                 });
-                res.send({ message: "Check Otp on your email", val: data, vemail: employeeDetailsLogin.email })
+                res.send({ message: "Check Otp on your e-mail , If e-mail is registered ", val: data, vemail: employeeDetailsLogin.email })
 
             }
             else {
@@ -260,11 +260,16 @@ app.post("/loginHrms", async (req, res) => {
         let jwtSecretKey = process.env.JWT_SECRET_KEY;
         const { email, name } = req.body;
         const tab=EmployeeDetails1;
-        const emolpoyeedetails1 = await EmployeeDetailsLogin.findOne({ emp_email: email }, (err, employeedetails1) => {
+
+
+        //////////////////////////////////
+        //////////////////////OR property not worked here
+        ////////////////////////
+        const emolpoyeedetails1 = await EmployeeDetailsLogin.findOne({emp_id:email}||{emp_email:email}, (err, employeedetails1) => {
             if (employeedetails1) {
 
                 if (name === employeedetails1.emp_password) {
-                    const emolpoyeedetails2 =  tab.findOne({ offEmail: email }, (err, employeedetails1) => {
+                    const emolpoyeedetails2 =  tab.findOne({offId:email}||{offEmail:email}, (err, employeedetails1) => {
                         
                     const jobtype=employeedetails1.jobType;
                      const role =  EmployeeRoles.findOne({ role_name: jobtype }, (err, role) => {
