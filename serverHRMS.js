@@ -176,6 +176,9 @@ const userSchema2 = new mongoose.Schema({
 
     noExp: Number,
     status: String,
+    
+ DoJ:Date,
+ ReportingManager:String,
 })
 
 ///model
@@ -494,11 +497,14 @@ app.post("/employeedetailsform1", async (req, res) => {
         phoneNo,
         jobType,
         dob,
-        salary,
+        // salary,
+
 
         noExp,
-        status
+        status,
 
+ DoJ,
+ ReportingManager,
     } = req.body;
     //  encryptedPassword = await bcrypt.hash(password, 10);           EmployeeDetailsLogin
     const oldUser = await EmployeeDetails1.findOne({ offEmail });
@@ -530,10 +536,13 @@ app.post("/employeedetailsform1", async (req, res) => {
             phoneNo,
             jobType,
             dob,
-            salary,
+            // salary,
 
             noExp,
             status,
+            
+ DoJ,
+ ReportingManager,
         
         });
 
@@ -607,10 +616,13 @@ app.post("/employeedetailsLogin", async(req, res) => {
             phoneNo,
             jobType,
             dob,
-            salary,
+            // salary,
     
             noExp,
-            status
+            status,
+            
+ DoJ,
+ ReportingManager,
     
         } = req.body;
        
