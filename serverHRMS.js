@@ -19,22 +19,36 @@ app.use(cors())
 
 app.use('/images', express.static('images'));
 //app.use('/images',express.static('images'));
-const fileStorageEngine = multer.diskStorage({
 
+const fileStorageEngine = multer.diskStorage({
+   
+    
     destination: (req, file, cb) => {
+        try {
         cb(null, './images')
+    } catch(err) {
+        console.error(err)
+      }
+    
     },
     filename: (req, file, cb) => {
+        try {
         // cb(null,Date.now()+ '--'+ file.originalname)
         cb(null, file.originalname)
+    } catch(err) {
+        console.error(err)
+      }
+    
         // cb(null,"brijesh.jpg")    
     }
+
 })
 
 const upload = multer({ storage: fileStorageEngine });
 
 app.post('/employeefiles', upload.single("highschoolPic"), (req, res) => {
     //   profile=(req.file)?req.file.filename:null;
+
     //console.log(profile);
     console.log(req.data);
     res.send("single file uploadede successfully");
@@ -205,7 +219,7 @@ const EmpTimesheet = new mongoose.model("EmpTimesheet", userSchema4);
 
 app.post("/sendPasswordResetLink", (req, res) => {
     //res.send("my Api  login")
-
+  try {
     const { email } = req.body
     EmployeeDetailsLogin.findOne({ emp_email: email }, (err, employeeDetailsLogin) => {
         if (employeeDetailsLogin) {
@@ -248,6 +262,10 @@ app.post("/sendPasswordResetLink", (req, res) => {
         }
 
     })
+} catch(err) {
+    console.error(err)
+  }
+
 
 
 })
@@ -261,18 +279,18 @@ app.post("/loginHrms", async (req, res) => {
     try {
         // Get user input
         let jwtSecretKey = process.env.JWT_SECRET_KEY;
-        const { email, name } = req.body;
+        const { email, password } = req.body;
         const tab=EmployeeDetails1;
-
+console.log("-----------------------------------email------------------>"+email);
 
         //////////////////////////////////
         //////////////////////OR property not worked here
         ////////////////////////
-        const emolpoyeedetails1 = await EmployeeDetailsLogin.findOne({emp_id:email}||{emp_email:email}, (err, employeedetails1) => {
+        const employeedetails1 = await EmployeeDetailsLogin.findOne({emp_id:email}, (err, employeedetails1) => {
             if (employeedetails1) {
 
-                if (name === employeedetails1.emp_password) {
-                    const emolpoyeedetails2 =  tab.findOne({offId:email}||{offEmail:email}, (err, employeedetails1) => {
+                if (password === employeedetails1.emp_password) {
+                    const employeedetails2 =  tab.findOne({offId:email}, (err, employeedetails1) => {
                         
                     const jobtype=employeedetails1.jobType;
                      const role =  EmployeeRoles.findOne({ role_name: jobtype }, (err, role) => {
@@ -323,7 +341,7 @@ app.post("/loginHrmsfirst", async (req, res) => {
         let jwtSecretKey = process.env.JWT_SECRET_KEY;
         const { email, name } = req.body;
         const tab=EmployeeDetailsLogin;
-        const emolpoyeedetails1 = await tab.findOne({ emp_email: email  }, (err, employeedetails1) => {
+        const employeedetails1 = await tab.findOne({ emp_email: email  }, (err, employeedetails1) => {
             if (employeedetails1) {
                 if ((name === employeedetails1.emp_password)&&(EmployeeDetailsLogin.emp_status=="Current")) {
                     // const offEmail = employeedetails1.offEmail;
@@ -361,6 +379,7 @@ app.post("/loginHrmsfirst", async (req, res) => {
 
 ///////////////////add role//////////////
 app.post("/register_roles", async (req,res)=>{
+    try {
 //    res.send("my Api register")
 const {
     role_id,
@@ -395,10 +414,15 @@ else {
         }
     })
 }
+} catch(err) {
+    console.error(err)
+  }
+
 })
 
 ////add new employee
 app.post("/employeedetailsform", async (req, res) => {
+    try {
 
     const {
         name,
@@ -462,6 +486,10 @@ app.post("/employeedetailsform", async (req, res) => {
             }
         })
     }
+} catch(err) {
+    console.error(err)
+  }
+
 }
     // })
 
@@ -474,7 +502,7 @@ app.post("/employeedetailsform", async (req, res) => {
 
 ////add new employee
 app.post("/employeedetailsform1", async (req, res) => {
-
+    try {
     const {
         name,
         fname,
@@ -583,16 +611,20 @@ app.post("/employeedetailsform1", async (req, res) => {
     //     )
     }
     
+} catch(err) {
+    console.error(err)
+  }
 
 }
 )
+
 
 /////////////////////////////////////////////////////////
 //////////////////////////////Login database store////
 ////////////////////////////////////////////////////////
 ////add new employee
 app.post("/employeedetailsLogin", async(req, res) => {
-
+    try {
     // const {
         const {
             name,
@@ -663,12 +695,17 @@ app.post("/employeedetailsLogin", async(req, res) => {
         
         )
     }
+} catch(err) {
+    console.error(err)
+  }
+
 }
 )
 
 
 
 app.post("/employeeDetails", (req, res, next) => {
+    try {
     EmployeeDetails.find(function (err, employeedetails) {
         if (err) {
             console.warn(err)
@@ -677,6 +714,10 @@ app.post("/employeeDetails", (req, res, next) => {
         console.warn(employeedetails);
         res.json(employeedetails);
     })
+} catch(err) {
+    console.error(err)
+  }
+
 })
 
 
@@ -694,6 +735,7 @@ app.post("/employeeDetails", (req, res, next) => {
 // })
 
 app.get("/employeeDetail", async (req, res, next) => {
+    try {
     EmployeeDetails.find({}, (err, employeedetails) => {
         if (err) {
             console.warn(err)
@@ -703,11 +745,16 @@ app.get("/employeeDetail", async (req, res, next) => {
         //res.json(employeedetails);
         res.send(employeedetails);
     })
+} catch(err) {
+    console.error(err)
+  }
+
 })
 //////////////////////////////////////////////////////
 //////////////////////Role Details/////////////////
 ////////////////////////////////////////////////////
 app.get("/rolesDetail", async (req, res, next) => {
+    try {
     EmployeeRoles.find({}, (err, employeeRoles) => {
         if (err) {
             console.warn(err)
@@ -717,8 +764,13 @@ app.get("/rolesDetail", async (req, res, next) => {
         //res.json(employeedetails);
         res.send(employeeRoles);
     })
+} catch(err) {
+    console.error(err)
+  }
+
 })
 app.get("/employeeDetail1", async (req, res, next) => {
+    try {
     EmployeeDetails1.find({}, (err, employeedetails1) => {
         if (err) {
             console.warn(err)
@@ -728,8 +780,13 @@ app.get("/employeeDetail1", async (req, res, next) => {
         //res.json(employeedetails);
         res.send(employeedetails1);
     })
+} catch(err) {
+    console.error(err)
+  }
+
 })
 app.get("/exemployeeDetail1", async (req, res, next) => {
+    try {
     const status="Ex-Employee";
     EmployeeDetails1.find({status:status}, (err, employeedetails1) => {
         if (err) {
@@ -740,8 +797,13 @@ app.get("/exemployeeDetail1", async (req, res, next) => {
         //res.json(employeedetails);
         res.send(employeedetails1);
     })
+} catch(err) {
+    console.error(err)
+  }
+
 })
 app.get("/currentemployeeDetail1", async (req, res, next) => {
+    try {
     const status="Current";
     EmployeeDetails1.find({status:status}, (err, employeedetails1) => {
         if (err) {
@@ -752,9 +814,14 @@ app.get("/currentemployeeDetail1", async (req, res, next) => {
         //res.json(employeedetails);
         res.send(employeedetails1);
     })
+} catch(err) {
+    console.error(err)
+  }
+
 })
 
 app.get(`/employeeDetail1/:id`, async (req, res, next) => {
+    try {
     const id = req.params.id;
     
     const fileExists = require('file-exists');
@@ -775,9 +842,14 @@ fileExists('images/_image.png').then(exists => {
   })
         //res.json(employeedetails);
             })
+        } catch(err) {
+            console.error(err)
+          }
+        
 })
 
 app.get(`/employeeFiles/:id`, async (req, res) => {
+    try {
     const id = req.params.id;
 
     const fileExists = require('file-exists');
@@ -881,6 +953,10 @@ app.get(`/employeeFiles/:id`, async (req, res) => {
         res.send({dat:"true",f1:f1,f2:f2,f3:f3,f4:f4,f5:f5,f6:f6,f7:f7,f8:f8,f9:f9,});
     
     //   })
+} catch(err) {
+    console.error(err)
+  }
+
     })    
 
     
