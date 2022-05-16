@@ -469,6 +469,9 @@ app.post("/employeedetailsform", async (req, res) => {
             pincode,
             highestDegree,
             lastCollege,
+                                 
+DoJ,
+ReportingManager
 
 
         });
