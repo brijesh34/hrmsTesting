@@ -19,22 +19,36 @@ app.use(cors())
 
 app.use('/images', express.static('images'));
 //app.use('/images',express.static('images'));
-const fileStorageEngine = multer.diskStorage({
 
+const fileStorageEngine = multer.diskStorage({
+   
+    
     destination: (req, file, cb) => {
+        try {
         cb(null, './images')
+    } catch(err) {
+        console.error(err)
+      }
+    
     },
     filename: (req, file, cb) => {
+        try {
         // cb(null,Date.now()+ '--'+ file.originalname)
         cb(null, file.originalname)
+    } catch(err) {
+        console.error(err)
+      }
+    
         // cb(null,"brijesh.jpg")    
     }
+
 })
 
 const upload = multer({ storage: fileStorageEngine });
 
 app.post('/employeefiles', upload.single("highschoolPic"), (req, res) => {
     //   profile=(req.file)?req.file.filename:null;
+
     //console.log(profile);
     console.log(req.data);
     res.send("single file uploadede successfully");
@@ -176,6 +190,9 @@ const userSchema2 = new mongoose.Schema({
 
     noExp: Number,
     status: String,
+    
+ DoJ:Date,
+ ReportingManager:String,
 })
 
 ///model
@@ -202,7 +219,7 @@ const EmpTimesheet = new mongoose.model("EmpTimesheet", userSchema4);
 
 app.post("/sendPasswordResetLink", (req, res) => {
     //res.send("my Api  login")
-
+  try {
     const { email } = req.body
     EmployeeDetailsLogin.findOne({ emp_email: email }, (err, employeeDetailsLogin) => {
         if (employeeDetailsLogin) {
@@ -245,6 +262,10 @@ app.post("/sendPasswordResetLink", (req, res) => {
         }
 
     })
+} catch(err) {
+    console.error(err)
+  }
+
 
 
 })
@@ -258,18 +279,18 @@ app.post("/loginHrms", async (req, res) => {
     try {
         // Get user input
         let jwtSecretKey = process.env.JWT_SECRET_KEY;
-        const { email, name } = req.body;
+        const { email, password } = req.body;
         const tab=EmployeeDetails1;
-
+console.log("-----------------------------------email------------------>"+email);
 
         //////////////////////////////////
         //////////////////////OR property not worked here
         ////////////////////////
-        const emolpoyeedetails1 = await EmployeeDetailsLogin.findOne({emp_id:email}||{emp_email:email}, (err, employeedetails1) => {
+        const employeedetails1 = await EmployeeDetailsLogin.findOne({emp_id:email}, (err, employeedetails1) => {
             if (employeedetails1) {
 
-                if (name === employeedetails1.emp_password) {
-                    const emolpoyeedetails2 =  tab.findOne({offId:email}||{offEmail:email}, (err, employeedetails1) => {
+                if (password === employeedetails1.emp_password) {
+                    const employeedetails2 =  tab.findOne({offId:email}, (err, employeedetails1) => {
                         
                     const jobtype=employeedetails1.jobType;
                      const role =  EmployeeRoles.findOne({ role_name: jobtype }, (err, role) => {
@@ -320,7 +341,7 @@ app.post("/loginHrmsfirst", async (req, res) => {
         let jwtSecretKey = process.env.JWT_SECRET_KEY;
         const { email, name } = req.body;
         const tab=EmployeeDetailsLogin;
-        const emolpoyeedetails1 = await tab.findOne({ emp_email: email  }, (err, employeedetails1) => {
+        const employeedetails1 = await tab.findOne({ emp_email: email  }, (err, employeedetails1) => {
             if (employeedetails1) {
                 if ((name === employeedetails1.emp_password)&&(EmployeeDetailsLogin.emp_status=="Current")) {
                     // const offEmail = employeedetails1.offEmail;
@@ -358,6 +379,7 @@ app.post("/loginHrmsfirst", async (req, res) => {
 
 ///////////////////add role//////////////
 app.post("/register_roles", async (req,res)=>{
+    try {
 //    res.send("my Api register")
 const {
     role_id,
@@ -392,10 +414,15 @@ else {
         }
     })
 }
+} catch(err) {
+    console.error(err)
+  }
+
 })
 
 ////add new employee
 app.post("/employeedetailsform", async (req, res) => {
+    try {
 
     const {
         name,
@@ -442,6 +469,9 @@ app.post("/employeedetailsform", async (req, res) => {
             pincode,
             highestDegree,
             lastCollege,
+                                 
+DoJ,
+ReportingManager
 
 
         });
@@ -459,6 +489,10 @@ app.post("/employeedetailsform", async (req, res) => {
             }
         })
     }
+} catch(err) {
+    console.error(err)
+  }
+
 }
     // })
 
@@ -471,7 +505,7 @@ app.post("/employeedetailsform", async (req, res) => {
 
 ////add new employee
 app.post("/employeedetailsform1", async (req, res) => {
-
+    try {
     const {
         name,
         fname,
@@ -494,11 +528,14 @@ app.post("/employeedetailsform1", async (req, res) => {
         phoneNo,
         jobType,
         dob,
-        salary,
+        // salary,
+
 
         noExp,
-        status
+        status,
 
+ DoJ,
+ ReportingManager,
     } = req.body;
     //  encryptedPassword = await bcrypt.hash(password, 10);           EmployeeDetailsLogin
     const oldUser = await EmployeeDetails1.findOne({ offEmail });
@@ -530,10 +567,13 @@ app.post("/employeedetailsform1", async (req, res) => {
             phoneNo,
             jobType,
             dob,
-            salary,
+            // salary,
 
             noExp,
             status,
+            
+ DoJ,
+ ReportingManager,
         
         });
 
@@ -574,16 +614,20 @@ app.post("/employeedetailsform1", async (req, res) => {
     //     )
     }
     
+} catch(err) {
+    console.error(err)
+  }
 
 }
 )
+
 
 /////////////////////////////////////////////////////////
 //////////////////////////////Login database store////
 ////////////////////////////////////////////////////////
 ////add new employee
 app.post("/employeedetailsLogin", async(req, res) => {
-
+    try {
     // const {
         const {
             name,
@@ -607,10 +651,13 @@ app.post("/employeedetailsLogin", async(req, res) => {
             phoneNo,
             jobType,
             dob,
-            salary,
+            // salary,
     
             noExp,
-            status
+            status,
+            
+ DoJ,
+ ReportingManager,
     
         } = req.body;
        
@@ -651,12 +698,17 @@ app.post("/employeedetailsLogin", async(req, res) => {
         
         )
     }
+} catch(err) {
+    console.error(err)
+  }
+
 }
 )
 
 
 
 app.post("/employeeDetails", (req, res, next) => {
+    try {
     EmployeeDetails.find(function (err, employeedetails) {
         if (err) {
             console.warn(err)
@@ -665,6 +717,10 @@ app.post("/employeeDetails", (req, res, next) => {
         console.warn(employeedetails);
         res.json(employeedetails);
     })
+} catch(err) {
+    console.error(err)
+  }
+
 })
 
 
@@ -682,6 +738,7 @@ app.post("/employeeDetails", (req, res, next) => {
 // })
 
 app.get("/employeeDetail", async (req, res, next) => {
+    try {
     EmployeeDetails.find({}, (err, employeedetails) => {
         if (err) {
             console.warn(err)
@@ -691,11 +748,16 @@ app.get("/employeeDetail", async (req, res, next) => {
         //res.json(employeedetails);
         res.send(employeedetails);
     })
+} catch(err) {
+    console.error(err)
+  }
+
 })
 //////////////////////////////////////////////////////
 //////////////////////Role Details/////////////////
 ////////////////////////////////////////////////////
 app.get("/rolesDetail", async (req, res, next) => {
+    try {
     EmployeeRoles.find({}, (err, employeeRoles) => {
         if (err) {
             console.warn(err)
@@ -705,8 +767,13 @@ app.get("/rolesDetail", async (req, res, next) => {
         //res.json(employeedetails);
         res.send(employeeRoles);
     })
+} catch(err) {
+    console.error(err)
+  }
+
 })
 app.get("/employeeDetail1", async (req, res, next) => {
+    try {
     EmployeeDetails1.find({}, (err, employeedetails1) => {
         if (err) {
             console.warn(err)
@@ -716,8 +783,13 @@ app.get("/employeeDetail1", async (req, res, next) => {
         //res.json(employeedetails);
         res.send(employeedetails1);
     })
+} catch(err) {
+    console.error(err)
+  }
+
 })
 app.get("/exemployeeDetail1", async (req, res, next) => {
+    try {
     const status="Ex-Employee";
     EmployeeDetails1.find({status:status}, (err, employeedetails1) => {
         if (err) {
@@ -728,8 +800,13 @@ app.get("/exemployeeDetail1", async (req, res, next) => {
         //res.json(employeedetails);
         res.send(employeedetails1);
     })
+} catch(err) {
+    console.error(err)
+  }
+
 })
 app.get("/currentemployeeDetail1", async (req, res, next) => {
+    try {
     const status="Current";
     EmployeeDetails1.find({status:status}, (err, employeedetails1) => {
         if (err) {
@@ -740,10 +817,17 @@ app.get("/currentemployeeDetail1", async (req, res, next) => {
         //res.json(employeedetails);
         res.send(employeedetails1);
     })
+} catch(err) {
+    console.error(err)
+  }
+
 })
 
 app.get(`/employeeDetail1/:id`, async (req, res, next) => {
+    try {
     const id = req.params.id;
+    
+    const fileExists = require('file-exists');
     
     EmployeeDetails1.find({offEmail:id}, (err, employeedetails1) => {
         if (err) {
@@ -751,10 +835,144 @@ app.get(`/employeeDetail1/:id`, async (req, res, next) => {
             return next(err)
         }
         console.warn(employeedetails1);
+ 
+// fileExists('images/_image.png', (err, exists) => console.log(exists)) // OUTPUTS: true or false
+fileExists('images/_image.png').then(exists => {
+    console.log(exists) // OUTPUTS: true or false
+    const a=exists;
+    res.send({user:employeedetails1,dat:exists});
+
+  })
         //res.json(employeedetails);
-        res.send({user:employeedetails1});
-    })
+            })
+        } catch(err) {
+            console.error(err)
+          }
+        
 })
+
+app.get(`/employeeFiles/:id`, async (req, res) => {
+    try {
+    const id = req.params.id;
+
+    const fileExists = require('file-exists');
+    // fileExists("images/"+id+"_image.png").then(exists => {
+        const fs = require("fs");
+
+        const path = "images/"+id+"_image.png";
+        
+        const path1 = "images/"+id+"_image.png";
+        const path2 = "images/"+id+"_10marksheet.pdf";
+        const path3 = "images/"+id+"_12marksheet.pdf";
+        const path4 = "images/"+id+"_graduation.pdf";
+        const path5 = "images/"+id+"_postgraduation.pdf";
+        const path6 = "images/"+id+"_aadhaar.pdf";
+        const path7 = "images/"+id+"_bank.pdf";
+        const path8 = "images/"+id+"_pan.pdf";
+        const path9 = "images/"+id+"_other.pdf";
+        if (fs.existsSync(path)) {
+          // path exists
+          console.log("exists:", path);
+        } else {
+          console.log("DOES NOT exist:", path);
+        }
+        if (fs.existsSync(path1)) {
+            // path exists
+            f1="true";
+            console.log("exists:", path);
+          } else {
+              f1="false";
+            console.log("DOES NOT exist:", path);
+          }
+          if (fs.existsSync(path2)) {
+            // path exists
+            f2="true";
+            console.log("exists:", path);
+          } else {
+            f2="false";
+            console.log("DOES NOT exist:", path);
+          }
+          if (fs.existsSync(path3)) {
+            // path exists
+            f3="true";
+            console.log("exists:", path);
+          } else {
+            f3="false";
+            console.log("DOES NOT exist:", path);
+          }
+          if (fs.existsSync(path4)) {
+            // path exists
+            f4="true";
+            console.log("exists:", path);
+          } else {
+            f4="false";
+            console.log("DOES NOT exist:", path);
+          }
+          if (fs.existsSync(path5)) {
+            // path exists
+            f5="true";
+            console.log("exists:", path);
+          } else {
+            f5="false";
+            console.log("DOES NOT exist:", path);
+          }
+          if (fs.existsSync(path6)) {
+            // path exists
+            f6="true";
+            console.log("exists:", path);
+          } else {
+            f6="false";
+            console.log("DOES NOT exist:", path);
+          }
+          if (fs.existsSync(path7)) {
+            // path exists
+            f7="true";
+            console.log("exists:", path);
+          } else {
+            f7="false";
+            console.log("DOES NOT exist:", path);
+          }
+          if (fs.existsSync(path8)) {
+            f8="true";
+            // path exists
+            console.log("exists:", path);
+          } else {
+            f8="false";
+            console.log("DOES NOT exist:", path);
+          }
+          if (fs.existsSync(path9)) {
+            f9="true";
+            // path exists
+            console.log("exists:", path);
+          } else {
+            f9="false";
+            console.log("DOES NOT exist:", path);
+          }
+         
+        // console.log("mmmmmmmmmmmmmmmmmmmm"+exists)
+        
+        console.log(id) // OUTPUTS: true or false
+        // const a=exists;
+        res.send({dat:"true",f1:f1,f2:f2,f3:f3,f4:f4,f5:f5,f6:f6,f7:f7,f8:f8,f9:f9,});
+    
+    //   })
+} catch(err) {
+    console.error(err)
+  }
+
+    })    
+
+    
+//     // EmployeeDetails1.find({offEmail:id}, (err, employeedetails1) => {
+//     //     if (err) {
+//     //         console.warn(err)
+//     //         return next(err)
+//     //     }
+//     //     console.warn(employeedetails1);
+//     //     //res.json(employeedetails);
+//     //     res.send({user:employeedetails1});
+//     // })
+// })
 
 
 ///2nd update
@@ -912,7 +1130,28 @@ app.delete('/delete/:id', async (req, res) => {
     await EmployeeDetails.findByIdAndRemove(id).exec();
     res.send("deleted");
 });
+const fs = require("fs");
 
+const path = "images/inv0010brijesh@inevitableinfotech.com_image.png";
+
+
+try {
+    if (fs.existsSync(path)) {
+      //file exists
+      console.log("esist");
+    }
+  } catch(err) {
+    console.error(err)
+  }
+// Calling function
+// set the path to check
+// var result = checkFileExist("http://localhost:9005/images/_image.png");
+ 
+// if (result == true) {
+//     alert('yay, file exists!');
+// } else {
+//     alert('file does not exist!');
+// }
 // const createToken = async () => {
 //     const token = await jwt.sign({ name: "brijesh" }, "mynameisbrijeshmaurya1234567891011",
 //         { expiresIn: "20 seconds" });
@@ -922,7 +1161,15 @@ app.delete('/delete/:id', async (req, res) => {
 //     console.log(userVer)
 // }
 // createToken();
-
+const fileExists = require('file-exists');
+ 
+fileExists('images/_image.png', (err, exists) => console.log(exists)) // OUTPUTS: true or false
+ 
+fileExists('images/_image.png').then(exists => {
+  console.log(exists) // OUTPUTS: true or false
+})
+ 
+console.log(fileExists.sync('images/_image.png')) 
 app.listen(port, () => {
     console.log("BE started at port 9005")
 })
