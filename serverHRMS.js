@@ -62,16 +62,16 @@ app.post("/multiple", upload.array("images", 3),
 
 
 //create database by mongoose
-mongoose.connect("mongodb://localhost:27017/HRMS_Database", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, () => {
-    console.log("DB connected")
+mongoose.connect("mongodb://0.0.0.0:27017/HRMS_Database", {
+  useNewUrlParser: "true",
+})
+mongoose.connection.on("error", err => {
+  console.log("err", err)
+})
+mongoose.connection.on("connected", (err, res) => {
+  console.log("mongoose is connected")
+})
 
-
-
-
-});
 //schema
 const userSchema = new mongoose.Schema({
     name: String,
@@ -282,13 +282,17 @@ app.post("/loginHrms", async (req, res) => {
         const { email, password } = req.body;
         const tab=EmployeeDetails1;
 console.log("-----------------------------------email------------------>"+email);
-
+console.log("-----------------------------------Pass------------------>"+password);
         //////////////////////////////////
         //////////////////////OR property not worked here
         ////////////////////////
-        const employeedetails1 = await EmployeeDetailsLogin.findOne({emp_id:email}, (err, employeedetails1) => {
+     await EmployeeDetailsLogin.findOne(
+         {emp_id:email}, 
+        (err, employeedetails1) => {
+         console.log("employeedetails1: ",employeedetails1);
             if (employeedetails1) {
 
+                console.log("292: Pass: ", employeedetails1.emp_password);
                 if (password === employeedetails1.emp_password) {
                     const employeedetails2 =  tab.findOne({offId:email}, (err, employeedetails1) => {
                         
@@ -326,7 +330,7 @@ console.log("-----------------------------------email------------------>"+email)
                 res.send({ message: "Invalid credentials, please recheck and enter again", val: false })
             }
 
-        })
+        }).clone();
     } catch (err) {
         console.log(err);
     }
@@ -737,9 +741,28 @@ app.post("/employeeDetails", (req, res, next) => {
 //     })
 // })
 
-app.get("/employeeDetail", async (req, res, next) => {
+// app.get("/employeeDetail", async (req, res, next) => {
+//     try {
+//     EmployeeDetails.find({}, (err, employeedetails) => {
+//         if (err) {
+//             console.warn(err)
+//             return next(err)
+//         }
+//         console.warn(employeedetails);
+//         //res.json(employeedetails);
+//         res.send(employeedetails);
+//     })
+// } catch(err) {
+//     console.error(err)
+//   }
+
+// })
+
+
+
+app.get("/employeeDetail", (req, res, next) => {
     try {
-    EmployeeDetails.find({}, (err, employeedetails) => {
+    EmployeeDetails1.find({}, (err, employeedetails) => {
         if (err) {
             console.warn(err)
             return next(err)
@@ -1170,6 +1193,24 @@ fileExists('images/_image.png').then(exists => {
 })
  
 console.log(fileExists.sync('images/_image.png')) 
+
+
+app.get("/",  (req, res) => {
+    
+        console.log("Try");
+        res.send("Welcome!");
+})
+
+app.get("/users", async (request, response) => {
+    const users = await EmployeeDetails1.find({});
+  
+    try {
+      response.send(users);
+    } catch (error) {
+      response.status(500).send(error);
+    }
+  });
+
 app.listen(port, () => {
     console.log("BE started at port 9005")
 })
