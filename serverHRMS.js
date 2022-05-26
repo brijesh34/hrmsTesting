@@ -1000,13 +1000,13 @@ app.get(`/employeeFiles/:id`, async (req, res) => {
 
 ///2nd update
 app.put("/updatePassword", async (req, res) => {
-    const newFoodName = req.body.password;
+    const newuser_HName = req.body.password;
     // const newpass =req.body.newpass;
 
     const id = req.body.id;
     try {
         await EmployeeDetailsLogin.findOne({emp_email:id}, (err, employeeDetailsLogin) => {
-            employeeDetailsLogin.emp_password= newFoodName;
+            employeeDetailsLogin.emp_password= newuser_HName;
             // employeedetails.offPassword=newpass;
 
             employeeDetailsLogin.save();
@@ -1021,9 +1021,10 @@ app.put("/updatePassword", async (req, res) => {
 
 //Update details
 app.put("/update", async (req, res) => {
-    //const newFoodName = req.body.password;
+    //const newuser_HName = req.body.password;
     // const newpass =req.body.newpass;
-    const  id = req.body.id;
+    try {
+    // const  id = req.body.id;
     const name = req.body.name;
     const fname = req.body.fname;
     const email = req.body.email;
@@ -1045,15 +1046,17 @@ app.put("/update", async (req, res) => {
     const phoneNo = req.body.phoneNo;
     const jobType = req.body.jobType;
     const dob = req.body.dob;
-    const salary = req.body.salary;
+    // const salary = req.body.salary;
 
     const noExp = req.body.noExp;
     const status = req.body.status;
 
+    DoJ= req.body.DoJ;
+    ReportingManager=req.body.ReportingManager;
     // const id = req.body.id
-    try {
-        await EmployeeDetails1.findOne({email:id}, (err, employeedetails1) => {
-           // employeedetails1.name = newFoodName;
+   
+        await EmployeeDetails1.findOne({offEmail:offEmail}, (err, employeedetails1) => {
+           // employeedetails1.name = newuser_HName;
             // employeedetails.offPassword=newpass;
 
 
@@ -1080,11 +1083,14 @@ app.put("/update", async (req, res) => {
             ;employeedetails1.phoneNo=phoneNo
             ;employeedetails1.jobType=jobType
             ;employeedetails1.dob=dob
-            ;employeedetails1.salary=salary
+            // ;employeedetails1.salary=salary
           
             ;employeedetails1.noExp=noExp
            
-            ;employeedetails1.status=status
+            ;employeedetails1.status=status;
+            employeedetails1.DoJ= DoJ;
+            employeedetails1.ReportingManager=ReportingManager;
+          
            
 
 
@@ -1095,8 +1101,8 @@ app.put("/update", async (req, res) => {
         // });
 
         // await
-         EmployeeDetailsLogin.findOne({emp_email:id}, (err, employeeDetailsLogin) => {
-            // employeedetails1.name = newFoodName;
+         EmployeeDetailsLogin.findOne({emp_email: req.body.offEmail}, (err, employeeDetailsLogin) => {
+            // employeedetails1.name = newuser_HName;
              // employeedetails.offPassword=newpass;
  
  
@@ -1124,20 +1130,22 @@ app.put("/update", async (req, res) => {
 })
 //Update roles
 app.put("/updateRoles", async (req, res) => {
-    const  id = req.body.id;
+    try {const  id = req.body.id;
     const name = req.body.name;
-    try {
-        await EmployeeRoles.findOne({role:id}, (err, employeeRoles) => {
-           // employeedetails1.name = newFoodName;
+    console.log("_-_-_-_-_->>>"+id+name);
+  
+        await EmployeeRoles.findOne({role_id:id}, (err, employeeRoles) => {
+           // employeedetails1.name = newuser_HName;
             // employeedetails.offPassword=newpass;
 
 
-            employeeRoles.role_id=id
-          ;  
-          employeeRoles.role_name=name
-           
+            console.warn(employeeRoles);
+            employeeRoles.role_id=id;
+          
+          employeeRoles.role_name=name;
+          employeeRoles.role_display_name=name;
           employeeRoles.save();
-            res.send("Password updated");
+            res.send("Role updated");
         });
     }
     catch (err) {
@@ -1146,6 +1154,37 @@ app.put("/updateRoles", async (req, res) => {
 })
 
 
+app.put("/updateR", async (req, res) => {
+    //const newuser_HName = req.body.password;
+    // const newpass =req.body.newpass;
+    try {
+    // const  id = req.body.id;
+    const  id = req.body.id;
+    const name = req.body.name;
+    
+        await EmployeeRoles.findOne({role_id:id}, (err, employeeRoles) => {
+           // employeedetails1.name = newuser_HName;
+            // employeedetails.offPassword=newpass;
+
+
+          //  employeedetails1.id=id
+            //;
+            employeeRoles.role_id=id;
+          
+            employeeRoles.role_name=name;
+            employeeRoles.role_display_name=name;
+            employeeRoles.save();
+              res.send("Role updated");
+                //   res.send("Password updated");
+
+        // });
+
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
 
 /* DELETE BOOK */
 app.delete('/delete/:id', async (req, res) => {
