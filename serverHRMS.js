@@ -17,8 +17,7 @@ app.use(cors())
 
 
 
-app.use('/images', express.static('images'));
-//app.use('/images',express.static('images'));
+app.use('/images', express.static('images'));;
 
 const fileStorageEngine = multer.diskStorage({
    
@@ -33,23 +32,17 @@ const fileStorageEngine = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         try {
-        // cb(null,Date.now()+ '--'+ file.originalname)
         cb(null, file.originalname)
     } catch(err) {
         console.error(err)
       }
-    
-        // cb(null,"brijesh.jpg")    
-    }
+     }
 
 })
 
 const upload = multer({ storage: fileStorageEngine });
 
 app.post('/employeefiles', upload.single("highschoolPic"), (req, res) => {
-    //   profile=(req.file)?req.file.filename:null;
-
-    //console.log(profile);
     console.log(req.data);
     res.send("single file uploadede successfully");
 })
@@ -147,24 +140,6 @@ const userSchema1 = new mongoose.Schema({
 })
 ///Employeee Entry form
 const userSchema2 = new mongoose.Schema({
-    // name:String,
-    // fname:String,
-    // email:String,
-    // gender:String,
-    // offEmail:String,
-    // offPassword:String,
-    // offId:String,
-    // address:String,
-    // aadhar:String,
-    // pan:String,
-    // bankAccount:Number,
-    // Country:String,
-    // state:String,
-    // city:String,
-    // pincode:Number,
-    // highestDegree:String,
-    // lastCollege:String,
-    // token: { type: String },
     name: String,
     fname: String,
     email: String,
@@ -195,27 +170,11 @@ const userSchema2 = new mongoose.Schema({
  ReportingManager:String,
 })
 
-///model
-// const User = new mongoose.model("User", userSchema)
-//const User1=new mongoose.model("User",userSchema1)
-
-///model of employee
-// const EmployeeDetails = new mongoose.model("EmployeeDetails", userSchema1);
 const EmployeeDetails1 = new mongoose.model("EmpInfo", userSchema2);
 const EmployeeDetailsLogin = new mongoose.model("EmpLogin", userSchema5);
 const EmployeeRoles = new mongoose.model("EmpRoles", userSchema4);
 const ProjectInfo = new mongoose.model("ProjectInfo", userSchema4);
 const EmpTimesheet = new mongoose.model("EmpTimesheet", userSchema4);
-
-// EmployeeDetails.find({}, function(err,user)
-// {
-//     if(err)console.warn(err)
-//     console.warn(user);
-
-// })
-
-
-//routes
 
 app.post("/sendPasswordResetLink", (req, res) => {
     //res.send("my Api  login")
@@ -302,10 +261,8 @@ console.log("-----------------------------------Pass------------------>"+passwor
                     const name2 = employeedetails1.name;
                     const jobtype=employeedetails1.jobType;
 
-                    //  const role = await EmployeeRoles.findOne({ role_name: jobtype }, (err, role) => {
                         const rolet=role.role_id;
 
-                    //  });
         
                     const offId = employeedetails1.offId;
                     const token = jwt.sign(
@@ -315,7 +272,6 @@ console.log("-----------------------------------Pass------------------>"+passwor
                             expiresIn: "2h",
                         }
                     );
-                    //user.token=token;
                     res.send({ message: "Login successfully", user: employeedetails1, val: true, val2: token })
                     
                 });
@@ -339,7 +295,6 @@ console.log("-----------------------------------Pass------------------>"+passwor
 });
 
 app.post("/loginHrmsfirst", async (req, res) => {
-    //res.send("my Api  login")
     try {
         // Get user input
         let jwtSecretKey = process.env.JWT_SECRET_KEY;
@@ -348,18 +303,6 @@ app.post("/loginHrmsfirst", async (req, res) => {
         const employeedetails1 = await tab.findOne({ emp_email: email  }, (err, employeedetails1) => {
             if (employeedetails1) {
                 if ((name === employeedetails1.emp_password)&&(EmployeeDetailsLogin.emp_status=="Current")) {
-                    // const offEmail = employeedetails1.offEmail;
-                    // const name2 = employeedetails1.name;
-                    // // const jobtype=employeedetails1.jobType;
-                    // const offId = employeedetails1.offId;
-                    // const token = jwt.sign(
-                    //     { user_id: employeedetails1._id,offEmail,jobtype, offId ,name2},
-                    //     jwtSecretKey,
-                    //     {
-                    //         expiresIn: "2h",
-                    //     }
-                    // );
-                    //user.token=token;
                     res.send({ message: "Login successfully",  val: true })
                 }
                 else {
@@ -384,11 +327,9 @@ app.post("/loginHrmsfirst", async (req, res) => {
 ///////////////////add role//////////////
 app.post("/register_roles", async (req,res)=>{
     try {
-//    res.send("my Api register")
 const {
     role_id,
      role_name,
-    //role_display_name,
     
 } = req.body;
 console.log(role_id)
@@ -397,16 +338,11 @@ if (oldUser) {
     return res.status(409).send("User Already Exist. Please Login");
 }
 else {
-    //Encrypt user password
-    //encryptedPassword = await bcrypt.hash(OffPassword, 10);
     const employeeRoles = new EmployeeRoles({
         role_id,
          role_name,
         role_display_name:role_name,
     });
-
-    //console.log(req.file);
-    // res.send("single file uploadede successfully")
     employeeRoles.save(err => {
         if (err) {
             res.send(err)
@@ -480,8 +416,6 @@ ReportingManager
 
         });
 
-        //console.log(req.file);
-        // res.send("single file uploadede successfully")
         user.save(err => {
             if (err) {
                 res.send(err)
@@ -498,10 +432,6 @@ ReportingManager
   }
 
 }
-    // })
-
-
-    //}
 )
 
 
@@ -595,27 +525,6 @@ app.post("/employeedetailsform1", async (req, res) => {
         )
 
 
-
-    //     const user1 = EmployeeDetailsLogin.create({
-    //         emp_id:offId,
-    
-    // emp_password:name,
-    // emp_email:offEmail,
-    // emp_status:status
-    //     });
-    
-        
-    //      user1.save(err => {
-    //         if (err) {
-    //             res.send(err)
-    //         }
-    
-    //         else {
-    //             // res.send({ message: "Successfully Resitered" })
-    //         }
-    //     }
-        
-    //     )
     }
     
 } catch(err) {
@@ -668,11 +577,6 @@ app.post("/employeedetailsLogin", async(req, res) => {
         ///////////////
     //     emp_id,
     const emp_email=offEmail;
-    // emp_password,
-    // emp_email,
-    // emp_status
-    // } = req.body;
-    //  encryptedPassword = await bcrypt.hash(password, 10);           EmployeeDetailsLogin
     const oldUser = await EmployeeDetailsLogin.findOne({emp_email});
     if (oldUser) {
         console.log("xxxxxxxxxxxxxxxxxxxx"+err+"xxxxxxxxxxxxxxxx")
@@ -728,35 +632,6 @@ app.post("/employeeDetails", (req, res, next) => {
 })
 
 
-
-
-// app.get("/employeeDetail/:id", async (req,res,next)=>{
-//     EmployeeDetails.find({},(err,employeedetails)=>{
-//         if(err){
-//             console.warn(err)
-//             return next(err)
-//         }
-//       //  console.warn(employeedetails);
-//         res.json(employeedetails);
-//     })
-// })
-
-// app.get("/employeeDetail", async (req, res, next) => {
-//     try {
-//     EmployeeDetails.find({}, (err, employeedetails) => {
-//         if (err) {
-//             console.warn(err)
-//             return next(err)
-//         }
-//         console.warn(employeedetails);
-//         //res.json(employeedetails);
-//         res.send(employeedetails);
-//     })
-// } catch(err) {
-//     console.error(err)
-//   }
-
-// })
 
 
 
@@ -859,7 +734,6 @@ app.get(`/employeeDetail1/:id`, async (req, res, next) => {
         }
         console.warn(employeedetails1);
  
-// fileExists('images/_image.png', (err, exists) => console.log(exists)) // OUTPUTS: true or false
 fileExists('images/_image.png').then(exists => {
     console.log(exists) // OUTPUTS: true or false
     const a=exists;
@@ -879,7 +753,6 @@ app.get(`/employeeFiles/:id`, async (req, res) => {
     const id = req.params.id;
 
     const fileExists = require('file-exists');
-    // fileExists("images/"+id+"_image.png").then(exists => {
         const fs = require("fs");
 
         const path = "images/"+id+"_image.png";
@@ -894,7 +767,6 @@ app.get(`/employeeFiles/:id`, async (req, res) => {
         const path8 = "images/"+id+"_pan.pdf";
         const path9 = "images/"+id+"_other.pdf";
         if (fs.existsSync(path)) {
-          // path exists
           console.log("exists:", path);
         } else {
           console.log("DOES NOT exist:", path);
@@ -985,29 +857,15 @@ app.get(`/employeeFiles/:id`, async (req, res) => {
 
     })    
 
-    
-//     // EmployeeDetails1.find({offEmail:id}, (err, employeedetails1) => {
-//     //     if (err) {
-//     //         console.warn(err)
-//     //         return next(err)
-//     //     }
-//     //     console.warn(employeedetails1);
-//     //     //res.json(employeedetails);
-//     //     res.send({user:employeedetails1});
-//     // })
-// })
-
 
 ///2nd update
 app.put("/updatePassword", async (req, res) => {
     const newuser_HName = req.body.password;
-    // const newpass =req.body.newpass;
 
     const id = req.body.id;
     try {
         await EmployeeDetailsLogin.findOne({emp_email:id}, (err, employeeDetailsLogin) => {
             employeeDetailsLogin.emp_password= newuser_HName;
-            // employeedetails.offPassword=newpass;
 
             employeeDetailsLogin.save();
             res.send("Password updated");
@@ -1021,8 +879,6 @@ app.put("/updatePassword", async (req, res) => {
 
 //Update details
 app.put("/update", async (req, res) => {
-    //const newuser_HName = req.body.password;
-    // const newpass =req.body.newpass;
     try {
     // const  id = req.body.id;
     const name = req.body.name;
@@ -1056,12 +912,6 @@ app.put("/update", async (req, res) => {
     // const id = req.body.id
    
         await EmployeeDetails1.findOne({offEmail:offEmail}, (err, employeedetails1) => {
-           // employeedetails1.name = newuser_HName;
-            // employeedetails.offPassword=newpass;
-
-
-          //  employeedetails1.id=id
-            //;
             employeedetails1.name=name
             ;employeedetails1.fname=fname
             ;employeedetails1.email=email
@@ -1096,22 +946,7 @@ app.put("/update", async (req, res) => {
 
 
             employeedetails1.save();
-        //     res.send("Password updated");
-
-        // });
-
-        // await
          EmployeeDetailsLogin.findOne({emp_email: req.body.offEmail}, (err, employeeDetailsLogin) => {
-            // employeedetails1.name = newuser_HName;
-             // employeedetails.offPassword=newpass;
- 
- 
-           //  employeedetails1.id=id
-             //;
-            //  employeeDetailsLogin.emp_password=name
-            //  ;employeedetails1.fname=fname
-            //  ;employeedetails1.email=email
-            //  ;employeedetails1.gender=gender
              ;employeeDetailsLogin.emp_email=offEmail
              ;employeeDetailsLogin.emp_id=offId
              ;employeeDetailsLogin.emp_status=status
@@ -1135,8 +970,6 @@ app.put("/updateRoles", async (req, res) => {
     console.log("_-_-_-_-_->>>"+id+name);
   
         await EmployeeRoles.findOne({role_id:id}, (err, employeeRoles) => {
-           // employeedetails1.name = newuser_HName;
-            // employeedetails.offPassword=newpass;
 
 
             console.warn(employeeRoles);
@@ -1155,29 +988,18 @@ app.put("/updateRoles", async (req, res) => {
 
 
 app.put("/updateR", async (req, res) => {
-    //const newuser_HName = req.body.password;
-    // const newpass =req.body.newpass;
     try {
     // const  id = req.body.id;
     const  id = req.body.id;
     const name = req.body.name;
     
         await EmployeeRoles.findOne({role_id:id}, (err, employeeRoles) => {
-           // employeedetails1.name = newuser_HName;
-            // employeedetails.offPassword=newpass;
-
-
-          //  employeedetails1.id=id
-            //;
             employeeRoles.role_id=id;
           
             employeeRoles.role_name=name;
             employeeRoles.role_display_name=name;
             employeeRoles.save();
               res.send("Role updated");
-                //   res.send("Password updated");
-
-        // });
 
         });
     }
@@ -1205,24 +1027,6 @@ try {
   } catch(err) {
     console.error(err)
   }
-// Calling function
-// set the path to check
-// var result = checkFileExist("http://localhost:9005/images/_image.png");
- 
-// if (result == true) {
-//     alert('yay, file exists!');
-// } else {
-//     alert('file does not exist!');
-// }
-// const createToken = async () => {
-//     const token = await jwt.sign({ name: "brijesh" }, "mynameisbrijeshmaurya1234567891011",
-//         { expiresIn: "20 seconds" });
-//     console.log(token);
-
-//     const userVer = await jwt.verify(token, "mynameisbrijeshmaurya1234567891011");
-//     console.log(userVer)
-// }
-// createToken();
 const fileExists = require('file-exists');
  
 fileExists('images/_image.png', (err, exists) => console.log(exists)) // OUTPUTS: true or false
