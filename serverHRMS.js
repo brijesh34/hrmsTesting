@@ -105,13 +105,17 @@ const userSchema5 = new mongoose.Schema({
 
 /////////////////timesheet
 const userSchema6 = new mongoose.Schema({
+    
     emp_id: String,
-    date: Date,
-    end_time: Date,
+    start: Date,
+    end: Date,
 
-    projectID: String,
-    title: String
+    id: String,
+    title: String,
+    description: String,
+    
 
+     duration:Number
 })
 ////////////project
 // const userSchema7 = new mongoose.Schema({
@@ -415,11 +419,14 @@ app.post("/register_project", async (req, res) => {
 app.post("/register_title", async (req, res) => {
     try {
         const { emp_id,
-            date,
-            end_time,
+            start,
+            end,
 
-            projectID,
-            title } = req.body;
+            id,
+        
+            title,
+        description,
+        duration } = req.body;
         // const old=await EmpTimesheet.findOne({pid});
         // if(oldProject){
         //     return res.sendStatus(409).sendStatus("project is already existed");
@@ -427,11 +434,13 @@ app.post("/register_title", async (req, res) => {
         // else{
         const empTimesheet = new EmpTimesheet({
             emp_id,
-            date,
-            end_time,
+            start,
+            end,
 
-            projectID,
-            title
+            id,
+            title,
+            description,
+            duration
         });
         empTimesheet.save(err => {
             if (err) {
