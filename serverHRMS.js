@@ -115,7 +115,7 @@ const userSchema6 = new mongoose.Schema({
     description: String,
     
 
-     duration:Number
+     Duration:Number
 })
 ////////////project
 // const userSchema7 = new mongoose.Schema({
@@ -426,7 +426,7 @@ app.post("/register_title", async (req, res) => {
         
             title,
         description,
-        duration } = req.body;
+        Duration } = req.body;
         // const old=await EmpTimesheet.findOne({pid});
         // if(oldProject){
         //     return res.sendStatus(409).sendStatus("project is already existed");
@@ -440,7 +440,7 @@ app.post("/register_title", async (req, res) => {
             id,
             title,
             description,
-            duration
+            Duration
         });
         empTimesheet.save(err => {
             if (err) {
@@ -1173,7 +1173,46 @@ app.put("/updateProject", async (req, res) => {
         console.log(err);
     }
 })
+////////////////////////////////////////
+////////update timesheet////////////////
+////////////////////////////////////////
 
+app.put("/updateTimesheet", async (req, res) => {
+    try {
+        // const  id = req.body.id;
+        // const pid = req.body.pid;
+        // const pname = req.body.pname;
+        // const pstatus = req.body.pstatus;
+        // const phead = req.body.phead;
+        // const pdescription = req.body.pdescription;
+        const emp_id=req.body.emp_id;
+        const start=req.body.start;
+        const end=req.body.end;
+
+        const id=req.body.id;
+        const title=req.body.title;
+        const description=req.body.description;
+        const Duration=req.body.Duration;
+
+        await EmpTimesheet.findOne({ start: start }, (err, empTimesheet) => {
+
+            empTimesheet.emp_id=emp_id;
+            empTimesheet.start=start;
+            empTimesheet.end=end;
+    
+            empTimesheet.id=id;
+            empTimesheet.title=title;
+            empTimesheet.description=description;
+            empTimesheet.Duration=Duration;
+            empTimesheet.save();
+            res.send("timesheet info updated");
+
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
 /* DELETE BOOK */
 app.delete('/delete/:id', async (req, res) => {
     const id = req.params.id;
