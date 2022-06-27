@@ -102,7 +102,14 @@ const userSchema5 = new mongoose.Schema({
 //     taskDetails:String
 
 // })
-
+const mong=({
+    type:String,
+})
+const mess=mongoose.Schema(
+    {
+        ad:mong,
+    }
+)
 /////////////////timesheet
 const userSchema6 = new mongoose.Schema({
     
@@ -113,9 +120,9 @@ const userSchema6 = new mongoose.Schema({
     id: String,
     title: String,
     description: String,
-    
+    ab:[mess],
 
-     Duration:Number
+     Duration:String
 })
 ////////////project
 // const userSchema7 = new mongoose.Schema({
@@ -440,6 +447,9 @@ app.post("/register_title", async (req, res) => {
             id,
             title,
             description,
+//             ab:[{
+// ad:title,
+//             }],
             Duration
         });
         empTimesheet.save(err => {
@@ -794,6 +804,8 @@ app.get("/projectDetail", async (req, res, next) => {
 
 app.get("/timesheetDetails", async (req, res, next) => {
     try {
+        // EmpTimesheet.createView("manag", {emp_id : 'inv0010' });
+        // _manag.find().sort({ id: "003" }).pretty();
         EmpTimesheet.find({}, (err, empTimesheet) => {
             if (err) {
                 console.warn(err)
