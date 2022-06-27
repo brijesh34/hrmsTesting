@@ -804,17 +804,64 @@ app.get("/projectDetail", async (req, res, next) => {
 
 app.get("/timesheetDetails", async (req, res, next) => {
     try {
+
+        const tempar=[{
+            end:'', start:'', Duration:'', description:'',id:'',title:''
+        },];
+        const tempar2=[{
+            end:'', start:'', Duration:'', description:'',id:'',title:''
+        },];
+       
+        EmpTimesheet.find().then(function(empTimesheet){
+            empTimesheet.map((data)=>{
+                var size = Object.keys(tempar).length;
+                console.log(size); 
+//                            const ar2=empTimesheet.sort();
+//                            const ar=ar2;
+// for(let i=0;i<size;i++){
+//     for(let j;j<size;j++){
+//         if(ar2[i]==ar[j]){
+//             console.log("--------------"+ar2[i])
+//         }
+//         else{
+//             console.log("00000000000000000000");
+//         }
+//     }
+
+// }
+
+tempar.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
+           
+                tempar2.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
+            })
+            
+            var as=[{
+                end:'', start:'', Duration:'', description:'',id:'',title:''
+            }];
+            // as=tempar;
+            console.log(typeof tempar);
+            res.send({mess:tempar});
+            // res.send({mess:empTimesheet})
+  
+        })
+    
         // EmpTimesheet.createView("manag", {emp_id : 'inv0010' });
         // _manag.find().sort({ id: "003" }).pretty();
-        EmpTimesheet.find({}, (err, empTimesheet) => {
-            if (err) {
-                console.warn(err)
-                return next(err)
-            }
-            console.warn(empTimesheet);
-            //res.json(employeedetails);
-            res.send(empTimesheet);
-        })
+        // EmpTimesheet.find({}, (err, empTimesheet) => {
+        //     // const ab=new Map([empTimesheet]);
+
+
+        //     if (err) {
+        //         console.warn(err)
+
+        //         return next(err)
+        //     }
+        //     // console.log(ab.start);
+        //     res.json(empTimesheet);
+        //     console.log(typeof empTimesheet);
+        //     console.log(typeof ab);
+        //     // res.send(empTimesheet);
+        // })
     } catch (err) {
         console.error(err)
     }
