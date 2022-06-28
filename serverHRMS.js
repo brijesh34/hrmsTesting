@@ -206,7 +206,7 @@ const EmployeeRoles = new mongoose.model("EmpRoles", userSchema4);
 const ProjectInfo = new mongoose.model("ProjectInfo", userSchema7);
 const EmpTimesheet = new mongoose.model("EmpTimesheet", userSchema6);
 
-app.post("/sendPasswordResetLink", (req, res) => {
+app.post("/sendPasswordResetLink",  (req, res) => {
     //res.send("my Api  login")
     try {
         const { email } = req.body
@@ -214,17 +214,21 @@ app.post("/sendPasswordResetLink", (req, res) => {
             if (employeeDetailsLogin) {
                 if (email === employeeDetailsLogin.emp_email) {
                     var nodemailer = require('nodemailer');
-
+                    
                     var transporter = nodemailer.createTransport({
                         service: 'gmail',
+                        host: "gsmtp.gmail.com",
+                    port: 587,
+                    requireTLS:true,
+                    secure: false,
                         auth: {
-                            user: 'brijesh@inevitableinfotech.com',
-                            pass: 'tjkmzhpqktqvtitq'
+                            user: 'inevitableapptest@gmail.com',
+                            pass: 'fiddtnvwktcucugh'
                         }
                     });
                     var data = Math.floor(Math.random() * (8000 - 1000) + 1000);
                     var mailOptions = {
-                        from: 'brijesh@inevitableinfotech.com',
+                        from: 'inevitableapptest@gmail.com',
                         to: email,
                         subject: 'Otp for Reset Password',
                         text: JSON.stringify(data)
@@ -237,6 +241,36 @@ app.post("/sendPasswordResetLink", (req, res) => {
                             console.log('Email sent: ' + info.response);
                         }
                     });
+
+
+//                     let testAccount =  nodemailer.createTestAccount();
+
+//   // create reusable transporter object using the default SMTP transport
+//   let transporter = nodemailer.createTransport({
+//     host: "smtp.gmail.com",
+//     port: 587,
+//     secure: false, // true for 465, false for other ports
+//     auth: {
+//       user: 'inevitableapptest@gmail.com', // generated ethereal user
+//       pass: 'Info@123', // generated ethereal password
+//     },
+//   });
+
+//   // send mail with defined transport object
+//   let info =  transporter.sendMail({
+//     from: 'inevitableapptest@gmail.com', // sender address
+//     to: email, // list of receivers
+//     subject: "Hello ✔", // Subject line
+//     text: "Hello world?", // plain text body
+//     html: "<b>Hello world?</b>", // html body
+//   });
+
+//   console.log("Message sent: %s", info.messageId);
+//   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+//   // Preview only available when sending through an Ethereal account
+//   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  
                     res.send({ message: "Check Otp on your e-mail , If e-mail is registered ", val: data, vemail: employeeDetailsLogin.email })
 
                 }
@@ -804,64 +838,82 @@ app.get("/projectDetail", async (req, res, next) => {
 
 app.get("/timesheetDetails", async (req, res, next) => {
     try {
-
-        const tempar=[{
-            end:'', start:'', Duration:'', description:'',id:'',title:''
-        },];
-        const tempar2=[{
-            end:'', start:'', Duration:'', description:'',id:'',title:''
-        },];
+      
+//         const tempar=[{
+//             end:'', start:'', Duration:'', description:'',id:'',title:''
+//         },];
+//         const tempar2=[{
+//             end:'', start:'', Duration:'', description:'',id:'',title:''
+//         },];
        
-        EmpTimesheet.find().then(function(empTimesheet){
-            empTimesheet.map((data)=>{
-                var size = Object.keys(tempar).length;
-                console.log(size); 
-//                            const ar2=empTimesheet.sort();
-//                            const ar=ar2;
-// for(let i=0;i<size;i++){
-//     for(let j;j<size;j++){
-//         if(ar2[i]==ar[j]){
-//             console.log("--------------"+ar2[i])
-//         }
-//         else{
-//             console.log("00000000000000000000");
-//         }
-//     }
-
-// }
-
-tempar.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
-           
-                tempar2.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
-            })
-            
-            var as=[{
-                end:'', start:'', Duration:'', description:'',id:'',title:''
-            }];
-            // as=tempar;
-            console.log(typeof tempar);
-            res.send({mess:tempar});
-            // res.send({mess:empTimesheet})
-  
-        })
+//         EmpTimesheet.find().then(function(empTimesheet){
+//             var ar2=empTimesheet;
+//            var ar3= ar2.sort(function(a, b){return a.start - b.start});
+//            var sdate=new Date();
+//                console.log(ar2+"--------------------------------------------------------------------------------851 line")                   
+//             ar3.map((data)=>{
+// if(sdate!=data.start){
     
-        // EmpTimesheet.createView("manag", {emp_id : 'inv0010' });
-        // _manag.find().sort({ id: "003" }).pretty();
-        // EmpTimesheet.find({}, (err, empTimesheet) => {
-        //     // const ab=new Map([empTimesheet]);
+//     console.log(sdate+" ----if- change--- ");
+// tempar.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
+//            console.log(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; line 873")
+//                 // tempar2.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
+//                 // sdate=data.start;
+//                 console.log(sdate+" ----if---- ");
+//          }
+//         else{
+//             // tempar.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
+//   sdate=data.start;
+//   console.log(sdate+" ----else---- ");
+        
+//         } })
+            
+//             var as=[{
+//                 end:'', start:'', Duration:'', description:'',id:'',title:''
+//             }];
+//             // as=tempar;
+//             console.log(typeof tempar);
+//             res.send({mess:tempar});
+//             // res.send({mess:empTimesheet})
+  
+//         })
+    
+        EmpTimesheet.find({}, (err, empTimesheet) => {
+            var arr=new Map([empTimesheet]);
+            
+            var arr=empTimesheet;
+            const uniqueIds = [];
 
+            const unique = arr.filter(element => {
+              const isDuplicate = uniqueIds.includes(element.start);
+            
+              if (!isDuplicate) {
+                uniqueIds.push(element.start);
+            
+                return true;
+              }
+            
+              return false;
+            });
+            
+            // 👇️ [{id: 1, name: 'Tom'}, {id: 2, name: 'Nick'}]
+            console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+            console.log(unique);
+            console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+            
+            
 
-        //     if (err) {
-        //         console.warn(err)
+            if (err) {
+                console.warn(err)
 
-        //         return next(err)
-        //     }
-        //     // console.log(ab.start);
-        //     res.json(empTimesheet);
-        //     console.log(typeof empTimesheet);
-        //     console.log(typeof ab);
-        //     // res.send(empTimesheet);
-        // })
+                return next(err)
+            }
+            // console.log(ab.start);
+            // res.json(empTimesheet);
+            console.log(typeof empTimesheet);
+            // console.log(typeof ab);
+            res.send({mess:empTimesheet});
+        })
     } catch (err) {
         console.error(err)
     }
