@@ -839,81 +839,96 @@ app.get("/projectDetail", async (req, res, next) => {
 app.get("/timesheetDetails", async (req, res, next) => {
     try {
       
-//         const tempar=[{
-//             end:'', start:'', Duration:'', description:'',id:'',title:''
-//         },];
-//         const tempar2=[{
-//             end:'', start:'', Duration:'', description:'',id:'',title:''
-//         },];
+        const tempar=[{
+            end:'', start:'', Duration:'', description:'',id:'',title:''
+        },];
+        const tempar2=[{
+            end:'', start:'', Duration:'', description:'',id:'',title:''
+        },];
        
-//         EmpTimesheet.find().then(function(empTimesheet){
-//             var ar2=empTimesheet;
-//            var ar3= ar2.sort(function(a, b){return a.start - b.start});
-//            var sdate=new Date();
-//                console.log(ar2+"--------------------------------------------------------------------------------851 line")                   
-//             ar3.map((data)=>{
-// if(sdate!=data.start){
-    
-//     console.log(sdate+" ----if- change--- ");
-// tempar.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
-//            console.log(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; line 873")
-//                 // tempar2.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
-//                 // sdate=data.start;
-//                 console.log(sdate+" ----if---- ");
-//          }
-//         else{
-//             // tempar.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
-//   sdate=data.start;
-//   console.log(sdate+" ----else---- ");
+        EmpTimesheet.find().then(function(empTimesheet){
+            var ar2=empTimesheet;
+           var ar3= ar2.sort(function(a, b){return a.start - b.start});
+           var sdate=new Date();
+           var dur;
+               console.log(ar2+"--------------------------------------------------------------------------------851 line")                   
+            ar3.map((data)=>{
+                var ndate= new Date(data.start);
+                var date=ndate.getFullYear()+'/'+(ndate.getMonth()+1)+'/'+ndate.getDate(); 
+                var n2date=new Date(date);
+if(sdate!=n2date){
+    dur=0;
+    console.log(sdate+" ----if- change--- ");
+    start_d=new Date(date);
+tempar.push({end:data.end,start:start_d,Duration:(data.end-data.start),description:data.description,id:data.id,title:data.title})
+           console.log(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; line 873")
+                // tempar2.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
+                 sdate=n2date;
+                 dur=data.end-data.start;
+                console.log(sdate+" ----if---- ");
+         }
+        else{
+            tempar.map((project, index)=>{
+                console.log(project.start+"--line 870")
+                
+                console.log(n2date+"--line 872")
+                if(project.start ===n2date){
+                      project.Duration =dur+(project.end-project.start);
+                      dur=project.Duration;
+                }
+           });
+            // tempar.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
+  sdate=date;
+  console.log(sdate+" ----else---- ");
         
-//         } })
+        } })
             
-//             var as=[{
-//                 end:'', start:'', Duration:'', description:'',id:'',title:''
-//             }];
-//             // as=tempar;
-//             console.log(typeof tempar);
-//             res.send({mess:tempar});
-//             // res.send({mess:empTimesheet})
+            var as=[{
+                end:'', start:'', Duration:'', description:'',id:'',title:''
+            }];
+            // as=tempar;
+            console.log( tempar);
+            res.send({mess:tempar});
+            // res.send({mess:empTimesheet})
   
-//         })
-    
-        EmpTimesheet.find({}, (err, empTimesheet) => {
-            var arr=new Map([empTimesheet]);
-            
-            var arr=empTimesheet;
-            const uniqueIds = [];
-
-            const unique = arr.filter(element => {
-              const isDuplicate = uniqueIds.includes(element.start);
-            
-              if (!isDuplicate) {
-                uniqueIds.push(element.start);
-            
-                return true;
-              }
-            
-              return false;
-            });
-            
-            // 👇️ [{id: 1, name: 'Tom'}, {id: 2, name: 'Nick'}]
-            console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-            console.log(unique);
-            console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-            
-            
-
-            if (err) {
-                console.warn(err)
-
-                return next(err)
-            }
-            // console.log(ab.start);
-            // res.json(empTimesheet);
-            console.log(typeof empTimesheet);
-            // console.log(typeof ab);
-            res.send({mess:empTimesheet});
         })
+    
+        // EmpTimesheet.find({}, (err, empTimesheet) => {
+        //     var arr=new Map([empTimesheet]);
+            
+        //     var arr=empTimesheet;
+        //     const uniqueIds = [];
+
+        //     const unique = arr.filter(element => {
+        //       const isDuplicate = uniqueIds.includes(element.start);
+            
+        //       if (!isDuplicate) {
+        //         uniqueIds.push(element.start);
+            
+        //         return true;
+        //       }
+            
+        //       return false;
+        //     });
+            
+        //     // 👇️ [{id: 1, name: 'Tom'}, {id: 2, name: 'Nick'}]
+        //     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+        //     console.log(unique);
+        //     console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+            
+            
+
+        //     if (err) {
+        //         console.warn(err)
+
+        //         return next(err)
+        //     }
+        //     // console.log(ab.start);
+        //     // res.json(empTimesheet);
+        //     console.log(typeof empTimesheet);
+        //     // console.log(typeof ab);
+        //     res.send({mess:empTimesheet});
+        // })
     } catch (err) {
         console.error(err)
     }
