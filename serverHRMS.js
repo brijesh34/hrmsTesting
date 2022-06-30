@@ -124,6 +124,30 @@ const userSchema6 = new mongoose.Schema({
 
      Duration:String
 })
+
+/////////////////Leave Schema
+const userSchema8 = new mongoose.Schema({
+    
+    
+eid: String,
+l_id: String,
+ename:String,
+reportingPerson:String,
+l_reason:String,
+start_date:Date,
+end_date:Date,
+l_status:String
+
+})
+
+// eid: userid,
+//       l_id: '',
+//       ename:uname,
+//       reportingPerson:'',
+//       l_reason:'',
+//       start_date:defaultValue,
+//       end_date:null,
+//       l_status:'applied'
 ////////////project
 // const userSchema7 = new mongoose.Schema({
 //    project_id: String,
@@ -206,6 +230,7 @@ const EmployeeRoles = new mongoose.model("EmpRoles", userSchema4);
 const ProjectInfo = new mongoose.model("ProjectInfo", userSchema7);
 const EmpTimesheet = new mongoose.model("EmpTimesheet", userSchema6);
 
+const LeaveManage = new mongoose.model("LeaveManage", userSchema8);
 app.post("/sendPasswordResetLink",  (req, res) => {
     //res.send("my Api  login")
     try {
@@ -495,6 +520,38 @@ app.post("/register_title", async (req, res) => {
                 res.send({ message: "successfully registered title" })
             }
         })
+        // }
+    }
+
+    catch (err) {
+        console.log(err);
+    }
+})
+
+//////////////////////////////////////////////////////
+///////////add New Leave/////////////////
+app.post("/register_leave", async (req, res) => {
+    try {
+        const { 
+            eid,l_id,ename,reportingPerson,l_reason,start_date,end_date,l_status
+             } = req.body;
+        // const oldProject = await ProjectInfo.findOne({ pid });
+        // if (oldProject) {
+        //     return res.sendStatus(409).sendStatus("project is already existed");
+        // }
+        // else {
+            const leaveManage = new LeaveManage({
+                eid,l_id,ename,reportingPerson,l_reason,start_date,end_date,l_status
+           });
+           leaveManage.save(err => {
+                if (err) {
+                    res.send(err)
+                }
+                else {
+                    console.log("line no----------------------->399")
+                    res.send({ message: "request successfully registered" })
+                }
+            })
         // }
     }
 
@@ -929,6 +986,22 @@ tempar.push({end:data.end,start:start_d,Duration:(data.end-data.start),descripti
         //     // console.log(typeof ab);
         //     res.send({mess:empTimesheet});
         // })
+    } catch (err) {
+        console.error(err)
+    }
+
+})
+app.get("/leavesDetail", async (req, res, next) => {
+    try {
+        LeaveManage.find({}, (err, leaveManage) => {
+            if (err) {
+                console.warn(err)
+                return next(err)
+            }
+            console.warn(leaveManage);
+            //res.json(employeedetails);
+            res.send(leaveManage);
+        })
     } catch (err) {
         console.error(err)
     }
