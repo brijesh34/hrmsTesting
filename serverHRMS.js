@@ -1007,7 +1007,31 @@ app.get("/leavesDetail", async (req, res, next) => {
     }
 
 })
+app.get("/leavesDetail_personal/:id", async (req, res, next) => {
+    try {
+        const id=req.params.id;
+        
+        EmployeeDetails1.findOne({offId:id}, (err, employeedetails1) => {
+            if (err) {
+                console.warn(err)
+                return next(err)
+            }
+        // console.warn(leaveManage);
+        
+        LeaveManage.find({id:LeaveManage.eid}, (err, leaveManage) => {
+            if (err) {
+                console.warn(err)
+                return next(err)
+            }
+            //res.json(employeedetails);
+            res.send(leaveManage);
+        })
+    })
+    } catch (err) {
+        console.error(err)
+    }
 
+})
 app.get("/employeeDetail1", async (req, res, next) => {
     try {
         EmployeeDetails1.find({}, (err, employeedetails1) => {
