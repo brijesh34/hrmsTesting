@@ -136,7 +136,9 @@ reportingPerson:String,
 l_reason:String,
 start_date:Date,
 end_date:Date,
-l_status:String
+l_status:String,
+l_type:String,
+l_category:String
 
 })
 
@@ -223,6 +225,26 @@ const userSchema2 = new mongoose.Schema({
     DoJ: Date,
     ReportingManager: String,
 })
+//////Role for employees
+const userSchema9 = new mongoose.Schema({
+    leaveType_id: String,
+    leaveType_name: String,
+
+    // role_display_name: String,
+    // displayName:String
+
+})
+
+//////Role for employees
+const userSchema10 = new mongoose.Schema({
+    leaveCategory_id: String,
+   leaveCategory_name: String,
+
+    // role_display_name: String,
+    // displayName:String
+
+})
+
 
 const EmployeeDetails1 = new mongoose.model("EmpInfo", userSchema2);
 const EmployeeDetailsLogin = new mongoose.model("EmpLogin", userSchema5);
@@ -231,6 +253,10 @@ const ProjectInfo = new mongoose.model("ProjectInfo", userSchema7);
 const EmpTimesheet = new mongoose.model("EmpTimesheet", userSchema6);
 
 const LeaveManage = new mongoose.model("LeaveManage", userSchema8);
+const LeaveTypes = new mongoose.model("LeaveTypes", userSchema9);
+const LeaveCategory = new mongoose.model("LeaveCategory", userSchema10);
+
+
 app.post("/sendPasswordResetLink",  (req, res) => {
     //res.send("my Api  login")
     try {
@@ -449,6 +475,81 @@ app.post("/register_roles", async (req, res) => {
     }
 
 })
+
+
+
+
+///////////////////add leaves types//////////////
+app.post("/register_leaveType", async (req, res) => {
+    try {
+        const {
+            leaveType_id,
+            leaveType_name,
+
+        } = req.body;
+        console.log(leaveType_id)
+        const oldUser = await LeaveTypes.findOne({ leaveType_name });
+        if (oldUser) {
+            return res.status(409).send("User Already Exist. Please Login");
+        }
+        else {
+            const leaveTypes = new LeaveTypes({
+                leaveType_id,
+                leaveType_name,
+                // role_display_name: role_name,
+            });
+            leaveTypes.save(err => {
+                if (err) {
+                    res.send(err)
+                }
+
+                else {
+
+                    res.send({ message: "Successfully Resitered" })
+                }
+            })
+        }
+    } catch (err) {
+        console.error(err)
+    }
+
+})
+
+///////////////////Leave Category//////////////
+app.post("/register_leaveCategory", async (req, res) => {
+    try {
+        const {
+            leaveCategory_id,
+            leaveCategory_name,
+
+        } = req.body;
+        console.log(leaveCategory_id)
+        const oldUser = await LeaveCategory.findOne({ leaveCategory_name });
+        if (oldUser) {
+            return res.status(409).send("User Already Exist. Please Login");
+        }
+        else {
+            const leaveCategory = new LeaveCategory({
+                leaveCategory_id,
+                leaveCategory_name,
+                // role_display_name: role_name,
+            });
+            leaveCategory.save(err => {
+                if (err) {
+                    res.send(err)
+                }
+
+                else {
+
+                    res.send({ message: "Successfully Resitered" })
+                }
+            })
+        }
+    } catch (err) {
+        console.error(err)
+    }
+
+})
 //////////////////////////////////////////////////////
 ///////////add Project/////////////////
 app.post("/register_project", async (req, res) => {
@@ -534,7 +635,7 @@ app.post("/register_leave", async (req, res) => {
     try {
         const { 
             eid,l_id,ename,reportingPerson,l_reason,start_date,end_date,l_status
-             } = req.body;
+             ,l_type,l_category} = req.body;
         // const oldProject = await ProjectInfo.findOne({ pid });
         // if (oldProject) {
         //     return res.sendStatus(409).sendStatus("project is already existed");
@@ -542,7 +643,7 @@ app.post("/register_leave", async (req, res) => {
         // else {
             const leaveManage = new LeaveManage({
                 eid,l_id,ename,reportingPerson,l_reason,start_date,end_date,l_status
-           });
+,l_type,l_category});
            leaveManage.save(err => {
                 if (err) {
                     res.send(err)
@@ -872,6 +973,44 @@ app.get("/rolesDetail", async (req, res, next) => {
 
 })
 
+//////////////////////////////////////////////////////
+//////////////////////Leaves Types Details/////////////////
+////////////////////////////////////////////////////
+app.get("/leaveTypesDetail", async (req, res, next) => {
+    try {
+        LeaveTypes.find({}, (err, leaveTypes) => {
+            if (err) {
+                console.warn(err)
+                return next(err)
+            }
+            console.warn(leaveTypes);
+            //res.json(employeedetails);
+            res.send(leaveTypes);
+        })
+    } catch (err) {
+        console.error(err)
+    }
+
+})
+//////////////////////////////////////////////////////
+//////////////////////Leave Category Details/////////////////
+////////////////////////////////////////////////////
+app.get("/leaveCategoryDetail", async (req, res, next) => {
+    try {
+        LeaveCategory.find({}, (err, leaveCategory) => {
+            if (err) {
+                console.warn(err)
+                return next(err)
+            }
+            console.warn(leaveCategory);
+            //res.json(employeedetails);
+            res.send(leaveCategory);
+        })
+    } catch (err) {
+        console.error(err)
+    }
+
+})
 
 
 app.get("/projectDetail", async (req, res, next) => {
@@ -1009,24 +1148,41 @@ app.get("/leavesDetail", async (req, res, next) => {
 })
 app.get("/leavesDetail_personal/:id", async (req, res, next) => {
     try {
-        const id=req.params.id;
+        const offId=req.params.id;
         
-        EmployeeDetails1.findOne({offId:id}, (err, employeedetails1) => {
+        LeaveManage.find({eid:offId}, (err, leaveManage) => {
             if (err) {
                 console.warn(err)
                 return next(err)
             }
-        // console.warn(leaveManage);
-        
-        LeaveManage.find({id:LeaveManage.eid}, (err, leaveManage) => {
-            if (err) {
-                console.warn(err)
-                return next(err)
-            }
+            leaves=leaveManage;
             //res.json(employeedetails);
-            res.send(leaveManage);
+            res.send({leave:leaveManage , doj:"ddddd"});
         })
-    })
+        // res.send({leave:leaves , doj:"ddddd"});
+    
+    } catch (err) {
+        console.error(err)
+    }
+
+})
+
+
+app.get(`/detail_personal/:id`, async (req, res, next) => {
+    try {
+        const offId=req.params.id;
+        
+        EmployeeDetails1.findOne({ offId: offId}, (err, employeedetails1) => {
+            if (err) {
+                console.warn(err)
+                return next(err)
+            }
+            console.warn(employeedetails1);
+            console.log("oooooooooooooo      1181"+employeedetails1);
+            res.send(employeedetails1);
+   })
+        // res.send({leave:leaves , doj:"ddddd"});
+    
     } catch (err) {
         console.error(err)
     }
