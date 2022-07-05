@@ -1079,9 +1079,6 @@ tempar.push({end:data.end,start:start_d,Duration:(data.end-data.start),descripti
         
         } })
             
-            var as=[{
-                end:'', start:'', Duration:'', description:'',id:'',title:''
-            }];
             // as=tempar;
             console.log( tempar);
             res.send({mess:tempar});
@@ -1132,24 +1129,74 @@ tempar.push({end:data.end,start:start_d,Duration:(data.end-data.start),descripti
 })
 app.get("/leavesDetail", async (req, res, next) => {
     try {
-        LeaveManage.find({}, (err, leaveManage) => {
-            if (err) {
-                console.warn(err)
-                return next(err)
-            }
-            console.warn(leaveManage);
-            //res.json(employeedetails);
-            res.send(leaveManage);
+
+
+        const tempar=[
+            //        {eid:'',l_id:'',ename:'',reportingPerson:'',
+            //         l_reason:'',start_date:'',end_date:'',l_status:''
+            // ,l_type:'',l_category:''}
+                ]   
+                LeaveManage.find().then(function(leaveManage){
+                    var ar3=leaveManage;
+                   var sdate=new Date();
+                    ar3.map((data)=>{
+                        var ndate= new Date(data.start_date);
+                        var date=ndate.getDate()+'/'+(ndate.getMonth()+1)+'/'+ndate.getFullYear(); 
+                        var ndate2= new Date(data.end_date);
+                        var date2=ndate2.getDate()+'/'+(ndate2.getMonth()+1)+'/'+ndate2.getFullYear(); 
+                       
+            tempar.push({ eid:data.eid,l_id:data.l_id,ename:data.ename,reportingPerson:data.reportingPerson,
+            l_reason:data.l_reason,start_date:date,end_date:date2,l_status:data.l_status
+            ,l_type:data.l_type,l_category:data.l_category})})
+        
+            res.send({leave:tempar});
+        
         })
+            
+            
+
+
+        // LeaveManage.find({}, (err, leaveManage) => {
+        //     if (err) {
+        //         console.warn(err)
+        //         return next(err)
+        //     }
+        //     console.warn(leaveManage);
+        //     //res.json(employeedetails);
+        //     res.send({leave:leaveManage});
+        // })
     } catch (err) {
         console.error(err)
     }
 
 })
-app.get("/leavesDetail_personal/:id", async (req, res, next) => {
+app.get(`/leavesDetail_personal/:id`, async (req, res, next) => {
     try {
         const offId=req.params.id;
-        
+        const oldUser = await LeaveManage.find({ eid:offId }&&{l_status:"approved"});
+    const tempar=[
+//        {eid:'',l_id:'',ename:'',reportingPerson:'',
+//         l_reason:'',start_date:'',end_date:'',l_status:''
+// ,l_type:'',l_category:''}
+    ]   
+    LeaveManage.find().then(function(leaveManage){
+        var ar3=leaveManage;
+       var sdate=new Date();
+        ar3.map((data)=>{
+            var ndate= new Date(data.start_date);
+            var date=ndate.getDate()+'/'+(ndate.getMonth()+1)+'/'+ndate.getFullYear(); 
+            var ndate2= new Date(data.end_date);
+            var date2=ndate2.getDate()+'/'+(ndate2.getMonth()+1)+'/'+ndate2.getFullYear(); 
+           
+tempar.push({ eid:data.eid,l_id:data.l_id,ename:data.ename,reportingPerson:data.reportingPerson,
+l_reason:data.l_reason,start_date:date,end_date:date2,l_status:data.l_status
+,l_type:data.l_type,l_category:data.l_category})})})
+
+
+
+
+
+
         LeaveManage.find({eid:offId}, (err, leaveManage) => {
             if (err) {
                 console.warn(err)
@@ -1157,7 +1204,9 @@ app.get("/leavesDetail_personal/:id", async (req, res, next) => {
             }
             leaves=leaveManage;
             //res.json(employeedetails);
-            res.send({leave:leaveManage , doj:"ddddd"});
+            res.send({leave:tempar , doj:oldUser.length});
+            
+            // res.send({leave:leaveManage , doj:oldUser.length});
         })
         // res.send({leave:leaves , doj:"ddddd"});
     
