@@ -1150,7 +1150,7 @@ app.get("/leavesDetail", async (req, res, next) => {
             ,l_type:data.l_type,l_category:data.l_category})})
         
             res.send({leave:tempar});
-        
+         
         })
             
             
