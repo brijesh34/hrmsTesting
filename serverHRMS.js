@@ -235,16 +235,22 @@ const userSchema9 = new mongoose.Schema({
 
 })
 
-//////Role for employees
+//////Category  for employees
 const userSchema10 = new mongoose.Schema({
     leaveCategory_id: String,
    leaveCategory_name: String,
 
-    // role_display_name: String,
-    // displayName:String
-
 })
 
+
+//////Role for employees
+const userSchema11 = new mongoose.Schema({
+    eid: String,
+   total_leave: String,
+   leave_in_buck:String,
+   availed_leave:String,
+
+})
 
 const EmployeeDetails1 = new mongoose.model("EmpInfo", userSchema2);
 const EmployeeDetailsLogin = new mongoose.model("EmpLogin", userSchema5);
@@ -255,6 +261,7 @@ const EmpTimesheet = new mongoose.model("EmpTimesheet", userSchema6);
 const LeaveManage = new mongoose.model("LeaveManage", userSchema8);
 const LeaveTypes = new mongoose.model("LeaveTypes", userSchema9);
 const LeaveCategory = new mongoose.model("LeaveCategory", userSchema10);
+const LeaveInfo = new mongoose.model("LeaveInfo", userSchema11);
 
 
 app.post("/sendPasswordResetLink",  (req, res) => {
@@ -779,8 +786,26 @@ app.post("/employeedetailsform1", async (req, res) => {
             return res.status(409).send("User Already Exist. Please Login");
         }
         else {
-
+const doj=new Date(DoJ);
+const month=doj.getMonth();
             let jwtSecretKey = process.env.JWT_SECRET_KEY;
+            const leave = await LeaveInfo.create({
+                eid:offId,
+                total_leave:(12-month)*2,
+                leave_in_buck:2,
+                availed_leave:0
+            });
+
+
+           
+            const login = await EmployeeDetailsLogin.create({
+                emp_id: offId,
+                emp_password: name,
+                emp_email: offEmail,
+
+                emp_status: status
+            });
+
             const user = await EmployeeDetails1.create({
                 name,
                 fname,
@@ -820,6 +845,30 @@ app.post("/employeedetailsform1", async (req, res) => {
                 }
 
                 else {
+                    leave.save(err => {
+                        if (err) {
+                            res.send(err)
+                        }
+        
+                        else {
+                            console.log("yes it worked-------------------------------line 806");
+                            // res.send({ message: "Successfully Resitered" })
+                        }
+                    }
+        
+                    )
+                    login.save(err => {
+                        if (err) {
+                            res.send(err)
+                            // console.log("xxxxxxxxxxxxxxxxxxxx"+err+"xxxxxxxxxxxxxxxx")
+                        }
+        
+                        else {
+                            // res.send({ message: "Successfully Resitered", verify: "true" })
+                        }
+                    }
+        
+                    )
                     res.send({ message: "Successfully Resitered" })
                 }
             }
@@ -879,7 +928,7 @@ app.post("/employeedetailsLogin", async (req, res) => {
         ///////////////
         //     emp_id,
         const emp_email = offEmail;
-        const oldUser = await EmployeeDetailsLogin.findOne({ emp_email });
+        const oldUser = await EmployeeDetailsLogin.findOne({offEmail: emp_email });
         if (oldUser) {
             console.log("xxxxxxxxxxxxxxxxxxxx" + err + "xxxxxxxxxxxxxxxx")
             return res.status(409).send("User Already Exist. Please Login");
@@ -1023,6 +1072,31 @@ app.get("/projectDetail", async (req, res, next) => {
             console.warn(projectInfo);
             //res.json(employeedetails);
             res.send(projectInfo);
+        })
+    } catch (err) {
+        console.error(err)
+    }
+
+})
+
+
+app.get(`/leaveReport/:id`, async (req, res, next) => {
+    try {
+        
+        const eid=req.params.id;
+        console.warn(".................................................................line1087");
+           
+        // const eid="inv0095";
+        // const oldUser = await LeaveInfo.find({ eid:eid });
+    
+        LeaveInfo.find({eid:eid}, (err, leaveInfo) => {
+            if (err) {
+                console.warn(err)
+                return next(err)
+            }
+            console.warn(leaveInfo+".................................................................line1096");
+            //res.json(employeedetails);
+            res.send(leaveInfo);
         })
     } catch (err) {
         console.error(err)
