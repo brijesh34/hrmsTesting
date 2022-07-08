@@ -134,11 +134,14 @@ l_id: String,
 ename:String,
 reportingPerson:String,
 l_reason:String,
+l_reason2:String,
+
 start_date:Date,
 end_date:Date,
 l_status:String,
 l_type:String,
-l_category:String
+l_category:String,
+
 
 })
 
@@ -641,7 +644,7 @@ app.post("/register_title", async (req, res) => {
 app.post("/register_leave", async (req, res) => {
     try {
         const { 
-            eid,l_id,ename,reportingPerson,l_reason,start_date,end_date,l_status
+            eid,l_id,ename,reportingPerson,l_reason,l_reason2,start_date,end_date,l_status
              ,l_type,l_category} = req.body;
         // const oldProject = await ProjectInfo.findOne({ pid });
         // if (oldProject) {
@@ -649,7 +652,7 @@ app.post("/register_leave", async (req, res) => {
         // }
         // else {
             const leaveManage = new LeaveManage({
-                eid,l_id,ename,reportingPerson,l_reason,start_date,end_date,l_status
+                eid,l_id,ename,reportingPerson,l_reason,l_reason2:" ",start_date,end_date,l_status
 ,l_type,l_category});
            leaveManage.save(err => {
                 if (err) {
@@ -1708,6 +1711,51 @@ app.put("/updateTimesheet", async (req, res) => {
             empTimesheet.Duration=Duration;
             empTimesheet.save();
             res.send("timesheet info updated");
+
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
+
+
+////////////////////////////////////////
+////////update leaveinfo////////////////
+////////////////////////////////////////
+
+app.put("/updateLeaveInfo", async (req, res) => {
+    try {
+        // const  id = req.body.id;
+        const eid=req.body.eid;
+        const l_id=req.body. l_id;
+        const ename=req.body.ename;
+        const reportingPerson=req.body.reportingPerson;
+        const l_reason=req.body.l_reason;
+        const l_reason2=req.body.l_reason2
+
+        const start_date=req.body.start_date;
+        const end_date=req.body.end_date;
+        const l_status=req.body.l_status;
+        const l_type=req.body.l_type;
+        const l_category=req.body.l_category;
+
+        await LeaveManage.findOne({ start: start }, (err, leaveManage) => {
+
+        leaveManage.eid=eid;
+        leaveManage.l_id=l_id;
+        leaveManage.ename=ename;
+        leaveManage.reportingPerson=reportingPerson;
+        leaveManage.l_reason=l_reason;
+        leaveManage.l_reason2=l_reason2
+
+        leaveManage.start_date=start_date;
+        leaveManage.end_date=end_date;
+        leaveManage.l_status=l_status;
+        leaveManage.l_type=l_type;
+        leaveManage.l_category=l_category;
+        leaveManage.save();
+            res.send("leave  info updated");
 
         });
     }
