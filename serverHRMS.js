@@ -249,9 +249,9 @@ const userSchema10 = new mongoose.Schema({
 //////Role for employees
 const userSchema11 = new mongoose.Schema({
     eid: String,
-   total_leave: String,
-   leave_in_buck:String,
-   availed_leave:String,
+   total_leave:Number,
+   leave_in_buck:Number,
+   availed_leave:Number,
 
 })
 
@@ -1204,27 +1204,27 @@ tempar.push({end:data.end,start:start_d,Duration:(data.end-data.start),descripti
     }
 
 })
-app.get("/leavesDetail", async (req, res, next) => {
+app.get(`/leavesDetail/:id`, async (req, res, next) => {
     try {
 
-
+const id=req.params.id;
         const tempar=[
             //        {eid:'',l_id:'',ename:'',reportingPerson:'',
             //         l_reason:'',start_date:'',end_date:'',l_status:''
             // ,l_type:'',l_category:''}
                 ]   
-                LeaveManage.find().then(function(leaveManage){
+                LeaveManage.find({reportingPerson:id}).then(function(leaveManage){
                     var ar3=leaveManage;
                    var sdate=new Date();
                     ar3.map((data)=>{
                         var ndate= new Date(data.start_date);
-                        var date=ndate.getDate()+'/'+(ndate.getMonth()+1)+'/'+ndate.getFullYear(); 
+                        var date=(ndate.getMonth()+1)+'/'+ndate.getDate()+'/'+ndate.getFullYear(); 
                         var ndate2= new Date(data.end_date);
-                        var date2=ndate2.getDate()+'/'+(ndate2.getMonth()+1)+'/'+ndate2.getFullYear(); 
+                        var date2=(ndate2.getMonth()+1)+'/'+ndate2.getDate()+'/'+ndate2.getFullYear(); 
                        
             tempar.push({ eid:data.eid,l_id:data.l_id,ename:data.ename,reportingPerson:data.reportingPerson,
             l_reason:data.l_reason,start_date:date,end_date:date2,l_status:data.l_status
-            ,l_type:data.l_type,l_category:data.l_category})})
+            ,l_type:data.l_type,l_category:data.l_category,s_date:data.start_date,e_date:data.end_date})})
         
             res.send({leave:tempar});
          
@@ -1256,7 +1256,7 @@ app.get(`/leavesDetail_personal/:id`, async (req, res, next) => {
 //         l_reason:'',start_date:'',end_date:'',l_status:''
 // ,l_type:'',l_category:''}
     ]   
-    LeaveManage.find().then(function(leaveManage){
+    LeaveManage.find({eid:offId}).then(function(leaveManage){
         var ar3=leaveManage;
        var sdate=new Date();
         ar3.map((data)=>{
@@ -1739,8 +1739,12 @@ app.put("/updateLeaveInfo", async (req, res) => {
         const l_status=req.body.l_status;
         const l_type=req.body.l_type;
         const l_category=req.body.l_category;
-
-        await LeaveManage.findOne({ start: start }, (err, leaveManage) => {
+        const day1=new Date(start_date);
+        const day2=new Date(end_date);
+        const diff=(day2.getTime()-day1.getTime())/(24*60*60*1000);
+const days=Math.abs(Math.round(diff));
+// const m=2;
+        await LeaveManage.findOne({ l_id: l_id }, (err, leaveManage) => {
 
         leaveManage.eid=eid;
         leaveManage.l_id=l_id;
@@ -1754,7 +1758,22 @@ app.put("/updateLeaveInfo", async (req, res) => {
         leaveManage.l_status=l_status;
         leaveManage.l_type=l_type;
         leaveManage.l_category=l_category;
+   
         leaveManage.save();
+             
+// await
+ LeaveInfo.findOne({ eid: eid }, (err, leaveInfo) => {
+    const l1=leaveInfo.leave_in_buck;
+    const l2=leaveInfo.availed_leave;
+    leaveInfo.eid=eid;
+    // leaveInfo.total_leave;
+    leaveInfo.leave_in_buck=l1-days;
+    leaveInfo.availed_leave=l2+days;
+    
+    leaveInfo.save();
+    // res.send("leave updated");
+
+});
             res.send("leave  info updated");
 
         });
