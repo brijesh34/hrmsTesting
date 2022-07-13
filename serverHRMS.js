@@ -1223,7 +1223,7 @@ const id=req.params.id;
                         var date2=(ndate2.getMonth()+1)+'/'+ndate2.getDate()+'/'+ndate2.getFullYear(); 
                        
             tempar.push({ eid:data.eid,l_id:data.l_id,ename:data.ename,reportingPerson:data.reportingPerson,
-            l_reason:data.l_reason,start_date:date,end_date:date2,l_status:data.l_status
+            l_reason:data.l_reason, l_reason2:data.l_reason2,start_date:date,end_date:date2,l_status:data.l_status
             ,l_type:data.l_type,l_category:data.l_category,s_date:data.start_date,e_date:data.end_date})})
         
             res.send({leave:tempar});
@@ -1266,25 +1266,30 @@ app.get(`/leavesDetail_personal/:id`, async (req, res, next) => {
             var date2=ndate2.getDate()+'/'+(ndate2.getMonth()+1)+'/'+ndate2.getFullYear(); 
            
 tempar.push({ eid:data.eid,l_id:data.l_id,ename:data.ename,reportingPerson:data.reportingPerson,
-l_reason:data.l_reason,start_date:date,end_date:date2,l_status:data.l_status
-,l_type:data.l_type,l_category:data.l_category})})})
+l_reason:data.l_reason,l_reason2:data.l_reason2,start_date:date,end_date:date2,l_status:data.l_status
+,l_type:data.l_type,l_category:data.l_category})})
+
+
+res.send({leave:tempar , doj:oldUser.length});
+
+})
 
 
 
 
 
 
-        LeaveManage.find({eid:offId}, (err, leaveManage) => {
-            if (err) {
-                console.warn(err)
-                return next(err)
-            }
-            leaves=leaveManage;
-            //res.json(employeedetails);
-            res.send({leave:tempar , doj:oldUser.length});
+        // LeaveManage.find({eid:offId}, (err, leaveManage) => {
+        //     if (err) {
+        //         console.warn(err)
+        //         return next(err)
+        //     }
+        //     leaves=leaveManage;
+        //     //res.json(employeedetails);
+        //     res.send({leave:tempar , doj:oldUser.length});
             
-            // res.send({leave:leaveManage , doj:oldUser.length});
-        })
+        //     // res.send({leave:leaveManage , doj:oldUser.length});
+        // })
         // res.send({leave:leaves , doj:"ddddd"});
     
     } catch (err) {
