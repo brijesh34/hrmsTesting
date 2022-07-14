@@ -1,6 +1,19 @@
 require('dotenv').config();
 var nodemailer = require('nodemailer');
 const express = require("express")
+// app.engine('html', require('ejs').renderFile);
+// app.set('view engine', 'html');
+// app.set('view engine', 'ejs');
+
+
+
+
+
+
+
+
+
+
 const cors = require("cors")
 const mongoose = require("mongoose")
 const multer = require('multer')
@@ -266,6 +279,43 @@ const LeaveTypes = new mongoose.model("LeaveTypes", userSchema9);
 const LeaveCategory = new mongoose.model("LeaveCategory", userSchema10);
 const LeaveInfo = new mongoose.model("LeaveInfo", userSchema11);
 
+
+
+
+const sendEmail=(email)=>{
+    var nodemailer = require('nodemailer');
+                    
+                    var transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        host: "gsmtp.gmail.com",
+                    port: 587,
+                    requireTLS:true,
+                    secure: false,
+                        auth: {
+                            user: 'inevitableapptest@gmail.com',
+                            pass: 'fiddtnvwktcucugh'
+                        }
+                    });
+                    var data = Math.floor(Math.random() * (8000 - 1000) + 1000);
+                    var mailOptions = {
+                        from: 'inevitableapptest@gmail.com',
+                        to: email,
+                        subject: 'Otp for Reset Password',
+                        text: JSON.stringify(data)
+                    };
+
+
+
+                    
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error);
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                        }
+                    });
+
+}
 
 app.post("/sendPasswordResetLink",  (req, res) => {
     //res.send("my Api  login")
@@ -645,7 +695,7 @@ app.post("/register_leave", async (req, res) => {
     try {
         const { 
             eid,l_id,ename,reportingPerson,l_reason,l_reason2,start_date,end_date,l_status
-             ,l_type,l_category} = req.body;
+             ,l_type,l_category,userEmail} = req.body;
         // const oldProject = await ProjectInfo.findOne({ pid });
         // if (oldProject) {
         //     return res.sendStatus(409).sendStatus("project is already existed");
@@ -659,6 +709,9 @@ app.post("/register_leave", async (req, res) => {
                     res.send(err)
                 }
                 else {
+                    sendEmail(reportingPerson);
+                    
+                    sendEmail(userEmail);
                     console.log("line no----------------------->399")
                     res.send({ message: "request successfully registered" })
                 }
@@ -1788,9 +1841,12 @@ const days=Math.abs(Math.round(diff));
     }
 })
 /* DELETE BOOK */
-app.delete('/delete/:id', async (req, res) => {
-    const id = req.params.id;
-    await EmployeeDetails.findByIdAndRemove(id).exec();
+app.post(`/delete/:id`, async (req, res) => {
+    const l_id = req.params.id;
+    // await LeaveManage.find({l_id:l_id}).remove();
+
+    await LeaveManage.deleteOne({l_id:l_id});
+    console.log("------------------->line 1796"+req.body.message);
     res.send("deleted");
 });
 const fs = require("fs");
