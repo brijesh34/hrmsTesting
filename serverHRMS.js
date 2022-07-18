@@ -154,7 +154,7 @@ end_date:Date,
 l_status:String,
 l_type:String,
 l_category:String,
-
+approvedBy:String,
 
 })
 
@@ -752,7 +752,7 @@ app.post("/register_leave", async (req, res) => {
     try {
         const { 
             eid,l_id,ename,reportingPerson,l_reason,l_reason2,start_date,end_date,l_status
-             ,l_type,l_category,userEmail} = req.body;
+             ,l_type,l_category,userEmail,approvedBy} = req.body;
         // const oldProject = await ProjectInfo.findOne({ pid });
         // if (oldProject) {
         //     return res.sendStatus(409).sendStatus("project is already existed");
@@ -760,7 +760,7 @@ app.post("/register_leave", async (req, res) => {
         // else {
             const leaveManage = new LeaveManage({
                 eid,l_id,ename,reportingPerson,l_reason,l_reason2:" ",start_date,end_date,l_status
-,l_type,l_category});
+,l_type,l_category,userEmail,approvedBy});
            leaveManage.save(err => {
                 if (err) {
                     res.send(err)
@@ -1334,7 +1334,7 @@ const id=req.params.id;
                        
             tempar.push({ eid:data.eid,l_id:data.l_id,ename:data.ename,reportingPerson:data.reportingPerson,
             l_reason:data.l_reason, l_reason2:data.l_reason2,start_date:date,end_date:date2,l_status:data.l_status
-            ,l_type:data.l_type,l_category:data.l_category,s_date:data.start_date,e_date:data.end_date})})
+            ,l_type:data.l_type,l_category:data.l_category,s_date:data.start_date,e_date:data.end_date,approvedBy:data.approvedBy})})
         
             res.send({leave:tempar});
          
@@ -1377,7 +1377,7 @@ app.get(`/leavesDetail_personal/:id`, async (req, res, next) => {
            
 tempar.push({ eid:data.eid,l_id:data.l_id,ename:data.ename,reportingPerson:data.reportingPerson,
 l_reason:data.l_reason,l_reason2:data.l_reason2,start_date:date,end_date:date2,l_status:data.l_status
-,l_type:data.l_type,l_category:data.l_category})})
+,l_type:data.l_type,l_category:data.l_category,approvedBy:data.approvedBy})})
 
 
 res.send({leave:tempar , doj:oldUser.length});
@@ -1854,6 +1854,7 @@ app.put("/updateLeaveInfo", async (req, res) => {
         const l_status=req.body.l_status;
         const l_type=req.body.l_type;
         const l_category=req.body.l_category;
+        const approvedBy=req.body.approvedBy;
         const day1=new Date(start_date);
         const day2=new Date(end_date);
         const diff=(day2.getTime()-day1.getTime())/(24*60*60*1000);
@@ -1882,7 +1883,7 @@ console.log(employeeDetailsLogin.emp_email+"------------------------------------
         leaveManage.l_status=l_status;
         leaveManage.l_type=l_type;
         leaveManage.l_category=l_category;
-   
+   leaveManage.approvedBy=approvedBy;
         leaveManage.save();
              
 // await
