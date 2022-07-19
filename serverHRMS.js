@@ -92,6 +92,11 @@ const userSchema4 = new mongoose.Schema({
 
     role_display_name: String,
     // displayName:String
+   createdBy:String,
+   updatedBy:String,
+   cr_time:Date,
+   up_date:Date
+    
 
 })
 
@@ -101,8 +106,11 @@ const userSchema5 = new mongoose.Schema({
     // emp_role: String,
     emp_password: String,
     emp_email: String,
-    emp_status: String
-
+    emp_status: String,
+   createdBy:String,
+   updatedBy:String,
+   cr_time:Date,
+   up_date:Date
 })
 
 
@@ -135,7 +143,11 @@ const userSchema6 = new mongoose.Schema({
     description: String,
     ab:[mess],
 
-     Duration:String
+     Duration:String,
+     createdBy:String,
+    updatedBy:String,
+    cr_time:Date,
+    up_date:Date
 })
 
 /////////////////Leave Schema
@@ -155,7 +167,10 @@ l_status:String,
 l_type:String,
 l_category:String,
 approvedBy:String,
-
+createdBy:String,
+    updatedBy:String,
+    cr_time:Date,
+    up_date:Date
 })
 
 // eid: userid,
@@ -181,8 +196,11 @@ const userSchema7 = new mongoose.Schema({
     pname: String,
     pstatus: String,
     phead: String,
-    pdescription: String
-
+    pdescription: String,
+    createdBy:String,
+    updatedBy:String,
+    cr_time:Date,
+    up_date:Date
 })
 
 
@@ -240,12 +258,19 @@ const userSchema2 = new mongoose.Schema({
 
     DoJ: Date,
     ReportingManager: String,
+    createdBy:String,
+    updatedBy:String,
+    cr_time:Date,
+    up_date:Date
 })
 //////Role for employees
 const userSchema9 = new mongoose.Schema({
     leaveType_id: String,
     leaveType_name: String,
-
+    createdBy:String,
+    updatedBy:String,
+    cr_time:Date,
+    up_date:Date
     // role_display_name: String,
     // displayName:String
 
@@ -255,7 +280,10 @@ const userSchema9 = new mongoose.Schema({
 const userSchema10 = new mongoose.Schema({
     leaveCategory_id: String,
    leaveCategory_name: String,
-
+   createdBy:String,
+   updatedBy:String,
+   cr_time:Date,
+   up_date:Date
 })
 
 
@@ -265,7 +293,11 @@ const userSchema11 = new mongoose.Schema({
    total_leave:Number,
    leave_in_buck:Number,
    availed_leave:Number,
-
+   lop:Number,
+//    createdBy:String,
+//    updatedBy:String,
+//    cr_time:Date,
+   cr_date:Number
 })
 
 const EmployeeDetails1 = new mongoose.model("EmpInfo", userSchema2);
@@ -563,6 +595,7 @@ app.post("/register_roles", async (req, res) => {
         const {
             role_id,
             role_name,
+            sys_user
 
         } = req.body;
         console.log(role_id)
@@ -575,6 +608,10 @@ app.post("/register_roles", async (req, res) => {
                 role_id,
                 role_name,
                 role_display_name: role_name,
+                createdBy:sys_user,
+   updatedBy:sys_user,
+    cr_time:new Date(),
+    up_date:new Date()
             });
             employeeRoles.save(err => {
                 if (err) {
@@ -602,7 +639,7 @@ app.post("/register_leaveType", async (req, res) => {
         const {
             leaveType_id,
             leaveType_name,
-
+            sys_user
         } = req.body;
         console.log(leaveType_id)
         const oldUser = await LeaveTypes.findOne({ leaveType_name });
@@ -613,6 +650,10 @@ app.post("/register_leaveType", async (req, res) => {
             const leaveTypes = new LeaveTypes({
                 leaveType_id,
                 leaveType_name,
+                createdBy:sys_user,
+   updatedBy:sys_user,
+    cr_time:new Date(),
+    up_date:new Date()
                 // role_display_name: role_name,
             });
             leaveTypes.save(err => {
@@ -638,7 +679,7 @@ app.post("/register_leaveCategory", async (req, res) => {
         const {
             leaveCategory_id,
             leaveCategory_name,
-
+            sys_user
         } = req.body;
         console.log(leaveCategory_id)
         const oldUser = await LeaveCategory.findOne({ leaveCategory_name });
@@ -649,6 +690,10 @@ app.post("/register_leaveCategory", async (req, res) => {
             const leaveCategory = new LeaveCategory({
                 leaveCategory_id,
                 leaveCategory_name,
+                createdBy:sys_user,
+   updatedBy:sys_user,
+    cr_time:new Date(),
+    up_date:new Date()
                 // role_display_name: role_name,
             });
             leaveCategory.save(err => {
@@ -671,7 +716,7 @@ app.post("/register_leaveCategory", async (req, res) => {
 ///////////add Project/////////////////
 app.post("/register_project", async (req, res) => {
     try {
-        const { pid, pname, pstatus, phead, pdescription } = req.body;
+        const { pid, pname, pstatus, phead, pdescription ,sys_user} = req.body;
         const oldProject = await ProjectInfo.findOne({ pid });
         if (oldProject) {
             return res.sendStatus(409).sendStatus("project is already existed");
@@ -679,6 +724,10 @@ app.post("/register_project", async (req, res) => {
         else {
             const projectInfo = new ProjectInfo({
                 pid, pname, pstatus, phead, pdescription,
+                createdBy:sys_user,
+   updatedBy:sys_user,
+    cr_time:new Date(),
+    up_date:new Date()
             });
             projectInfo.save(err => {
                 if (err) {
@@ -710,7 +759,8 @@ app.post("/register_title", async (req, res) => {
         
             title,
         description,
-        Duration } = req.body;
+        Duration,
+        sys_user } = req.body;
         // const old=await EmpTimesheet.findOne({pid});
         // if(oldProject){
         //     return res.sendStatus(409).sendStatus("project is already existed");
@@ -727,7 +777,11 @@ app.post("/register_title", async (req, res) => {
 //             ab:[{
 // ad:title,
 //             }],
-            Duration
+            Duration,
+            createdBy:sys_user,
+   updatedBy:sys_user,
+    cr_time:new Date(),
+    up_date:new Date()
         });
         empTimesheet.save(err => {
             if (err) {
@@ -752,7 +806,8 @@ app.post("/register_leave", async (req, res) => {
     try {
         const { 
             eid,l_id,ename,reportingPerson,l_reason,l_reason2,start_date,end_date,l_status
-             ,l_type,l_category,userEmail,approvedBy} = req.body;
+             ,l_type,l_category,userEmail,approvedBy,
+             sys_user} = req.body;
         // const oldProject = await ProjectInfo.findOne({ pid });
         // if (oldProject) {
         //     return res.sendStatus(409).sendStatus("project is already existed");
@@ -760,7 +815,11 @@ app.post("/register_leave", async (req, res) => {
         // else {
             const leaveManage = new LeaveManage({
                 eid,l_id,ename,reportingPerson,l_reason,l_reason2:" ",start_date,end_date,l_status
-,l_type,l_category,userEmail,approvedBy});
+,l_type,l_category,userEmail,approvedBy,
+createdBy:sys_user,
+   updatedBy:sys_user,
+    cr_time:new Date(),
+    up_date:new Date()});
            leaveManage.save(err => {
                 if (err) {
                     res.send(err)
@@ -803,7 +862,8 @@ app.post("/employeedetailsform", async (req, res) => {
             city,
             pincode,
             highestDegree,
-            lastCollege
+            lastCollege,
+            sys_user
 
         } = req.body;
         const oldUser = await EmployeeDetails.findOne({ email });
@@ -833,8 +893,11 @@ app.post("/employeedetailsform", async (req, res) => {
                 lastCollege,
 
                 DoJ,
-                ReportingManager
-
+                ReportingManager,
+                createdBy:sys_user,
+               updatedBy:sys_user,
+                cr_time:new Date(),
+                up_date:new Date()
 
             });
 
@@ -892,6 +955,7 @@ app.post("/employeedetailsform1", async (req, res) => {
 
             DoJ,
             ReportingManager,
+            sys_user
         } = req.body;
         //  encryptedPassword = await bcrypt.hash(password, 10);           EmployeeDetailsLogin
         const oldUser = await EmployeeDetails1.findOne({ offEmail });
@@ -906,7 +970,9 @@ const month=doj.getMonth();
                 eid:offId,
                 total_leave:(12-month)*2,
                 leave_in_buck:2,
-                availed_leave:0
+                availed_leave:0,
+                lop:0,
+                cr_date:month
             });
 
 
@@ -948,6 +1014,11 @@ const month=doj.getMonth();
 
                 DoJ,
                 ReportingManager,
+
+                createdBy:sys_user,
+                updatedBy:sys_user,
+                cr_time:new Date(),
+                up_date:new Date(),
 
             });
 
@@ -1053,7 +1124,11 @@ app.post("/employeedetailsLogin", async (req, res) => {
                 emp_password: name,
                 emp_email: emp_email,
 
-                emp_status: status
+                emp_status: status,
+                createdBy:sys_user,
+   updatedBy:sys_user,
+    cr_time:new Date(),
+    up_date:new Date()
             });
 
 
@@ -1669,7 +1744,7 @@ app.put("/update", async (req, res) => {
         const DoJ = req.body.DoJ;
         const ReportingManager = req.body.ReportingManager;
         // const id = req.body.id
-
+const sys_user=req.body.sys_user;
         await EmployeeDetails1.findOne({ offEmail: offEmail }, (err, employeedetails1) => {
             employeedetails1.name = name
                 ; employeedetails1.fname = fname
@@ -1700,7 +1775,10 @@ app.put("/update", async (req, res) => {
             employeedetails1.DoJ = DoJ;
             employeedetails1.ReportingManager = ReportingManager;
 
-
+            employeedetails1.createdBy=sys_user;
+            employeedetails1.updatedBy=sys_user;
+            employeedetails1.cr_time=new Date();
+            employeedetails1.up_date=new Date();
 
 
 
@@ -1751,12 +1829,16 @@ app.put("/updateR", async (req, res) => {
         // const  id = req.body.id;
         const id = req.body.id;
         const name = req.body.name;
-
+const sys_user=req.body.sys_user;
         await EmployeeRoles.findOne({ role_id: id }, (err, employeeRoles) => {
             employeeRoles.role_id = id;
 
             employeeRoles.role_name = name;
             employeeRoles.role_display_name = name;
+            employeeRoles.createdBy=sys_user,
+            employeeRoles.updatedBy=sys_user,
+            employeeRoles.cr_time=new Date(),
+            employeeRoles.up_date=new Date(),
             employeeRoles.save();
             res.send("Role updated");
 
@@ -1775,7 +1857,7 @@ app.put("/updateProject", async (req, res) => {
         const pstatus = req.body.pstatus;
         const phead = req.body.phead;
         const pdescription = req.body.pdescription;
-
+const sys_user=req.body.sys_user;
         await ProjectInfo.findOne({ pid: pid }, (err, projectInfo) => {
             projectInfo.pid = pid;
 
@@ -1783,7 +1865,10 @@ app.put("/updateProject", async (req, res) => {
             projectInfo.pstatus = pstatus;
             projectInfo.phead = phead;
             projectInfo.pdescription = pdescription;
-
+            projectInfo.createdBy=sys_user,
+            projectInfo.updatedBy=sys_user,
+            projectInfo.cr_time=new Date(),
+            projectInfo.up_date=new Date(),
             projectInfo.save();
             res.send("Project info updated");
 
@@ -1793,6 +1878,71 @@ app.put("/updateProject", async (req, res) => {
         console.log(err);
     }
 })
+////////////update monthly
+function bachProcess(){
+    const d=new Date();
+    const dm=d.getMonth()-1;
+    
+        LeaveInfo.find({cr_date:dm  }, (err, leaveInfo) => {
+            const l1=leaveInfo.leave_in_buck;
+            // const l2=leaveInfo.availed_leave;
+            // leaveInfo.eid=eid;
+            // leaveInfo.total_leave;
+            leaveInfo.leave_in_buck=l1+2;
+            // leaveInfo.availed_leave=l2+days;
+            
+            leaveInfo.save();
+            // res.send("leave updated");
+        
+        });
+    }
+///////////update yearly
+    function  bachProcess2(){
+        const d=new Date();
+        const dm=d.getMonth()-1;
+        const dm2=d.getMonth();
+        if((dm==12)&&(dm2==1)){
+            LeaveInfo.find({cr_date:12  }, (err, leaveInfo) => {
+                const l1=leaveInfo.leave_in_buck;
+             const l2=leaveInfo.total_leave;
+                // leaveInfo.eid=eid;
+                
+        var myquery = { cr_date:12 };
+        var newvalues = {$set: { leave_in_buck:l1+2} };
+       
+                 leaveInfo.total_leave=l2+24;
+                 if(l1>12){
+
+                leaveInfo.leave_in_buck=l1+2+12;
+                // leaveInfo.availed_leave=l2+days;
+                 }
+                 else{
+                    leaveInfo.leave_in_buck=l1+2;
+               
+                 }
+                leaveInfo.collection("customers").updateMany(myquery, newvalues, function(err, res) {
+                    if (err) throw err;
+                    console.log(res.result.nModified + " document(s) updated");
+                    db.close();
+                  });
+                // res.send("leave updated");
+            
+            });
+        }
+        else{
+            LeaveInfo.find({cr_date:7  }, (err, leaveInfo) => {
+                const l1=leaveInfo.leave_in_buck;
+                // const l2=leaveInfo.availed_leave;
+                // leaveInfo.eid;
+                // leaveInfo.total_leave;
+                leaveInfo.leave_in_buck=l1+2;
+                // leaveInfo.availed_leave;
+                
+                leaveInfo.save();
+            
+            });
+        }}
+    
 ////////////////////////////////////////
 ////////update timesheet////////////////
 ////////////////////////////////////////
@@ -1813,7 +1963,7 @@ app.put("/updateTimesheet", async (req, res) => {
         const title=req.body.title;
         const description=req.body.description;
         const Duration=req.body.Duration;
-
+const sys_user=req.body.sys_user;
         await EmpTimesheet.findOne({ start: start }, (err, empTimesheet) => {
 
             empTimesheet.emp_id=emp_id;
@@ -1824,6 +1974,10 @@ app.put("/updateTimesheet", async (req, res) => {
             empTimesheet.title=title;
             empTimesheet.description=description;
             empTimesheet.Duration=Duration;
+            empTimesheet.createdBy=sys_user;
+            empTimesheet.updatedBy=sys_user;
+            empTimesheet.cr_time=new Date();
+            empTimesheet.up_date=new Date();
             empTimesheet.save();
             res.send("timesheet info updated");
 
@@ -1855,6 +2009,7 @@ app.put("/updateLeaveInfo", async (req, res) => {
         const l_type=req.body.l_type;
         const l_category=req.body.l_category;
         const approvedBy=req.body.approvedBy;
+        const sys_user=req.body.sys_user;
         const day1=new Date(start_date);
         const day2=new Date(end_date);
         const diff=(day2.getTime()-day1.getTime())/(24*60*60*1000);
@@ -1884,6 +2039,10 @@ console.log(employeeDetailsLogin.emp_email+"------------------------------------
         leaveManage.l_type=l_type;
         leaveManage.l_category=l_category;
    leaveManage.approvedBy=approvedBy;
+   leaveManage.createdBy=sys_user;
+   leaveManage.updatedBy=sys_user;
+   leaveManage.cr_time=new Date();
+   leaveManage.up_date=new Date();
         leaveManage.save();
              
 // await
@@ -1892,9 +2051,19 @@ console.log(employeeDetailsLogin.emp_email+"------------------------------------
     const l2=leaveInfo.availed_leave;
     leaveInfo.eid=eid;
     // leaveInfo.total_leave;
-    leaveInfo.leave_in_buck=l1-days;
+    if(l1<days){
+        const a=days-l1;
+    leaveInfo.leave_in_buck=0;
+    leaveInfo.lop=a+leaveInfo.lop;
+    }
+    else{
+
+        leaveInfo.leave_in_buck=l1-days;
+        leaveInfo.lop=leaveInfo.lop;
+    }
     leaveInfo.availed_leave=l2+days;
-    
+    const d =new Date();
+    cr_date=d.getMonth();
     leaveInfo.save();
     // res.send("leave updated");
 
@@ -1963,6 +2132,7 @@ app.get("/users", async (request, response) => {
     }
 });
 
+bachProcess2();
 app.listen(port, () => {
     console.log("BE started at port 9005")
 })
