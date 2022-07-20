@@ -319,6 +319,7 @@ const LeaveInfo = new mongoose.model("LeaveInfo", userSchema11);
 
 
 const sendEmail=(email,subject,data)=>{
+    var data=data;
     var nodemailer = require('nodemailer');
     var smtpTransport = require("nodemailer-smtp-transport");
     var handlebars = require("handlebars");
@@ -350,15 +351,12 @@ const sendEmail=(email,subject,data)=>{
         );
         let htmlFile = "/index.html";
     
-        // if (content === "otp") {
-        //   htmlFile = "/../../public/code.html";
-        // }
         const html="aa";
         //  readHTMLFile(__dirname + "/../public/code.html", function (err, html) {
         readHTMLFile(__dirname + htmlFile, function (err, html) {
           var template = handlebars.compile(html);
           var replacements = {
-            verificationcode: "text",
+            verificationcode: data,
           };
           var htmlToSend = template(replacements);
           var mailOptions = {
@@ -378,36 +376,67 @@ html: htmlToSend,
         console.log(error);
       }
     
-                    // var transporter = nodemailer.createTransport({
-                    //     service: 'gmail',
-                    //     host: "gsmtp.gmail.com",
-                    // port: 587,
-                    // requireTLS:true,
-                    // secure: false,
-                    //     auth: {
-                    //         user: 'inevitableapptest@gmail.com',
-                    //         pass: 'fiddtnvwktcucugh'
-                    //     }
-                    // });
-                    // var data = data;
-                    // var mailOptions = {
-                    //     from: 'inevitableapptest@gmail.com',
-                    //     to: email,
-                    //     subject: subject,
-                    //     text: JSON.stringify(data)
-                    // };
 
-
-
-                    
-                    // transporter.sendMail(mailOptions, function (error, info) {
-                    //     if (error) {
-                    //         console.log(error);
-                    //     } else {
-                    //         console.log('Email sent: ' + info.response);
-                    //     }
-                    // });
-
+}
+const sendEmail2=(email,subject,data)=>{
+    // var data=data;
+    // var data=data;
+    var nodemailer = require('nodemailer');
+    var smtpTransport = require("nodemailer-smtp-transport");
+    var handlebars = require("handlebars");
+    var fs = require("fs");
+    
+    var readHTMLFile = function (path, callback) {
+      fs.readFile(path, { encoding: "utf-8" }, function (err, html) {
+        if (err) {
+          callback(err);
+          throw err;
+        } else {
+          callback(null, html);
+        }
+      });
+    };
+    try {
+        let mailTransporter = nodemailer.createTransport(
+          smtpTransport({
+            service: 'gmail',
+                host: "gsmtp.gmail.com",
+            port: 587,
+            requireTLS:true,
+            secure: false,
+                auth: {
+                    user: 'inevitableapptest@gmail.com',
+                    pass: 'fiddtnvwktcucugh'
+                }
+          })
+        );
+        let htmlFile = "/index.html";
+    
+        const html="aa";
+        //  readHTMLFile(__dirname + "/../public/code.html", function (err, html) {
+        readHTMLFile(__dirname + htmlFile, function (err, html) {
+          var template = handlebars.compile(html);
+          var replacements = {
+            verificationcode: data,
+          };
+          var htmlToSend = template(replacements);
+          var mailOptions = {
+            from: 'inevitableapptest@gmail.com',
+                to: email,
+                subject: subject,
+                // text: JSON.stringify(data),
+html: htmlToSend,
+          };
+          mailTransporter.sendMail(mailOptions, function (error, response) {
+            if (error) {
+              console.log(error);
+            }
+          });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    
 }
 
 app.post("/sendPasswordResetLink",  (req, res) => {
@@ -417,64 +446,10 @@ app.post("/sendPasswordResetLink",  (req, res) => {
         EmployeeDetailsLogin.findOne({ emp_email: email }, (err, employeeDetailsLogin) => {
             if (employeeDetailsLogin) {
                 if (email === employeeDetailsLogin.emp_email) {
-                    var nodemailer = require('nodemailer');
                     
-                    var transporter = nodemailer.createTransport({
-                        service: 'gmail',
-                        host: "gsmtp.gmail.com",
-                    port: 587,
-                    requireTLS:true,
-                    secure: false,
-                        auth: {
-                            user: 'inevitableapptest@gmail.com',
-                            pass: 'fiddtnvwktcucugh'
-                        }
-                    });
                     var data = Math.floor(Math.random() * (8000 - 1000) + 1000);
-                    var mailOptions = {
-                        from: 'inevitableapptest@gmail.com',
-                        to: email,
-                        subject: 'Otp for Reset Password',
-                        text: JSON.stringify(data)
-                    };
-
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            console.log(error);
-                        } else {
-                            console.log('Email sent: ' + info.response);
-                        }
-                    });
-
-
-//                     let testAccount =  nodemailer.createTestAccount();
-
-//   // create reusable transporter object using the default SMTP transport
-//   let transporter = nodemailer.createTransport({
-//     host: "smtp.gmail.com",
-//     port: 587,
-//     secure: false, // true for 465, false for other ports
-//     auth: {
-//       user: 'inevitableapptest@gmail.com', // generated ethereal user
-//       pass: 'Info@123', // generated ethereal password
-//     },
-//   });
-
-//   // send mail with defined transport object
-//   let info =  transporter.sendMail({
-//     from: 'inevitableapptest@gmail.com', // sender address
-//     to: email, // list of receivers
-//     subject: "Hello ✔", // Subject line
-//     text: "Hello world?", // plain text body
-//     html: "<b>Hello world?</b>", // html body
-//   });
-
-//   console.log("Message sent: %s", info.messageId);
-//   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-//   // Preview only available when sending through an Ethereal account
-//   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  
+                    sendEmail(email, "Otp for Password Reset",data);
+                    
                     res.send({ message: "Check Otp on your e-mail , If e-mail is registered ", val: data, vemail: employeeDetailsLogin.email })
 
                 }
@@ -829,9 +804,9 @@ createdBy:sys_user,
                     res.send(err)
                 }
                 else {
-                    sendEmail(reportingPerson,"Leave Request", l_reason);
+                    sendEmail2(reportingPerson,"Leave Request", "l_reason");
                     
-                    sendEmail(userEmail,"Leave Request send", l_reason);
+                    sendEmail2(userEmail,"Leave Request send", "l_reason");
                     console.log("line no----------------------->399")
                     res.send({ message: "request successfully registered" })
                 }
@@ -1911,15 +1886,21 @@ function bachProcess(){
     }
 ///////////update yearly
     function  bachProcess2(){
-        const d=new Date();
-        const dm=d.getMonth()-1;
-        const dm2=d.getMonth();
+    //     const d=new Date();
+    //     const dm=d.getMonth()-1;
+    //     const dm2=d.getMonth();
+        
         LeaveInfo.find({}).then(function(leaveInfo){
+            
+       
             var ar3=leaveInfo;
         ar3.map((data)=>{
-            
-        if((dm==12)&&(dm2==1)){
-            LeaveInfo.findOne({eid:data.eid  }, (err, leaveInfo) => {
+            const d=new Date();
+            const dm=d.getMonth();
+            const dm2=d.getMonth()+1;
+            cr_date=d.getMonth();
+        if((data.cr_date==12)&&(dm2==1)){
+            LeaveInfo.findOne({eid:data.eid}, (err, leaveInfo) => {
                 const l1=leaveInfo.leave_in_buck;
              const l2=leaveInfo.total_leave;
                 // leaveInfo.eid=eid;
@@ -1928,48 +1909,39 @@ function bachProcess(){
         // var newvalues = {$set: { leave_in_buck:l1+2} };
        
                  leaveInfo.total_leave=l2+24;
+                 leaveInfo.cr_date=dm2;
                  if(l1>12){
 
                 leaveInfo.leave_in_buck=l1+2+12;
                 // leaveInfo.availed_leave=l2+days;
                 
-        leaveInfo.save();
+        // leaveInfo.save();
                  }
                  else{
                     leaveInfo.leave_in_buck=l1+2;
                
-        leaveInfo.save();
+        // leaveInfo.save();
                  }
-                // leaveInfo.collection("customers").updateMany(myquery, newvalues, function(err, res) {
-                //     if (err) throw err;
-                //     console.log(res.result.nModified + " document(s) updated");
-                //     db.close();
-                //   });
-                // res.send("leave updated");
-            
+                 leaveInfo.save();
             });
         }
-        else{
+        else if(data.cr_date===dm){
             LeaveInfo.findOne({eid:data.eid  }, (err, leaveInfo) => {
                 const l1=leaveInfo.leave_in_buck;
                 // const l2=leaveInfo.availed_leave;
                 // leaveInfo.eid;
                 // leaveInfo.total_leave;
                 leaveInfo.leave_in_buck=l1+2;
-                // leaveInfo.availed_leave;
-                // var myquery = { cr_date:12 };
-                // var newvalues = {$set: { leave_in_buck:l1+2} };
-               
+                leaveInfo.cr_date=dm2;
                 leaveInfo.save();
-                // HRMS_database.collection("LeaveManage")
-                // leaveInfo.updateMany(myquery, newvalues, function(err, res) {
-                //     if (err) throw err;
-                //     console.log(res.result.nModified + " document(s) updated");
-                //     db.close();
-                //   });
             });
             
-        }})})
+        }
+    else{
+
+    }
+    
+    })})
         // LeaveInfo.save();
     
     }
@@ -2102,8 +2074,8 @@ if(l_status=="approved")
 
 });}
 
-sendEmail(employeeDetailsLogin.emp_email, "Leave is"+l_reason,l_reason2);
-sendEmail(reportingPerson, "Leave is"+l_reason,l_reason2)
+sendEmail2(employeeDetailsLogin.emp_email, "Leave is"+"l_reason");
+sendEmail2(reportingPerson, "Leave is"+"l_reason")
             res.send("leave  info updated");
 
         });        });
@@ -2121,8 +2093,8 @@ app.post(`/delete/:id`, async (req, res) => {
     // await
      LeaveManage.deleteOne({l_id:l_id});
     // console.log("------------------->line 1796"+req.body.message);
-    sendEmail(employeeDetailsLogin.emp_email, "Leave is","l_reason2");
-sendEmail(req.body.reportingPerson, "Leave is","l_reason2")
+    sendEmail2(employeeDetailsLogin.emp_email, "Leave is","l_reason2");
+sendEmail2(req.body.reportingPerson, "Leave is","l_reason2")
 
     res.send("deleted");
 })});
