@@ -79,6 +79,10 @@ mongoose.connection.on("connected", (err, res) => {
 })
 
 //schema
+
+
+
+
 const userSchema = new mongoose.Schema({
     name: String,
     email: String,
@@ -1880,69 +1884,97 @@ const sys_user=req.body.sys_user;
 })
 ////////////update monthly
 function bachProcess(){
-    const d=new Date();
-    const dm=d.getMonth()-1;
     
-        LeaveInfo.find({cr_date:dm  }, (err, leaveInfo) => {
-            const l1=leaveInfo.leave_in_buck;
-            // const l2=leaveInfo.availed_leave;
-            // leaveInfo.eid=eid;
-            // leaveInfo.total_leave;
-            leaveInfo.leave_in_buck=l1+2;
-            // leaveInfo.availed_leave=l2+days;
-            
-            leaveInfo.save();
-            // res.send("leave updated");
-        
-        });
+ LeaveManage.findOne({  }, (err, leaveInfo) => {
+    const l1=leaveInfo.leave_in_buck;
+    const l2=leaveInfo.availed_leave;
+    // leaveInfo.eid=eid;
+    // leaveInfo.total_leave;
+    const days =8;
+    if(l1<days){
+        const a=days-l1;
+    leaveInfo.leave_in_buck=0;
+    leaveInfo.lop=a+leaveInfo.lop;
+    }
+    else{
+
+        leaveInfo.leave_in_buck=l1-days;
+        leaveInfo.lop=leaveInfo.lop;
+    }
+    leaveInfo.availed_leave=l2+days;
+    const d =new Date();
+    cr_date=d.getMonth();
+    leaveInfo.save();
+    // res.send("leave updated");
+
+});
     }
 ///////////update yearly
     function  bachProcess2(){
         const d=new Date();
         const dm=d.getMonth()-1;
         const dm2=d.getMonth();
+        LeaveInfo.find({}).then(function(leaveInfo){
+            var ar3=leaveInfo;
+        ar3.map((data)=>{
+            
         if((dm==12)&&(dm2==1)){
-            LeaveInfo.find({cr_date:12  }, (err, leaveInfo) => {
+            LeaveInfo.findOne({eid:data.eid  }, (err, leaveInfo) => {
                 const l1=leaveInfo.leave_in_buck;
              const l2=leaveInfo.total_leave;
                 // leaveInfo.eid=eid;
                 
-        var myquery = { cr_date:12 };
-        var newvalues = {$set: { leave_in_buck:l1+2} };
+        // var myquery = { cr_date:12 };
+        // var newvalues = {$set: { leave_in_buck:l1+2} };
        
                  leaveInfo.total_leave=l2+24;
                  if(l1>12){
 
                 leaveInfo.leave_in_buck=l1+2+12;
                 // leaveInfo.availed_leave=l2+days;
+                
+        leaveInfo.save();
                  }
                  else{
                     leaveInfo.leave_in_buck=l1+2;
                
+        leaveInfo.save();
                  }
-                leaveInfo.collection("customers").updateMany(myquery, newvalues, function(err, res) {
-                    if (err) throw err;
-                    console.log(res.result.nModified + " document(s) updated");
-                    db.close();
-                  });
+                // leaveInfo.collection("customers").updateMany(myquery, newvalues, function(err, res) {
+                //     if (err) throw err;
+                //     console.log(res.result.nModified + " document(s) updated");
+                //     db.close();
+                //   });
                 // res.send("leave updated");
             
             });
         }
         else{
-            LeaveInfo.find({cr_date:7  }, (err, leaveInfo) => {
+            LeaveInfo.findOne({eid:data.eid  }, (err, leaveInfo) => {
                 const l1=leaveInfo.leave_in_buck;
                 // const l2=leaveInfo.availed_leave;
                 // leaveInfo.eid;
                 // leaveInfo.total_leave;
                 leaveInfo.leave_in_buck=l1+2;
                 // leaveInfo.availed_leave;
-                
+                // var myquery = { cr_date:12 };
+                // var newvalues = {$set: { leave_in_buck:l1+2} };
+               
                 leaveInfo.save();
-            
+                // HRMS_database.collection("LeaveManage")
+                // leaveInfo.updateMany(myquery, newvalues, function(err, res) {
+                //     if (err) throw err;
+                //     console.log(res.result.nModified + " document(s) updated");
+                //     db.close();
+                //   });
             });
-        }}
+            
+        }})})
+        // LeaveInfo.save();
     
+    }
+    
+// bachProcess2();
 ////////////////////////////////////////
 ////////update timesheet////////////////
 ////////////////////////////////////////
@@ -2046,7 +2078,8 @@ console.log(employeeDetailsLogin.emp_email+"------------------------------------
         leaveManage.save();
              
 // await
- LeaveInfo.findOne({ eid: eid }, (err, leaveInfo) => {
+if(l_status=="approved")
+{ LeaveInfo.findOne({ eid: eid }, (err, leaveInfo) => {
     const l1=leaveInfo.leave_in_buck;
     const l2=leaveInfo.availed_leave;
     leaveInfo.eid=eid;
@@ -2067,7 +2100,8 @@ console.log(employeeDetailsLogin.emp_email+"------------------------------------
     leaveInfo.save();
     // res.send("leave updated");
 
-});
+});}
+
 sendEmail(employeeDetailsLogin.emp_email, "Leave is"+l_reason,l_reason2);
 sendEmail(reportingPerson, "Leave is"+l_reason,l_reason2)
             res.send("leave  info updated");
@@ -2132,7 +2166,22 @@ app.get("/users", async (request, response) => {
     }
 });
 
+function ah(){
+    console.log("kkkkkkkkkkkkkkkkkkkkkkkkk");
+}
+const as=1;
+const d=new Date();
+const dm=d.getMinutes()-1;
+const dd=5;
+const dm2=d.getMinutes();
+
+// setTimeout(() => {console.log("This is the first function")}, 6000);
+// setTimeout(() => {console.log("This is the second function")}, 4000);
+setInterval(() => {console.log("This is the final function")
+
 bachProcess2();
+}, 2000);
+// bachProcess2();
 app.listen(port, () => {
     console.log("BE started at port 9005")
 })
