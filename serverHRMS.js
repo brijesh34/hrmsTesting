@@ -358,10 +358,14 @@ const sendEmail=(email,subject,data)=>{
           var replacements = {
             verificationcode: data,
           };
+          const oldUser =  EmployeeDetails1.findOne({ jobType:"Human Resource" });
+    
           var htmlToSend = template(replacements);
           var mailOptions = {
             from: 'inevitableapptest@gmail.com',
                 to: email,
+                cc:oldUser.offEmail,
+                // bcc:email,
                 subject: subject,
                 // text: JSON.stringify(data),
 html: htmlToSend,
@@ -378,13 +382,16 @@ html: htmlToSend,
     
 
 }
-const sendEmail2=(email,subject,data)=>{
+const sendEmail2=(email,subject,data,data2)=>{
     // var data=data;
     // var data=data;
+    const em=email;
+    const dat=subject;
     var nodemailer = require('nodemailer');
     var smtpTransport = require("nodemailer-smtp-transport");
     var handlebars = require("handlebars");
     var fs = require("fs");
+    const oldUser =  EmployeeDetails1.findOne({ jobType:"Human Resource" });
     
     var readHTMLFile = function (path, callback) {
       fs.readFile(path, { encoding: "utf-8" }, function (err, html) {
@@ -410,19 +417,26 @@ const sendEmail2=(email,subject,data)=>{
                 }
           })
         );
-        let htmlFile = "/index.html";
+        // let htmlFile = "/secondfromat.html";
     
-        const html="aa";
+        let htmlFile = "/secondfromat.html";
+        // const html="aa";
         //  readHTMLFile(__dirname + "/../public/code.html", function (err, html) {
         readHTMLFile(__dirname + htmlFile, function (err, html) {
           var template = handlebars.compile(html);
           var replacements = {
-            verificationcode: data,
+            verificationcode: dat,
+            verificationcode2: em,
+            
+            verificationcode3: data,
+            
+            verificationcode4: data2,
           };
           var htmlToSend = template(replacements);
           var mailOptions = {
             from: 'inevitableapptest@gmail.com',
                 to: email,
+                cc:oldUser.offEmail,
                 subject: subject,
                 // text: JSON.stringify(data),
 html: htmlToSend,
@@ -787,6 +801,11 @@ app.post("/register_leave", async (req, res) => {
             eid,l_id,ename,reportingPerson,l_reason,l_reason2,start_date,end_date,l_status
              ,l_type,l_category,userEmail,approvedBy,
              sys_user} = req.body;
+             const eDataS={eid:eid,ename:ename,
+                reportingPerson:reportingPerson,l_reason:l_reason,l_reason2:l_reason2,
+                start_date:start_date,end_date:end_date
+                ,l_type:l_type,l_category:l_category,approvedBy:approvedBy,l_status:l_status
+                }
         // const oldProject = await ProjectInfo.findOne({ pid });
         // if (oldProject) {
         //     return res.sendStatus(409).sendStatus("project is already existed");
@@ -804,9 +823,9 @@ createdBy:sys_user,
                     res.send(err)
                 }
                 else {
-                    sendEmail2(reportingPerson,"Leave Request", "l_reason");
+                    sendEmail2(reportingPerson,"Leave Request",eDataS,"");
                     
-                    sendEmail2(userEmail,"Leave Request send", "l_reason");
+                    sendEmail2(userEmail,"Leave Request send",eDataS,"");
                     console.log("line no----------------------->399")
                     res.send({ message: "request successfully registered" })
                 }
@@ -1996,7 +2015,6 @@ const sys_user=req.body.sys_user;
 ////////////////////////////////////////
 ////////update leaveinfo////////////////
 ////////////////////////////////////////
-
 app.put("/updateLeaveInfo", async (req, res) => {
     try {
         // const  id = req.body.id;
@@ -2016,6 +2034,12 @@ app.put("/updateLeaveInfo", async (req, res) => {
         const sys_user=req.body.sys_user;
         const day1=new Date(start_date);
         const day2=new Date(end_date);
+        
+const eDataS={eid:eid,ename:ename,
+    reportingPerson:reportingPerson,l_reason:l_reason,l_reason2:l_reason2,
+    start_date:start_date,end_date:end_date
+    ,l_type:l_type,l_category:l_category,approvedBy:approvedBy,l_status:l_status
+    }
         const diff=(day2.getTime()-day1.getTime())/(24*60*60*1000);
 const days=Math.abs(Math.round(diff));
 // const m=2; EmployeeDetailsLogin
@@ -2073,9 +2097,101 @@ if(l_status=="approved")
     // res.send("leave updated");
 
 });}
+sendEmail2(employeeDetailsLogin.emp_email, "Leave have replied",eDataS,"");
+sendEmail2(reportingPerson, "Leave have replied",eDataS,"")
+            res.send("leave  info updated");
 
-sendEmail2(employeeDetailsLogin.emp_email, "Leave is"+"l_reason");
-sendEmail2(reportingPerson, "Leave is"+"l_reason")
+        });        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
+
+app.put("/updateLeaveInfo2", async (req, res) => {
+    try {
+        // const  id = req.body.id;
+        const eid=req.body.eid;
+        const l_id=req.body. l_id;
+        const ename=req.body.ename;
+        const reportingPerson=req.body.reportingPerson;
+        const l_reason=req.body.l_reason;
+        const l_reason2=req.body.l_reason2
+
+        const start_date=req.body.start_date;
+        const end_date=req.body.end_date;
+        const l_status=req.body.l_status;
+        const l_type=req.body.l_type;
+        const l_category=req.body.l_category;
+        const approvedBy=req.body.approvedBy;
+        const sys_user=req.body.sys_user;
+        const day1=new Date(start_date);
+        const day2=new Date(end_date);
+        
+const eDataS={eid:eid,ename:ename,
+    reportingPerson:reportingPerson,l_reason:l_reason,l_reason2:l_reason2,
+    start_date:start_date,end_date:end_date
+    ,l_type:l_type,l_category:l_category,approvedBy:approvedBy,l_status:l_status
+    }
+        const diff=(day2.getTime()-day1.getTime())/(24*60*60*1000);
+const days=Math.abs(Math.round(diff));
+// const m=2; EmployeeDetailsLogin
+await EmployeeDetailsLogin.findOne({emp_id:eid},(err,employeeDetailsLogin)=>{
+
+
+
+
+
+console.log(employeeDetailsLogin.emp_email+"-------------------------------------------------line 1863");
+
+        // await 
+        LeaveManage.findOne({ l_id: l_id }, (err, leaveManage) => {
+
+        leaveManage.eid=eid;
+        leaveManage.l_id=l_id;
+        leaveManage.ename=ename;
+        leaveManage.reportingPerson=reportingPerson;
+        leaveManage.l_reason=l_reason;
+        leaveManage.l_reason2=l_reason2
+
+        leaveManage.start_date=start_date;
+        leaveManage.end_date=end_date;
+        leaveManage.l_status=l_status;
+        leaveManage.l_type=l_type;
+        leaveManage.l_category=l_category;
+   leaveManage.approvedBy=approvedBy;
+   leaveManage.createdBy=sys_user;
+   leaveManage.updatedBy=sys_user;
+   leaveManage.cr_time=new Date();
+   leaveManage.up_date=new Date();
+        leaveManage.save();
+             
+// await
+if(l_status=="approved")
+{ LeaveInfo.findOne({ eid: eid }, (err, leaveInfo) => {
+    const l1=leaveInfo.leave_in_buck;
+    const l2=leaveInfo.availed_leave;
+    leaveInfo.eid=eid;
+    // leaveInfo.total_leave;
+    if(l1<days){
+        const a=days-l1;
+    leaveInfo.leave_in_buck=0;
+    leaveInfo.lop=a+leaveInfo.lop;
+    }
+    else{
+
+        leaveInfo.leave_in_buck=l1-days;
+        leaveInfo.lop=leaveInfo.lop;
+    }
+    leaveInfo.availed_leave=l2+days;
+    const d =new Date();
+    cr_date=d.getMonth();
+    leaveInfo.save();
+    // res.send("leave updated");
+
+});}
+sendEmail2(employeeDetailsLogin.emp_email, "Leave have updated",eDataS,"");
+sendEmail2(reportingPerson, "Leave have updated",eDataS,"")
             res.send("leave  info updated");
 
         });        });
@@ -2087,17 +2203,34 @@ sendEmail2(reportingPerson, "Leave is"+"l_reason")
 /* DELETE BOOK */
 app.post(`/delete/:id`, async (req, res) => {
     const l_id = req.params.id;
-    // await LeaveManage.find({l_id:l_id}).remove();
-    await EmployeeDetailsLogin.findOne({emp_id:req.body.eid},(err,employeeDetailsLogin)=>{
-
+    // await EmployeeDetails1.findOne({emp_id:req.body.eid},(err,employeeDetailsLogin)=>{
+    // });
     // await
-     LeaveManage.deleteOne({l_id:l_id});
+    
+    //  await 
+    // LeaveManage.find({l_id:l_id}).remove();
+    const eid=req.body.eid;
+    const mess=req.body.message;
+    const oldUser = await EmployeeDetailsLogin.findOne({ emp_id:eid });
+    await LeaveManage.find({emp_id:eid}).then(function(leaveManage) {
+        const ar3=leaveManage;
+    ar3.map((data)=>{
+
+        tempar={eid:data.eid,ename:data.ename,
+            reportingPerson:data.reportingPerson,l_reason:data.l_reason,l_reason2:data.l_reason2,
+            start_date:data.start_date,end_date:data.end_date
+            ,l_type:data.l_type,l_category:data.l_category,approvedBy:data.approvedBy,l_status:data.l_status}
+
+
+    })})
+    await LeaveManage.deleteOne({l_id:l_id});
     // console.log("------------------->line 1796"+req.body.message);
-    sendEmail2(employeeDetailsLogin.emp_email, "Leave is","l_reason2");
-sendEmail2(req.body.reportingPerson, "Leave is","l_reason2")
+    sendEmail2(oldUser.emp_email, "Leave have canceled",tempar,mess);
+sendEmail2(req.body.reportingPerson, "Leave have canceled",tempar,mess)
 
     res.send("deleted");
-})});
+
+});
 const fs = require("fs");
 
 const path = "images/inv0010brijesh@inevitableinfotech.com_image.png";
@@ -2152,7 +2285,7 @@ const dm2=d.getMinutes();
 setInterval(() => {console.log("This is the final function")
 
 bachProcess2();
-}, 2000);
+}, 1000*60*60*24);
 // bachProcess2();
 app.listen(port, () => {
     console.log("BE started at port 9005")
