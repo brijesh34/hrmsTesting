@@ -1846,6 +1846,56 @@ const sys_user=req.body.sys_user;
         console.log(err);
     }
 })
+
+app.put("/leaveType", async (req, res) => {
+    try {
+        // const  id = req.body.id;
+        const id = req.body.leaveType_id;
+        const name = req.body.leaveType_name;
+const sys_user=req.body.sys_user;
+        await LeaveTypes.findOne({ leaveType_id: id }, (err, leaveTypes) => {
+            leaveTypes.leaveType_id = id;
+
+            leaveTypes.leaveType_name = name;
+            leaveTypes.createdBy=sys_user,
+            leaveTypes.updatedBy=sys_user,
+            leaveTypes.cr_time=new Date(),
+            leaveTypes.up_date=new Date(),
+            leaveTypes.save();
+            res.send("leave type updated");
+
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
+app.put("/leaveCategory", async (req, res) => {
+    try {
+        // const  id = req.body.id;
+        const id = req.body.leaveCategory_id;
+        const name = req.body.leaveCategory_name;
+const sys_user=req.body.sys_user;
+        await LeaveCategory.findOne({ leaveCategory_id: id }, (err, leaveCategory) => {
+            leaveCategory.leaveCategory_id = id;
+
+            leaveCategory.leaveCategory_name = name;
+            leaveCategory.leaveCategory_name = name;
+            leaveCategory.createdBy=sys_user,
+            leaveCategory.updatedBy=sys_user,
+            leaveCategory.cr_time=leaveCategory.cr_time,
+            leaveCategory.up_date=new Date(),
+            leaveCategory.save();
+            res.send("Role updated");
+
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
+
+
 /////update project
 app.put("/updateProject", async (req, res) => {
     try {
@@ -1917,7 +1967,7 @@ function bachProcess(){
             const d=new Date();
             const dm=d.getMonth();
             const dm2=d.getMonth()+1;
-            cr_date=d.getMonth();
+            const cr_date=d.getMonth();
         if((data.cr_date==12)&&(dm2==1)){
             LeaveInfo.findOne({eid:data.eid}, (err, leaveInfo) => {
                 const l1=leaveInfo.leave_in_buck;
@@ -1931,7 +1981,7 @@ function bachProcess(){
                  leaveInfo.cr_date=dm2;
                  if(l1>12){
 
-                leaveInfo.leave_in_buck=l1+2+12;
+                leaveInfo.leave_in_buck=2+12;
                 // leaveInfo.availed_leave=l2+days;
                 
         // leaveInfo.save();
