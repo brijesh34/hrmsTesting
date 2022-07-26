@@ -1401,10 +1401,10 @@ const id=req.params.id;
                    var sdate=new Date();
                     ar3.map((data)=>{
                         var ndate= new Date(data.start_date);
-                        var date=(ndate.getMonth()+1)+'/'+ndate.getDate()+'/'+ndate.getFullYear(); 
-                        var ndate2= new Date(data.end_date);
-                        var date2=(ndate2.getMonth()+1)+'/'+ndate2.getDate()+'/'+ndate2.getFullYear(); 
-                       
+            var date=ndate.getDate()+'/'+(ndate.getMonth()+1)+'/'+ndate.getFullYear(); 
+            var ndate2= new Date(data.end_date);
+            var date2=ndate2.getDate()+'/'+(ndate2.getMonth()+1)+'/'+ndate2.getFullYear(); 
+           
             tempar.push({ eid:data.eid,l_id:data.l_id,ename:data.ename,reportingPerson:data.reportingPerson,
             l_reason:data.l_reason, l_reason2:data.l_reason2,start_date:date,end_date:date2,l_status:data.l_status
             ,l_type:data.l_type,l_category:data.l_category,s_date:data.start_date,e_date:data.end_date,approvedBy:data.approvedBy})})
@@ -1413,6 +1413,7 @@ const id=req.params.id;
          
         })
             
+  
             
 
 
@@ -1430,6 +1431,41 @@ const id=req.params.id;
     }
 
 })
+
+app.get(`/leavesDetailPending/:id`, async (req, res, next) => {
+    try {
+
+const id=req.params.id;
+        const tempar=[
+            //        {eid:'',l_id:'',ename:'',reportingPerson:'',
+            //         l_reason:'',start_date:'',end_date:'',l_status:''
+            // ,l_type:'',l_category:''}
+                ]   
+                LeaveManage.find({reportingPerson:id}).then(function(leaveManage){
+                    var ar3=leaveManage;
+                   var sdate=new Date();
+                    ar3.map((data)=>{
+                        if(data.l_status==="pending"){
+                        var ndate= new Date(data.start_date);
+                        var date=(ndate.getMonth()+1)+'/'+ndate.getDate()+'/'+ndate.getFullYear(); 
+                        var ndate2= new Date(data.end_date);
+                        var date2=(ndate2.getMonth()+1)+'/'+ndate2.getDate()+'/'+ndate2.getFullYear(); 
+                       
+            tempar.push({ eid:data.eid,l_id:data.l_id,ename:data.ename,reportingPerson:data.reportingPerson,
+            l_reason:data.l_reason, l_reason2:data.l_reason2,start_date:date,end_date:date2,l_status:data.l_status
+            ,l_type:data.l_type,l_category:data.l_category,s_date:data.start_date,e_date:data.end_date,approvedBy:data.approvedBy}
+            )}})
+        
+            res.send({leave:tempar});
+         
+        })
+    } catch (err) {
+        console.error(err)
+    }
+
+})
+
+
 app.get(`/leavesDetail_personal/:id`, async (req, res, next) => {
     try {
         const offId=req.params.id;
@@ -1450,7 +1486,7 @@ app.get(`/leavesDetail_personal/:id`, async (req, res, next) => {
            
 tempar.push({ eid:data.eid,l_id:data.l_id,ename:data.ename,reportingPerson:data.reportingPerson,
 l_reason:data.l_reason,l_reason2:data.l_reason2,start_date:date,end_date:date2,l_status:data.l_status
-,l_type:data.l_type,l_category:data.l_category,approvedBy:data.approvedBy})})
+,l_type:data.l_type,l_category:data.l_category,s_date:data.start_date,e_date:data.end_date,approvedBy:data.approvedBy})})
 
 
 res.send({leave:tempar , doj:oldUser.length});
