@@ -586,19 +586,27 @@ app.post("/loginHrmsfirst", async (req, res) => {
 app.post("/register_roles", async (req, res) => {
     try {
         const {
-            role_id,
+            // role_id,
             role_name,
             sys_user
 
         } = req.body;
-        console.log(role_id)
+        // console.log(role_id)
+        const today = new Date();
+        const hour=today.getHours();
+        const min=today.getMinutes();
+      const sec=today.getSeconds();
+      const day=today.getDay();
+      const mont=today.getMonth();
+      const year=today.getFullYear(); 
+      
         const oldUser = await EmployeeRoles.findOne({ role_name });
         if (oldUser) {
             return res.status(409).send("User Already Exist. Please Login");
         }
         else {
             const employeeRoles = new EmployeeRoles({
-                role_id,
+                role_id:"rol"+hour+min+sec+day+mont+year,
                 role_name,
                 role_display_name: role_name,
                 createdBy:sys_user,
@@ -630,18 +638,25 @@ app.post("/register_roles", async (req, res) => {
 app.post("/register_leaveType", async (req, res) => {
     try {
         const {
-            leaveType_id,
+            // leaveType_id,
             leaveType_name,
             sys_user
         } = req.body;
-        console.log(leaveType_id)
-        const oldUser = await LeaveTypes.findOne({ leaveType_name });
+        // console.log(leaveType_id)
+        const today = new Date();
+        const hour=today.getHours();
+        const min=today.getMinutes();
+      const sec=today.getSeconds();
+      const day=today.getDay();
+      const mont=today.getMonth();
+      const year=today.getFullYear(); 
+       const oldUser = await LeaveTypes.findOne({ leaveType_name });
         if (oldUser) {
             return res.status(409).send("User Already Exist. Please Login");
         }
         else {
             const leaveTypes = new LeaveTypes({
-                leaveType_id,
+                leaveType_id:"lev"+hour+min+sec+day+mont+year,
                 leaveType_name,
                 createdBy:sys_user,
    updatedBy:sys_user,
@@ -670,18 +685,25 @@ app.post("/register_leaveType", async (req, res) => {
 app.post("/register_leaveCategory", async (req, res) => {
     try {
         const {
-            leaveCategory_id,
+            // leaveCategory_id,
             leaveCategory_name,
             sys_user
         } = req.body;
-        console.log(leaveCategory_id)
+        const today = new Date();
+        const hour=today.getHours();
+        const min=today.getMinutes();
+      const sec=today.getSeconds();
+      const day=today.getDay();
+      const mont=today.getMonth();
+      const year=today.getFullYear();
+        // console.log(leaveCategory_id)
         const oldUser = await LeaveCategory.findOne({ leaveCategory_name });
         if (oldUser) {
             return res.status(409).send("User Already Exist. Please Login");
         }
         else {
             const leaveCategory = new LeaveCategory({
-                leaveCategory_id,
+                leaveCategory_id:"lcat"+hour+min+sec+day+mont+year,
                 leaveCategory_name,
                 createdBy:sys_user,
    updatedBy:sys_user,
@@ -709,14 +731,24 @@ app.post("/register_leaveCategory", async (req, res) => {
 ///////////add Project/////////////////
 app.post("/register_project", async (req, res) => {
     try {
-        const { pid, pname, pstatus, phead, pdescription ,sys_user} = req.body;
+        const { 
+            // pid,
+             pname, pstatus, phead, pdescription ,sys_user} = req.body;
+             const today = new Date();
+        const hour=today.getHours();
+        const min=today.getMinutes();
+      const sec=today.getSeconds();
+      const day=today.getDay();
+      const mont=today.getMonth();
+      const year=today.getFullYear(); 
         const oldProject = await ProjectInfo.findOne({ pid });
         if (oldProject) {
             return res.sendStatus(409).sendStatus("project is already existed");
         }
         else {
             const projectInfo = new ProjectInfo({
-                pid, pname, pstatus, phead, pdescription,
+                pid:"proj"+hour+min+sec+day+mont+year,
+                 pname, pstatus, phead, pdescription,
                 createdBy:sys_user,
    updatedBy:sys_user,
     cr_time:new Date(),
@@ -929,7 +961,7 @@ app.post("/employeedetailsform1", async (req, res) => {
             email,
             gender,
             offEmail,
-            offId,
+            // offId,
             address,
             aadhaar,
             pan,
@@ -957,6 +989,8 @@ app.post("/employeedetailsform1", async (req, res) => {
         } = req.body;
         //  encryptedPassword = await bcrypt.hash(password, 10);           EmployeeDetailsLogin
         const oldUser = await EmployeeDetails1.findOne({ offEmail });
+        const oldUser2 = await EmployeeDetails1.find({ });
+        const len=oldUser.length()+1;
         if (oldUser) {
             return res.status(409).send("User Already Exist. Please Login");
         }
@@ -989,7 +1023,7 @@ const month=doj.getMonth();
                 email,
                 gender,
                 offEmail,
-                offId,
+                offId:"inv0"+len,
                 address,
                 aadhaar,
                 pan,
@@ -1746,7 +1780,8 @@ app.put("/updatePassword", async (req, res) => {
 
 
 //Update details
-app.put("/update", async (req, res) => {
+
+app.put(`/updatePersonal/:id`, async (req, res) => {
     try {
         // const  id = req.body.id;
         const name = req.body.name;
@@ -1779,6 +1814,7 @@ app.put("/update", async (req, res) => {
         const ReportingManager = req.body.ReportingManager;
         // const id = req.body.id
 const sys_user=req.body.sys_user;
+// const oldUser = await EmployeeDetailsLogin.findOne({ emp_email: offEmail });
         await EmployeeDetails1.findOne({ offEmail: offEmail }, (err, employeedetails1) => {
             employeedetails1.name = name
                 ; employeedetails1.fname = fname
@@ -1817,17 +1853,104 @@ const sys_user=req.body.sys_user;
 
 
             employeedetails1.save();
-            EmployeeDetailsLogin.findOne({ emp_email: req.body.offEmail }, (err, employeeDetailsLogin) => {
-                ; employeeDetailsLogin.emp_email = offEmail
-                    ; employeeDetailsLogin.emp_id = offId
-                    ; employeeDetailsLogin.emp_status = status
+            // EmployeeDetailsLogin.findOne({emp_email: offEmail }, (err, employeeDetailsLogin) => {
+            // //     ; 
+            // employeeDetailsLogin.emp_email = offEmail
+            //         ; employeeDetailsLogin.emp_id = offId
+            //         ; 
+            //         employeeDetailsLogin.emp_status = status;
+
+            //         employeeDetailsLogin.save();
+                res.send("data updated");
+            // });
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
+app.put("/update", async (req, res) => {
+    try {
+        // const  id = req.body.id;
+        const name = req.body.name;
+        const fname = req.body.fname;
+        const email = req.body.email;
+        const gender = req.body.gender;
+        const offEmail = req.body.offEmail;
+        const offId = req.body.offId;
+        const address = req.body.address;
+        const aadhaar = req.body.aadhaar;
+        const pan = req.body.pan;
+        const bankAccount = req.body.bankAccount;
+        const bankName = req.body.bankName;
+        const bankIfsc = req.body.bankIfsc;
+        const Country = req.body.Country;
+        const state = req.body.state;
+        const city = req.body.city;
+        const pincode = req.body.pincode;
+        const highestDegree = req.body.highestDegree;
+        const lastCollegeCompany = req.body.lastCollegeCompany;
+        const phoneNo = req.body.phoneNo;
+        const jobType = req.body.jobType;
+        const dob = req.body.dob;
+        // const salary = req.body.salary;
+
+        const noExp = req.body.noExp;
+        const status = req.body.status;
+
+        const DoJ = req.body.DoJ;
+        const ReportingManager = req.body.ReportingManager;
+        // const id = req.body.id
+const sys_user=req.body.sys_user;
+// const oldUser = await EmployeeDetailsLogin.findOne({ emp_email: offEmail });
+        await EmployeeDetails1.findOne({ offEmail: offEmail }, (err, employeedetails1) => {
+            employeedetails1.name = name
+                ; employeedetails1.fname = fname
+                ; employeedetails1.email = email
+                ; employeedetails1.gender = gender
+                ; employeedetails1.offEmail = offEmail
+                ; employeedetails1.offId = offId
+                ; employeedetails1.address = address
+                ; employeedetails1.aadhaar = aadhaar
+                ; employeedetails1.pan = pan
+                ; employeedetails1.bankAccount = bankAccount
+                ; employeedetails1.bankName = bankName
+                ; employeedetails1.bankIfsc = bankIfsc
+                ; employeedetails1.Country = Country
+                ; employeedetails1.state = state
+                ; employeedetails1.city = city
+                ; employeedetails1.pincode = pincode
+                ; employeedetails1.highestDegree = highestDegree
+                ; employeedetails1.lastCollegeCompany = lastCollegeCompany
+                ; employeedetails1.phoneNo = phoneNo
+                ; employeedetails1.jobType = jobType
+                ; employeedetails1.dob = dob
+                // ;employeedetails1.salary=salary
+
+                ; employeedetails1.noExp = noExp
+
+                ; employeedetails1.status = status;
+            employeedetails1.DoJ = DoJ;
+            employeedetails1.ReportingManager = ReportingManager;
+
+            employeedetails1.createdBy=sys_user;
+            employeedetails1.updatedBy=sys_user;
+            employeedetails1.cr_time=new Date();
+            employeedetails1.up_date=new Date();
 
 
 
+            employeedetails1.save();
+            // EmployeeDetailsLogin.findOne({emp_email: offEmail }, (err, employeeDetailsLogin) => {
+            // //     ; 
+            // employeeDetailsLogin.emp_email = offEmail
+            //         ; employeeDetailsLogin.emp_id = offId
+            //         ; 
+            //         employeeDetailsLogin.emp_status = status;
 
-                employeeDetailsLogin.save();
-                res.send("Password updated");
-            });
+            //         employeeDetailsLogin.save();
+                res.send("data updated");
+            // });
         });
     }
     catch (err) {
