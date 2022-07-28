@@ -990,7 +990,7 @@ app.post("/employeedetailsform1", async (req, res) => {
         //  encryptedPassword = await bcrypt.hash(password, 10);           EmployeeDetailsLogin
         const oldUser = await EmployeeDetails1.findOne({ offEmail });
         const oldUser2 = await EmployeeDetails1.find({ });
-        const len=oldUser.length()+1;
+        const len=oldUser2.length+1;
         if (oldUser) {
             return res.status(409).send("User Already Exist. Please Login");
         }
@@ -999,7 +999,7 @@ const doj=new Date(DoJ);
 const month=doj.getMonth();
             let jwtSecretKey = process.env.JWT_SECRET_KEY;
             const leave = await LeaveInfo.create({
-                eid:offId,
+                eid:"inv0"+len,
                 total_leave:(12-month)*2,
                 leave_in_buck:2,
                 availed_leave:0,
@@ -1010,7 +1010,7 @@ const month=doj.getMonth();
 
            
             const login = await EmployeeDetailsLogin.create({
-                emp_id: offId,
+                emp_id: "inv0"+len,
                 emp_password: name,
                 emp_email: offEmail,
 
@@ -1085,7 +1085,7 @@ const month=doj.getMonth();
                     }
         
                     )
-                    res.send({ message: "Successfully Resitered" })
+                    res.send({ message: "Successfully Resitered" ,dt:user})
                 }
             }
 
