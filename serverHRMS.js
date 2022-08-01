@@ -741,7 +741,7 @@ app.post("/register_project", async (req, res) => {
       const day=today.getDay();
       const mont=today.getMonth();
       const year=today.getFullYear(); 
-        const oldProject = await ProjectInfo.findOne({ pid });
+        const oldProject = await ProjectInfo.findOne({ pname });
         if (oldProject) {
             return res.sendStatus(409).sendStatus("project is already existed");
         }
