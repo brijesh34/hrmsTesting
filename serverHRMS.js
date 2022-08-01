@@ -602,7 +602,8 @@ app.post("/register_roles", async (req, res) => {
       
         const oldUser = await EmployeeRoles.findOne({ role_name });
         if (oldUser) {
-            return res.status(409).send("User Already Exist. Please Login");
+            // return res.status(409).send("User Already Exist. Please Login");
+            res.send({ message: "Role Already Exist, Try another.", val: false })
         }
         else {
             const employeeRoles = new EmployeeRoles({
@@ -621,7 +622,7 @@ app.post("/register_roles", async (req, res) => {
 
                 else {
 
-                    res.send({ message: "Successfully Resitered" })
+                    res.send({ message: "Successfully Resitered", val2: true })
                 }
             })
         }
@@ -652,7 +653,8 @@ app.post("/register_leaveType", async (req, res) => {
       const year=today.getFullYear(); 
        const oldUser = await LeaveTypes.findOne({ leaveType_name });
         if (oldUser) {
-            return res.status(409).send("User Already Exist. Please Login");
+            // return res.status(409).send("User Already Exist. Please Login");
+            res.send({ message: " Leave Type alredy exist, try another", val: false })
         }
         else {
             const leaveTypes = new LeaveTypes({
@@ -671,7 +673,7 @@ app.post("/register_leaveType", async (req, res) => {
 
                 else {
 
-                    res.send({ message: "Successfully Resitered" })
+                    res.send({ message: "Successfully Resitered", val2: true })
                 }
             })
         }
@@ -699,7 +701,8 @@ app.post("/register_leaveCategory", async (req, res) => {
         // console.log(leaveCategory_id)
         const oldUser = await LeaveCategory.findOne({ leaveCategory_name });
         if (oldUser) {
-            return res.status(409).send("User Already Exist. Please Login");
+            // return res.status(409).send("User Already Exist. Please Login");
+            res.send({ message: " Leave Category alredy exist, try another", val: false })
         }
         else {
             const leaveCategory = new LeaveCategory({
@@ -718,7 +721,7 @@ app.post("/register_leaveCategory", async (req, res) => {
 
                 else {
 
-                    res.send({ message: "Successfully Resitered" })
+                    res.send({ message: "Successfully Resitered" , val2: true})
                 }
             })
         }
@@ -743,7 +746,8 @@ app.post("/register_project", async (req, res) => {
       const year=today.getFullYear(); 
         const oldProject = await ProjectInfo.findOne({ pname });
         if (oldProject) {
-            return res.sendStatus(409).sendStatus("project is already existed");
+            // return res.sendStatus(409).sendStatus("project is already existed");
+            res.send({ message: " Project is alredy exist, try another", val: false })
         }
         else {
             const projectInfo = new ProjectInfo({
@@ -760,7 +764,7 @@ app.post("/register_project", async (req, res) => {
                 }
                 else {
                     console.log("line no----------------------->399")
-                    res.send({ message: "successfully registered project" })
+                    res.send({ message: "successfully registered project", val2: true })
                 }
             })
         }
@@ -814,7 +818,7 @@ app.post("/register_title", async (req, res) => {
             }
             else {
                 console.log("line no----------------------->440")
-                res.send({ message: "successfully registered title" })
+                res.send({ message: "successfully registered title", val2: true })
             }
         })
         // }
@@ -859,7 +863,7 @@ createdBy:sys_user,
                     
                     sendEmail2(userEmail,"Leave Request send",eDataS,"");
                     console.log("line no----------------------->399")
-                    res.send({ message: "request successfully registered" })
+                    res.send({ message: "request successfully registered" , val2: true})
                 }
             })
         // }
@@ -898,7 +902,8 @@ app.post("/employeedetailsform", async (req, res) => {
         } = req.body;
         const oldUser = await EmployeeDetails.findOne({ email });
         if (oldUser) {
-            return res.status(409).send("User Already Exist. Please Login");
+            // return res.status(409).send("User Already Exist. Please Login");
+            res.send({ message: " User alredy exist, Please Login", val: false })
         }
         else {
             //Encrypt user password
@@ -938,7 +943,7 @@ app.post("/employeedetailsform", async (req, res) => {
 
                 else {
 
-                    res.send({ message: "Successfully Resitered" })
+                    res.send({ message: "Successfully Resitered" , val2: true})
                 }
             })
         }
@@ -992,7 +997,8 @@ app.post("/employeedetailsform1", async (req, res) => {
         const oldUser2 = await EmployeeDetails1.find({ });
         const len=oldUser2.length+1;
         if (oldUser) {
-            return res.status(409).send("User Already Exist. Please Login");
+            // return res.status(409).send("User Already Exist. Please Login");
+            res.send({ message: " User alredy exist, Please Login", val: false })
         }
         else {
 const doj=new Date(DoJ);
@@ -1171,7 +1177,7 @@ app.post("/employeedetailsLogin", async (req, res) => {
                 }
 
                 else {
-                    res.send({ message: "Successfully Resitered", verify: "true" })
+                    res.send({ message: "Successfully Resitered", verify: "true" , val2: true})
                 }
             }
 
@@ -1770,7 +1776,8 @@ app.put("/updatePassword", async (req, res) => {
             employeeDetailsLogin.emp_password = newuser_HName;
 
             employeeDetailsLogin.save();
-            res.send("Password updated");
+            // res.send("Password updated");
+            res.send({ message: " Data updated successfully", val: false, val2: true })
         });
     }
     catch (err) {
@@ -1861,7 +1868,8 @@ const sys_user=req.body.sys_user;
             //         employeeDetailsLogin.emp_status = status;
 
             //         employeeDetailsLogin.save();
-                res.send("data updated");
+                // res.send("data updated");
+                res.send({ message: " Data updated successfully", val: false, val2: true })
             // });
         });
     }
@@ -1949,7 +1957,8 @@ const sys_user=req.body.sys_user;
             //         employeeDetailsLogin.emp_status = status;
 
             //         employeeDetailsLogin.save();
-                res.send("data updated");
+                // res.send("data updated");
+                res.send({ message: " Data updated successfully", val: false , val2: true})
             // });
         });
     }
@@ -1997,7 +2006,8 @@ const sys_user=req.body.sys_user;
             employeeRoles.cr_time=new Date(),
             employeeRoles.up_date=new Date(),
             employeeRoles.save();
-            res.send("Role updated");
+            // res.send("Role updated");
+            res.send({ message: " Data updated successfully", val: false, val2: true })
 
         });
     }
@@ -2021,8 +2031,8 @@ const sys_user=req.body.sys_user;
             leaveTypes.cr_time=new Date(),
             leaveTypes.up_date=new Date(),
             leaveTypes.save();
-            res.send("leave type updated");
-
+            // res.send("leave type updated");
+            res.send({ message: " Data updated successfully", val: false, val2: true })
         });
     }
     catch (err) {
@@ -2045,7 +2055,8 @@ const sys_user=req.body.sys_user;
             leaveCategory.cr_time=leaveCategory.cr_time,
             leaveCategory.up_date=new Date(),
             leaveCategory.save();
-            res.send("Role updated");
+            // res.send("Role updated");
+            res.send({ message: " Data updated successfully", val: false, val2: true })
 
         });
     }
@@ -2077,8 +2088,8 @@ const sys_user=req.body.sys_user;
             projectInfo.cr_time=new Date(),
             projectInfo.up_date=new Date(),
             projectInfo.save();
-            res.send("Project info updated");
-
+            // res.send("Project info updated");
+            res.send({ message: " Data updated successfully", val: false , val2: true})
         });
     }
     catch (err) {
@@ -2211,7 +2222,8 @@ const sys_user=req.body.sys_user;
             empTimesheet.cr_time=new Date();
             empTimesheet.up_date=new Date();
             empTimesheet.save();
-            res.send("timesheet info updated");
+            // res.send("timesheet info updated");
+            res.send({ message: " Data updated successfully", val: false , val2: true})
 
         });
     }
@@ -2308,7 +2320,8 @@ if(l_status=="approved")
 });}
 sendEmail2(employeeDetailsLogin.emp_email, "Leave have replied",eDataS,"");
 sendEmail2(reportingPerson, "Leave have replied",eDataS,"")
-            res.send("leave  info updated");
+            // res.send("leave  info updated");
+            res.send({ message: " Data updated successfully", val: false, val2: true })
 
         });        });
     }
