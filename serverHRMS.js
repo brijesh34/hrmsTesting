@@ -603,7 +603,7 @@ app.post("/register_roles", async (req, res) => {
         const oldUser = await EmployeeRoles.findOne({ role_name });
         if (oldUser) {
             // return res.status(409).send("User Already Exist. Please Login");
-            res.send({ message: "Role Already Exist, Try another.", val: false })
+            res.send({ message2: "Role Already Exist, Try another.", val: false })
         }
         else {
             const employeeRoles = new EmployeeRoles({
@@ -654,7 +654,7 @@ app.post("/register_leaveType", async (req, res) => {
        const oldUser = await LeaveTypes.findOne({ leaveType_name });
         if (oldUser) {
             // return res.status(409).send("User Already Exist. Please Login");
-            res.send({ message: " Leave Type alredy exist, try another", val: false })
+            res.send({ message2: " Leave Type alredy exist, try another", val: false })
         }
         else {
             const leaveTypes = new LeaveTypes({
@@ -702,7 +702,7 @@ app.post("/register_leaveCategory", async (req, res) => {
         const oldUser = await LeaveCategory.findOne({ leaveCategory_name });
         if (oldUser) {
             // return res.status(409).send("User Already Exist. Please Login");
-            res.send({ message: " Leave Category alredy exist, try another", val: false })
+            res.send({ message2: " Leave Category alredy exist, try another", val: false })
         }
         else {
             const leaveCategory = new LeaveCategory({
@@ -747,7 +747,7 @@ app.post("/register_project", async (req, res) => {
         const oldProject = await ProjectInfo.findOne({ pname });
         if (oldProject) {
             // return res.sendStatus(409).sendStatus("project is already existed");
-            res.send({ message: " Project is alredy exist, try another", val: false })
+            res.send({ message2: " Project is alredy exist, try another", val: false })
         }
         else {
             const projectInfo = new ProjectInfo({
@@ -863,7 +863,7 @@ createdBy:sys_user,
                     
                     sendEmail2(userEmail,"Leave Request send",eDataS,"");
                     console.log("line no----------------------->399")
-                    res.send({ message: "request successfully registered" , val2: true})
+                    res.send({ message: "Request successfully registered" , val2: true})
                 }
             })
         // }
@@ -903,7 +903,7 @@ app.post("/employeedetailsform", async (req, res) => {
         const oldUser = await EmployeeDetails.findOne({ email });
         if (oldUser) {
             // return res.status(409).send("User Already Exist. Please Login");
-            res.send({ message: " User alredy exist, Please Login", val: false })
+            res.send({ message2: " User alredy exist, Please Login", val: false })
         }
         else {
             //Encrypt user password
@@ -998,7 +998,7 @@ app.post("/employeedetailsform1", async (req, res) => {
         const len=oldUser2.length+1;
         if (oldUser) {
             // return res.status(409).send("User Already Exist. Please Login");
-            res.send({ message: " User alredy exist, Please Login", val: false })
+            res.send({ message2: " User alredy exist, Please Login", val: false })
         }
         else {
 const doj=new Date(DoJ);
