@@ -319,6 +319,8 @@ const userSchema12=new mongoose.Schema({
     reviewappariser: String,
     HrName: String,
     Lastupdate: Date,
+    status:String,
+    submission_date:Date,
     // ----------------------Domain and Teachnology-------------------------------
     Dom_Tech_ER_1:Number,
     Dom_Tech_EC_1:String,
@@ -1184,6 +1186,9 @@ app.post("/register_appraisal", async (req, res) => {
                 reviewappariser ,
                 HrName ,
                 Lastupdate,
+                
+    status:"submitted",
+    submission_date:new Date(),
                 // ----------------------Domain and Teachnology-------------------------------
                 Dom_Tech_ER_1 ,
                 Dom_Tech_EC_1 ,
@@ -2264,6 +2269,25 @@ app.get(`/employeeDetail1/:id`, async (req, res, next) => {
     }
 
 })
+
+app.get("/appraisalDetail1", async (req, res, next) => {
+    try {
+        AppraisalInfo.find({}, (err, appraisalInfo) => {
+            if (err) {
+                console.warn(err)
+                return next(err)
+            }
+            console.warn(appraisalInfo);
+            //res.json(employeedetails);
+            res.send(appraisalInfo);
+        })
+    } catch (err) {
+        console.error(err)
+    }
+
+})
+
+
 
 app.get(`/employeeFiles/:id`, async (req, res) => {
     try {
