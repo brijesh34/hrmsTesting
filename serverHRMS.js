@@ -980,182 +980,182 @@ app.post("/register_appraisal", async (req, res) => {
             // ----------------------Domain and Teachnology-------------------------------
             Dom_Tech_ER_1 ,
             Dom_Tech_EC_1 ,
-            Dom_Tech_MR_1 ,
-            Dom_Tech_MC_1 ,
+            // Dom_Tech_MR_1 ,
+            // Dom_Tech_MC_1 ,
             //---------------------- Understanding function and Technology------------------------------------- 
             Un_fun_ER_1 ,
             Un_fun_EC_1 ,
-            Un_fun_MR_1 ,
-            Un_fun_MC_1 ,
+            // Un_fun_MR_1 ,
+            // Un_fun_MC_1 ,
             //------------------------------Usage of tools-------------------------
             Usage_Tools_ER_1 ,
             Usage_Tools_EC_1 ,
-            Usage_Tools_MR_1 ,
-            Usage_Tools_MC_1 ,
+            // Usage_Tools_MR_1 ,
+            // Usage_Tools_MC_1 ,
             // -------------------------Ability to learn Technology------------------------
             Ability_learn_ER_1 ,
             Ability_learn_EC_1 ,
-            Ability_learn_MR_1 ,
-            Ability_learn_MC_1 ,
+            // Ability_learn_MR_1 ,
+            // Ability_learn_MC_1 ,
       
             procedure_eqality_ER_2 ,
             procedure_eqality_EC_2 ,
-            procedure_eqality_MC_2 ,
-            procedure_eqality_MR_2 ,
+            // procedure_eqality_MC_2 ,
+            // procedure_eqality_MR_2 ,
       
       
       
             problem_finding_skill_ER_2 ,
             problem_finding_skill_EC_2 ,
-            problem_finding_skill_MR_2 ,
-            problem_finding_skill_MC_2 ,
+            // problem_finding_skill_MR_2 ,
+            // problem_finding_skill_MC_2 ,
       
       
             contribute_mentor_help_ER_3 ,
             contribute_mentor_help_EC_3 ,
-            contribute_mentor_help_MC_3 ,
-            contribute_mentor_help_MR_3 ,
+            // contribute_mentor_help_MC_3 ,
+            // contribute_mentor_help_MR_3 ,
       
             professional_relationship_ER_3 ,
             professional_relationship_EC_3 ,
-            professional_relationship_MR_3 ,
-            professional_relationship_MC_3 ,
+            // professional_relationship_MR_3 ,
+            // professional_relationship_MC_3 ,
       
       
       
             challenges_responsibility_ER_4 ,
             challenges_responsibility_EC_4 ,
-            challenges_responsibility_MR_4 ,
-            challenges_responsibility_MC_4 ,
+            // challenges_responsibility_MR_4 ,
+            // challenges_responsibility_MC_4 ,
       
             Ideas_knowledge_ER_4 ,
             Ideas_knowledge_EC_4 ,
-            Ideas_knowledge_MR_4 ,
-            Ideas_knowledge_MC_4 ,
+            // Ideas_knowledge_MR_4 ,
+            // Ideas_knowledge_MC_4 ,
       
             Listen_understand_info_ER_5 ,
             Listen_understand_info_EC_5 ,
-            Listen_understand_info_MR_5 ,
-            Listen_understand_info_MC_5 ,
+            // Listen_understand_info_MR_5 ,
+            // Listen_understand_info_MC_5 ,
       
             info_clear_EC_5 ,
             info_clear_ER_5 ,
-            info_clear_MC_5 ,
-            info_clear_MR_5 ,
+            // info_clear_MC_5 ,
+            // info_clear_MR_5 ,
       
             Plan_Schedules_ER_6 ,
             Plan_Schedules_EC_6 ,
-            Plan_Schedules_MR_6 ,
-            Plan_Schedules_MC_6 ,
+            // Plan_Schedules_MR_6 ,
+            // Plan_Schedules_MC_6 ,
       
       
             Effective_work_EC_6 ,
             Effective_work_ER_6 ,
-            Effective_work_MR_6 ,
-            Effective_work_MC_6 ,
+            // Effective_work_MR_6 ,
+            // Effective_work_MC_6 ,
       
             Management_ER_6 ,
             Management_EC_6 ,
-            Management_MC_6 ,
-            Management_MR_6 ,
+            // Management_MC_6 ,
+            // Management_MR_6 ,
       
             accomplishment_ER_6 ,
-            accomplishment_MR_6 ,
+            // accomplishment_MR_6 ,
             accomplishment_EC_6 ,
-            accomplishment_MC_6 ,
+            // accomplishment_MC_6 ,
       
       
             customer_relationship_EC_7 ,
             customer_relationship_ER_7 ,
-            customer_relationship_MC_7 ,
-            customer_relationship_MR_7 ,
+            // customer_relationship_MC_7 ,
+            // customer_relationship_MR_7 ,
       
             Depend_reliability_ER_7 ,
             Depend_reliability_EC_7 ,
-            Depend_reliability_MR_7 ,
-            Depend_reliability_MC_7 ,
+            // Depend_reliability_MR_7 ,
+            // Depend_reliability_MC_7 ,
       
             policies_EC_7 ,
             policies_ER_7 ,
-            policies_MR_7 ,
-            policies_MC_7 ,
+            // policies_MR_7 ,
+            // policies_MC_7 ,
       
             Resilience_ER_7 ,
             Resilience_EC_7 ,
-            Resilience_MC_7 ,
-            Resilience_MR_7 ,
+            // Resilience_MC_7 ,
+            // Resilience_MR_7 ,
       
             semiannual_EC_8 ,
             semiannual_ER_8 ,
-            semiannual_MC_8 ,
-            semiannual_MR_8 ,
+            // semiannual_MC_8 ,
+            // semiannual_MR_8 ,
       
             semiannual2_EC_8 ,
             semiannual2_ER_8 ,
-            semiannual2_MC_8 ,
-            semiannual2_MR_8 ,
+            // semiannual2_MC_8 ,
+            // semiannual2_MR_8 ,
       
             EC_10_1_3 ,
-            MC_10_1_4 ,
+            // MC_10_1_4 ,
       
       
             EC_10_2_3 ,
-            MC_10_2_4 ,
+            // MC_10_2_4 ,
       
             EC_10_3_3 ,
-            MC_10_3_4 ,
+            // MC_10_3_4 ,
       
             EC_10_4_3 ,
-            MC_10_4_4 ,
+            // MC_10_4_4 ,
       
             EC_10_5_3 ,
-            MC_10_5_4 ,
+            // MC_10_5_4 ,
       
             EC_10_6_3 ,
-            MC_10_6_4 ,
+            // MC_10_6_4 ,
       
             EC_10_7_3 ,
-            MC_10_7_4 ,
+            // MC_10_7_4 ,
       
             EC_10_8_3 ,
-            MC_10_8_4 ,
+            // MC_10_8_4 ,
       
             ER_9_1_3 ,
             EC_9_1_4 ,
-            MR_9_1_5 ,
-            MC_9_1_6 ,
+            // MR_9_1_5 ,
+            // MC_9_1_6 ,
          
       
             ER_9_2_3 ,
             EC_9_2_4 ,
-            MC_9_2_6 ,
-            MR_9_2_5 ,
+            // MC_9_2_6 ,
+            // MR_9_2_5 ,
       
             ER_9_3_3 ,
             EC_9_3_4 ,
-            MC_9_3_6 ,
-            MR_9_3_5 ,
+            // MC_9_3_6 ,
+            // MR_9_3_5 ,
       
             ER_9_4_3 ,
             EC_9_4_4 ,
-            MC_9_4_6 ,
-            MR_9_4_5 ,
+            // MC_9_4_6 ,
+            // MR_9_4_5 ,
       
        TER,
-       TMR,
+    //    TMR,
        Taverage,
-       TavgMR,
+    //    TavgMR,
       
        EC_over,
-       MC_over,
+    //    MC_over,
       
       
               
             total_average_ER1 ,
-            total_average_MR1 ,
+            // total_average_MR1 ,
       
             total_average_ER2 ,
-            total_average_MR2 ,
+            // total_average_MR2 ,
             sys_user,
       } = req.body;
              const today = new Date();
@@ -1192,182 +1192,182 @@ app.post("/register_appraisal", async (req, res) => {
                 // ----------------------Domain and Teachnology-------------------------------
                 Dom_Tech_ER_1 ,
                 Dom_Tech_EC_1 ,
-                Dom_Tech_MR_1 ,
-                Dom_Tech_MC_1 ,
+                Dom_Tech_MR_1:" " ,
+                Dom_Tech_MC_1 :" ",
                 //---------------------- Understanding function and Technology------------------------------------- 
                 Un_fun_ER_1 ,
                 Un_fun_EC_1 ,
-                Un_fun_MR_1 ,
-                Un_fun_MC_1 ,
+                Un_fun_MR_1 :" ",
+                Un_fun_MC_1 :" ",
                 //------------------------------Usage of tools-------------------------
                 Usage_Tools_ER_1 ,
                 Usage_Tools_EC_1 ,
-                Usage_Tools_MR_1 ,
-                Usage_Tools_MC_1 ,
+                Usage_Tools_MR_1:" " ,
+                Usage_Tools_MC_1 :" ",
                 // -------------------------Ability to learn Technology------------------------
                 Ability_learn_ER_1 ,
                 Ability_learn_EC_1 ,
-                Ability_learn_MR_1 ,
-                Ability_learn_MC_1 ,
+                Ability_learn_MR_1 :" ",
+                Ability_learn_MC_1 :" ",
           
                 procedure_eqality_ER_2 ,
                 procedure_eqality_EC_2 ,
-                procedure_eqality_MC_2 ,
-                procedure_eqality_MR_2 ,
+                procedure_eqality_MC_2 :" ",
+                procedure_eqality_MR_2 :" ",
           
           
           
                 problem_finding_skill_ER_2 ,
                 problem_finding_skill_EC_2 ,
-                problem_finding_skill_MR_2 ,
-                problem_finding_skill_MC_2 ,
+                problem_finding_skill_MR_2 :" ",
+                problem_finding_skill_MC_2 :" ",
           
           
                 contribute_mentor_help_ER_3 ,
                 contribute_mentor_help_EC_3 ,
-                contribute_mentor_help_MC_3 ,
-                contribute_mentor_help_MR_3 ,
+                contribute_mentor_help_MC_3 :" ",
+                contribute_mentor_help_MR_3 :" ",
           
                 professional_relationship_ER_3 ,
                 professional_relationship_EC_3 ,
-                professional_relationship_MR_3 ,
-                professional_relationship_MC_3 ,
+                professional_relationship_MR_3 :" ",
+                professional_relationship_MC_3 :" ",
           
           
           
                 challenges_responsibility_ER_4 ,
                 challenges_responsibility_EC_4 ,
-                challenges_responsibility_MR_4 ,
-                challenges_responsibility_MC_4 ,
+                challenges_responsibility_MR_4 :" ",
+                challenges_responsibility_MC_4 :" ",
           
                 Ideas_knowledge_ER_4 ,
                 Ideas_knowledge_EC_4 ,
-                Ideas_knowledge_MR_4 ,
-                Ideas_knowledge_MC_4 ,
+                Ideas_knowledge_MR_4 :" ",
+                Ideas_knowledge_MC_4 :" ",
           
                 Listen_understand_info_ER_5 ,
                 Listen_understand_info_EC_5 ,
-                Listen_understand_info_MR_5 ,
-                Listen_understand_info_MC_5 ,
+                Listen_understand_info_MR_5:" " ,
+                Listen_understand_info_MC_5 :" ",
           
                 info_clear_EC_5 ,
                 info_clear_ER_5 ,
-                info_clear_MC_5 ,
-                info_clear_MR_5 ,
+                info_clear_MC_5:" " ,
+                info_clear_MR_5 :" ",
           
                 Plan_Schedules_ER_6 ,
                 Plan_Schedules_EC_6 ,
-                Plan_Schedules_MR_6 ,
-                Plan_Schedules_MC_6 ,
+                Plan_Schedules_MR_6 :" ",
+                Plan_Schedules_MC_6 :" ",
           
           
                 Effective_work_EC_6 ,
                 Effective_work_ER_6 ,
-                Effective_work_MR_6 ,
-                Effective_work_MC_6 ,
+                Effective_work_MR_6 :" ",
+                Effective_work_MC_6 :" ",
           
                 Management_ER_6 ,
                 Management_EC_6 ,
-                Management_MC_6 ,
-                Management_MR_6 ,
+                Management_MC_6 :" ",
+                Management_MR_6 :" ",
           
                 accomplishment_ER_6 ,
-                accomplishment_MR_6 ,
+                accomplishment_MR_6 :" ",
                 accomplishment_EC_6 ,
-                accomplishment_MC_6 ,
+                accomplishment_MC_6 :" ",
           
           
                 customer_relationship_EC_7 ,
                 customer_relationship_ER_7 ,
-                customer_relationship_MC_7 ,
-                customer_relationship_MR_7 ,
+                customer_relationship_MC_7:" " ,
+                customer_relationship_MR_7 :" ",
           
                 Depend_reliability_ER_7 ,
                 Depend_reliability_EC_7 ,
-                Depend_reliability_MR_7 ,
-                Depend_reliability_MC_7 ,
+                Depend_reliability_MR_7:" " ,
+                Depend_reliability_MC_7 :" ",
           
                 policies_EC_7 ,
                 policies_ER_7 ,
-                policies_MR_7 ,
-                policies_MC_7 ,
+                policies_MR_7 :" ",
+                policies_MC_7 :" ",
           
                 Resilience_ER_7 ,
                 Resilience_EC_7 ,
-                Resilience_MC_7 ,
-                Resilience_MR_7 ,
+                Resilience_MC_7:" " ,
+                Resilience_MR_7 :" ",
           
                 semiannual_EC_8 ,
                 semiannual_ER_8 ,
-                semiannual_MC_8 ,
-                semiannual_MR_8 ,
+                semiannual_MC_8 :" ",
+                semiannual_MR_8 :" ",
           
                 semiannual2_EC_8 ,
                 semiannual2_ER_8 ,
-                semiannual2_MC_8 ,
-                semiannual2_MR_8 ,
+                semiannual2_MC_8 :" ",
+                semiannual2_MR_8 :" ",
           
                 EC_10_1_3 ,
-                MC_10_1_4 ,
+                MC_10_1_4 :" ",
           
           
                 EC_10_2_3 ,
-                MC_10_2_4 ,
+                MC_10_2_4 :" ",
           
                 EC_10_3_3 ,
-                MC_10_3_4 ,
+                MC_10_3_4 :" ",
           
                 EC_10_4_3 ,
-                MC_10_4_4 ,
+                MC_10_4_4 :" ",
           
                 EC_10_5_3 ,
-                MC_10_5_4 ,
+                MC_10_5_4 :" ",
           
                 EC_10_6_3 ,
-                MC_10_6_4 ,
+                MC_10_6_4 :" ",
           
                 EC_10_7_3 ,
-                MC_10_7_4 ,
+                MC_10_7_4 :" ",
           
                 EC_10_8_3 ,
-                MC_10_8_4 ,
+                MC_10_8_4 :" ",
           
                 ER_9_1_3 ,
                 EC_9_1_4 ,
-                MR_9_1_5 ,
-                MC_9_1_6 ,
+                MR_9_1_5 :" ",
+                MC_9_1_6 :" ",
              
           
                 ER_9_2_3 ,
                 EC_9_2_4 ,
-                MC_9_2_6 ,
-                MR_9_2_5 ,
+                MC_9_2_6 :" ",
+                MR_9_2_5 :" ",
           
                 ER_9_3_3 ,
                 EC_9_3_4 ,
-                MC_9_3_6 ,
-                MR_9_3_5 ,
+                MC_9_3_6 :" ",
+                MR_9_3_5 :" ",
           
                 ER_9_4_3 ,
                 EC_9_4_4 ,
-                MC_9_4_6 ,
-                MR_9_4_5 ,
+                MC_9_4_6 :" ",
+                MR_9_4_5 :" ",
           
            TER,
-           TMR,
+           TMR:" ",
            Taverage,
-           TavgMR,
+           TavgMR:" ",
           
            EC_over,
-           MC_over,
+           MC_over:" ",
           
           
                   
                 total_average_ER1 ,
-                total_average_MR1 ,
+                total_average_MR1:" " ,
           
                 total_average_ER2 ,
-                total_average_MR2 ,
+                total_average_MR2 :" ",
           
                 createdBy:sys_user,
    updatedBy:sys_user,
@@ -2857,6 +2857,629 @@ const sys_user=req.body.sys_user;
             empTimesheet.save();
             // res.send("timesheet info updated");
             res.send({ message: " Data updated successfully", val: false , val2: true})
+
+        });
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
+
+////////////////////update Appraisal/////
+/////////////////////////////////////////
+
+app.put("/appraisalUpdate", async (req, res) => {
+    try {
+        // const  id = req.body.id;
+        const EmployeeName = req.body.EmployeeName;
+        const ManagerName = req.body.ManagerName;
+        const Designation = req.body.Designation;
+        const EmpId = req.body.EmpId;
+        const doj = req.body.doj;
+        const
+        Pending_2_3 = req.body.Pending_2_3;
+ 
+const
+  SubmissionDate = req.body.SubmissionDate;
+  const
+        department = req.body.department;
+        const
+        TotalExperience = req.body.TotalExperience;
+        const
+        experience = req.body.experience;
+        const
+        cycle = req.body.cycle;
+        const
+        reviewappariser = req.body.reviewappariser;
+        const
+        HrName = req.body.HrName;
+        const
+        Lastupdate = req.body.Lastupdate;
+       
+        // ----------------------Domain and Teachnology----------------------------ab.;
+        const
+        Dom_Tech_ER_1 = req.body.Dom_Tech_ER_1;
+        const
+        Dom_Tech_EC_1 = req.body.Dom_Tech_EC_1;
+        const
+        Dom_Tech_MR_1 = req.body.Dom_Tech_MR_1;
+        const
+        Dom_Tech_MC_1 = req.body.Dom_Tech_MC_1;
+        //---------------------- Understanding function and Technology-----------------------------------ab.;
+        const
+        Un_fun_ER_1 = req.body.Un_fun_ER_1;
+        const
+        Un_fun_EC_1 = req.body.Un_fun_EC_1;
+        const
+        Un_fun_MR_1 = req.body.Un_fun_MR_1;
+        const
+        Un_fun_MC_1 = req.body.Un_fun_MC_1;
+        //------------------------------Usage of tools----------------------ab.;
+        const
+        Usage_Tools_ER_1 = req.body.Usage_Tools_ER_1;
+        const
+        Usage_Tools_EC_1 = req.body.Usage_Tools_EC_1;
+        const
+        Usage_Tools_MR_1 = req.body.Usage_Tools_MR_1;
+        const
+        Usage_Tools_MC_1 = req.body.Usage_Tools_MC_1;
+        // -------------------------Ability to learn Technology---------------------ab.;
+        const
+        Ability_learn_ER_1 = req.body.Ability_learn_ER_1;
+        const
+        Ability_learn_EC_1 = req.body.Ability_learn_EC_1;
+        const
+        Ability_learn_MR_1 = req.body.Ability_learn_MR_1;
+        const
+        Ability_learn_MC_1 = req.body.Ability_learn_MC_1;
+       
+const
+        procedure_eqality_ER_2 = req.body.procedure_eqality_ER_2;
+        const
+        procedure_eqality_EC_2 = req.body.procedure_eqality_EC_2;
+        const
+        procedure_eqality_MC_2 = req.body.procedure_eqality_MC_2;
+        const
+        procedure_eqality_MR_2 = req.body.procedure_eqality_MR_2;
+       
+const
+        problem_finding_skill_ER_2 = req.body.problem_finding_skill_ER_2;
+        const
+        problem_finding_skill_EC_2 = req.body.problem_finding_skill_EC_2;
+        const
+        problem_finding_skill_MR_2 = req.body.problem_finding_skill_MR_2;
+        const
+        problem_finding_skill_MC_2 = req.body.problem_finding_skill_MC_2;
+       
+const
+        contribute_mentor_help_ER_3 = req.body.contribute_mentor_help_ER_3;
+        const
+        contribute_mentor_help_EC_3 = req.body.contribute_mentor_help_EC_3;
+        const
+        contribute_mentor_help_MC_3 = req.body.contribute_mentor_help_MC_3;
+        const
+        contribute_mentor_help_MR_3 = req.body.contribute_mentor_help_MR_3;
+       
+const
+        professional_relationship_ER_3 = req.body.professional_relationship_ER_3;
+        const
+        professional_relationship_EC_3 = req.body.professional_relationship_EC_3;
+        const
+        professional_relationship_MR_3 = req.body.professional_relationship_MR_3;
+        const
+        professional_relationship_MC_3 = req.body.professional_relationship_MC_3;
+       
+const
+        challenges_responsibility_ER_4 = req.body.challenges_responsibility_ER_4;
+        const
+        challenges_responsibility_EC_4 = req.body.challenges_responsibility_EC_4;
+        const
+        challenges_responsibility_MR_4 = req.body.challenges_responsibility_MR_4;
+        const
+        challenges_responsibility_MC_4 = req.body.challenges_responsibility_MC_4;
+       
+const
+        Ideas_knowledge_ER_4 = req.body.Ideas_knowledge_ER_4;
+        const
+        Ideas_knowledge_EC_4 = req.body.Ideas_knowledge_EC_4;
+        const
+        Ideas_knowledge_MR_4 = req.body.Ideas_knowledge_MR_4;
+        const
+        Ideas_knowledge_MC_4 = req.body.Ideas_knowledge_MC_4;
+       
+const
+        Listen_understand_info_ER_5 = req.body.Listen_understand_info_ER_5;
+        const
+        Listen_understand_info_EC_5 = req.body.Listen_understand_info_EC_5;
+        const
+        Listen_understand_info_MR_5 = req.body.Listen_understand_info_MR_5;
+        const
+        Listen_understand_info_MC_5 = req.body.Listen_understand_info_MC_5;
+       
+const
+        info_clear_EC_5 = req.body.info_clear_EC_5;
+        const
+        info_clear_ER_5 = req.body.info_clear_ER_5;
+        const
+        info_clear_MC_5 = req.body.info_clear_MC_5;
+        const
+        info_clear_MR_5 = req.body.info_clear_MR_5;
+       
+const
+        Plan_Schedules_ER_6 = req.body.Plan_Schedules_ER_6;
+        const
+        Plan_Schedules_EC_6 = req.body.Plan_Schedules_EC_6;
+        const
+        Plan_Schedules_MR_6 = req.body.Plan_Schedules_MR_6;
+        const
+        Plan_Schedules_MC_6 = req.body.Plan_Schedules_MC_6;
+       
+const
+        Effective_work_EC_6 = req.body.Effective_work_EC_6;
+        const
+        Effective_work_ER_6 = req.body.Effective_work_ER_6;
+        const
+        Effective_work_MR_6 = req.body.Effective_work_MR_6;
+        const
+        Effective_work_MC_6 = req.body.Effective_work_MC_6;
+       
+const
+        Management_ER_6 = req.body.Management_ER_6;
+        const
+        Management_EC_6 = req.body.Management_EC_6;
+        const
+        Management_MC_6 = req.body.Management_MC_6;
+        const
+        Management_MR_6 = req.body.Management_MR_6;
+       
+const
+        accomplishment_ER_6 = req.body.accomplishment_ER_6;
+        const
+        accomplishment_MR_6 = req.body.accomplishment_MR_6;
+        const
+        accomplishment_EC_6 = req.body.accomplishment_EC_6;
+        const
+        accomplishment_MC_6 = req.body.accomplishment_MC_6;
+      
+const
+        customer_relationship_EC_7 = req.body.customer_relationship_EC_7;
+        const
+        customer_relationship_ER_7 = req.body.customer_relationship_ER_7;
+        const
+        customer_relationship_MC_7 = req.body.customer_relationship_MC_7;
+        const
+        customer_relationship_MR_7 = req.body.customer_relationship_MR_7;
+      
+const
+        Depend_reliability_ER_7 = req.body.Depend_reliability_ER_7;
+        const
+        Depend_reliability_EC_7 = req.body.Depend_reliability_EC_7;
+        const
+        Depend_reliability_MR_7 = req.body.Depend_reliability_MR_7;
+        const
+        Depend_reliability_MC_7 = req.body.Depend_reliability_MC_7;
+      
+const
+        policies_EC_7 = req.body.policies_EC_7;
+        const
+        policies_ER_7 = req.body.policies_ER_7;
+        const
+        policies_MR_7 = req.body.policies_MR_7;
+        const
+        policies_MC_7 = req.body.policies_MC_7;
+      
+const
+        Resilience_ER_7 = req.body.Resilience_ER_7;
+        const
+        Resilience_EC_7 = req.body.Resilience_EC_7;
+        const
+        Resilience_MC_7 = req.body.Resilience_MC_7;
+        const
+        Resilience_MR_7 = req.body.Resilience_MR_7;
+      
+const
+        semiannual_EC_8 = req.body.semiannual_EC_8;
+        const
+        semiannual_ER_8 = req.body.semiannual_ER_8;
+        const
+        semiannual_MC_8 = req.body.semiannual_MC_8;
+        const
+        semiannual_MR_8 = req.body.semiannual_MR_8;
+      
+const
+        semiannual2_EC_8 = req.body.semiannual2_EC_8;
+        const
+        semiannual2_ER_8 = req.body.semiannual2_ER_8;
+        const
+        semiannual2_MC_8 = req.body.semiannual2_MC_8;
+        const
+        semiannual2_MR_8 = req.body.semiannual2_MR_8;
+      
+const
+        EC_10_1_3 = req.body.EC_10_1_3;
+        const
+        MC_10_1_4 = req.body.MC_10_1_4;
+      
+const
+        EC_10_2_3 = req.body.EC_10_2_3;
+        const
+        MC_10_2_4 = req.body.MC_10_2_4;
+      
+const
+        EC_10_3_3 = req.body.EC_10_3_3;
+        const
+        MC_10_3_4 = req.body.MC_10_2_4;
+      
+const
+        EC_10_4_3 = req.body.EC_10_4_3;
+        const
+        MC_10_4_4 = req.body.MC_10_4_4;
+       
+const
+        EC_10_5_3 = req.body.EC_10_5_3;
+        const
+        MC_10_5_4 = req.body.MC_10_5_4;
+       
+const
+        EC_10_6_3 = req.body.EC_10_6_3;
+        const
+        MC_10_6_4 = req.body.MC_10_6_4;
+       
+const
+        EC_10_7_3 = req.body.EC_10_7_3;
+        const
+        MC_10_7_4 = req.body.MC_10_7_4;
+       
+const
+        EC_10_8_3 = req.body.EC_10_8_3;
+        const
+        MC_10_8_4 = req.body.MC_10_8_4;
+       
+const
+        ER_9_1_3 = req.body.ER_9_1_3;
+        const
+        EC_9_1_4 = req.body.EC_9_1_3;
+        const
+        MR_9_1_5 = req.body.MR_9_1_5;
+        const
+        MC_9_1_6 = req.body.MC_9_1_6;
+       
+const
+        ER_9_2_3 = req.body.ER_9_2_3;
+        const
+        EC_9_2_4 = req.body.EC_9_2_4;
+        const
+        MC_9_2_6 = req.body.MC_9_2_6;
+        const
+        MR_9_2_5 = req.body.MR_9_2_5;
+       
+const
+        ER_9_3_3 = req.body.ER_9_3_3;
+        const
+        EC_9_3_4 = req.body.EC_9_3_4;
+        const
+        MC_9_3_6 = req.body.MC_9_3_6;
+        const
+        MR_9_3_5 = req.body.MR_9_3_5;
+       
+const
+        ER_9_4_3 = req.body.ER_9_4_3;
+        const
+        EC_9_4_4 = req.body.EC_9_4_4;
+        const
+        MC_9_4_6 = req.body.MC_9_4_6;
+        const
+        MR_9_4_5 = req.body.MR_9_4_5;
+       
+const
+   TER = req.body.TER;
+   const
+   TMR = req.body.TMR;
+   const
+   Taverage = req.body.Taverage;
+   const
+   TavgMR = req.body.TavgMR;
+   
+const
+   EC_over = req.body.EC_over;
+   const
+   MC_over = req.body.MC_over;
+   const
+        total_average_ER1 = req.body.total_average_ER1;
+        const
+        total_average_MR1 = req.body.total_average_MR1;
+ 
+const
+        total_average_ER2 = req.body.total_average_ER2;
+        const
+        total_average_MR2 = req.body.total_average_MR2;
+  
+        await AppraisalInfo.findOne({ EmpId:EmpId }, (err, AppraisalInfo) => {
+            AppraisalInfo.EmployeeName =  EmployeeName,
+            AppraisalInfo.ManagerName =  ManagerName,
+            AppraisalInfo.Designation =  Designation,
+            AppraisalInfo.EmpId =  EmpId,
+            AppraisalInfo.doj =  doj,
+            AppraisalInfo.Pending_2_3 =  Pending_2_3,
+            AppraisalInfo.SubmissionDate =  SubmissionDate,
+      AppraisalInfo.department =  department,
+            AppraisalInfo.TotalExperience =  TotalExperience,
+            AppraisalInfo.experience =  experience,
+            AppraisalInfo.cycle =  cycle,
+            AppraisalInfo.reviewappariser =  reviewappariser,
+            AppraisalInfo.HrName =  HrName,
+            AppraisalInfo.Lastupdate =  Lastupdate,
+            
+            // ----------------------Domain and Teachnology----------------------------ab.-
+            AppraisalInfo.
+            Dom_Tech_ER_1 =  Dom_Tech_ER_1,
+            AppraisalInfo.
+            Dom_Tech_EC_1 =  Dom_Tech_EC_1,
+            AppraisalInfo.
+            Dom_Tech_MR_1 =  Dom_Tech_MR_1,
+            AppraisalInfo.
+            Dom_Tech_MC_1 =  Dom_Tech_MC_1,
+ 
+            //---------------------- Understanding function and Technology-----------------------------------ab. 
+            AppraisalInfo.
+            Un_fun_ER_1 =  Un_fun_ER_1,
+            AppraisalInfo.
+            Un_fun_EC_1 =  Un_fun_EC_1,
+            AppraisalInfo.
+            Un_fun_MR_1 =  Un_fun_MR_1,
+            AppraisalInfo.
+            Un_fun_MC_1 =  Un_fun_MC_1,
+            //------------------------------Usage of tools----------------------ab.-
+            AppraisalInfo.
+            Usage_Tools_ER_1 =  Usage_Tools_ER_1,
+            AppraisalInfo.
+            Usage_Tools_EC_1 =  Usage_Tools_EC_1,
+            AppraisalInfo.
+            Usage_Tools_MR_1 =  Usage_Tools_MR_1,
+            AppraisalInfo.
+            Usage_Tools_MC_1 =  Usage_Tools_MC_1,
+            // -------------------------Ability to learn Technology---------------------ab.-
+            AppraisalInfo.
+            Ability_learn_ER_1 =  Ability_learn_ER_1,
+            AppraisalInfo.
+            Ability_learn_EC_1 =  Ability_learn_EC_1,
+            AppraisalInfo.
+            Ability_learn_MR_1 =  Ability_learn_MR_1,
+            AppraisalInfo.
+            Ability_learn_MC_1 =  Ability_learn_MC_1,
+      
+            AppraisalInfo.
+            procedure_eqality_ER_2 =  procedure_eqality_ER_2,
+            AppraisalInfo.
+            procedure_eqality_EC_2 =  procedure_eqality_EC_2,
+            AppraisalInfo.
+            procedure_eqality_MC_2 =  procedure_eqality_MC_2,
+            AppraisalInfo.
+            procedure_eqality_MR_2 =  procedure_eqality_MR_2,
+            AppraisalInfo.
+            problem_finding_skill_ER_2 =  problem_finding_skill_ER_2,
+            AppraisalInfo.
+            problem_finding_skill_EC_2 =  problem_finding_skill_EC_2,
+            AppraisalInfo.
+            problem_finding_skill_MR_2 =  problem_finding_skill_MR_2,
+            AppraisalInfo.
+            problem_finding_skill_MC_2 =  problem_finding_skill_MC_2,
+      
+            AppraisalInfo.
+            contribute_mentor_help_ER_3 =  contribute_mentor_help_ER_3,
+            AppraisalInfo.
+            contribute_mentor_help_EC_3 =  contribute_mentor_help_EC_3,
+            AppraisalInfo.
+            contribute_mentor_help_MC_3 =  contribute_mentor_help_MC_3,
+            AppraisalInfo.
+            contribute_mentor_help_MR_3 =  contribute_mentor_help_MR_3,
+            AppraisalInfo.
+            professional_relationship_ER_3 =  professional_relationship_ER_3,
+            AppraisalInfo.
+            professional_relationship_EC_3 =  professional_relationship_EC_3,
+            AppraisalInfo.
+            professional_relationship_MR_3 =  professional_relationship_MR_3,
+            AppraisalInfo.
+            professional_relationship_MC_3 =  professional_relationship_MC_3,
+            AppraisalInfo.
+            challenges_responsibility_ER_4 =  challenges_responsibility_ER_4,
+            AppraisalInfo.
+            challenges_responsibility_EC_4 =  challenges_responsibility_EC_4,
+            AppraisalInfo.
+            challenges_responsibility_MR_4 =  challenges_responsibility_MR_4,
+            AppraisalInfo.
+            challenges_responsibility_MC_4 =  challenges_responsibility_MC_4,
+            AppraisalInfo.
+            Ideas_knowledge_ER_4 =  Ideas_knowledge_ER_4,
+            AppraisalInfo.
+            Ideas_knowledge_EC_4 =  Ideas_knowledge_EC_4,
+            AppraisalInfo.
+            Ideas_knowledge_MR_4 =  Ideas_knowledge_MR_4,
+            AppraisalInfo.
+            Ideas_knowledge_MC_4 =  Ideas_knowledge_MC_4,
+            AppraisalInfo.
+            Listen_understand_info_ER_5 =  Listen_understand_info_ER_5,
+            AppraisalInfo.
+            Listen_understand_info_EC_5 =  Listen_understand_info_EC_5,
+            AppraisalInfo.
+            Listen_understand_info_MR_5 =  Listen_understand_info_MR_5,
+            AppraisalInfo.
+            Listen_understand_info_MC_5 =  Listen_understand_info_MC_5,
+            AppraisalInfo.
+            info_clear_EC_5 =  info_clear_EC_5,
+            AppraisalInfo.
+            info_clear_ER_5 =  info_clear_ER_5,
+            AppraisalInfo.
+            info_clear_MC_5 =  info_clear_MC_5,
+            AppraisalInfo.
+            info_clear_MR_5 =  info_clear_MR_5,
+            AppraisalInfo.
+            Plan_Schedules_ER_6 =  Plan_Schedules_ER_6,
+            AppraisalInfo.
+            Plan_Schedules_EC_6 =  Plan_Schedules_EC_6,
+            AppraisalInfo.
+            Plan_Schedules_MR_6 =  Plan_Schedules_MR_6,
+            AppraisalInfo.
+            Plan_Schedules_MC_6 =  Plan_Schedules_MC_6,
+            AppraisalInfo.
+            Effective_work_EC_6 =  Effective_work_EC_6,
+            AppraisalInfo.
+            Effective_work_ER_6 =  Effective_work_ER_6,
+            AppraisalInfo.
+            Effective_work_MR_6 =  Effective_work_MR_6,
+            AppraisalInfo.
+            Effective_work_MC_6 =  Effective_work_MC_6,
+            AppraisalInfo.
+            Management_ER_6 =  Management_ER_6,
+            AppraisalInfo.
+            Management_EC_6 =  Management_EC_6,
+            AppraisalInfo.
+            Management_MC_6 =  Management_MC_6,
+            AppraisalInfo.
+            Management_MR_6 =  Management_MR_6,
+            AppraisalInfo.
+            accomplishment_ER_6 =  accomplishment_ER_6,
+            AppraisalInfo.
+            accomplishment_MR_6 =  accomplishment_MR_6,
+            AppraisalInfo.
+            accomplishment_EC_6 =  accomplishment_EC_6,
+            AppraisalInfo.
+            accomplishment_MC_6 =  accomplishment_MC_6,
+            AppraisalInfo.
+            customer_relationship_EC_7 =  customer_relationship_EC_7,
+            AppraisalInfo.
+            customer_relationship_ER_7 =  customer_relationship_ER_7,
+            AppraisalInfo.
+            customer_relationship_MC_7 =  customer_relationship_MC_7,
+            AppraisalInfo.
+            customer_relationship_MR_7 =  customer_relationship_MR_7,
+            AppraisalInfo.
+            Depend_reliability_ER_7 =  Depend_reliability_ER_7,
+            AppraisalInfo.
+            Depend_reliability_EC_7 =  Depend_reliability_EC_7,
+            AppraisalInfo.
+            Depend_reliability_MR_7 =  Depend_reliability_MR_7,
+            AppraisalInfo.
+            Depend_reliability_MC_7 =  Depend_reliability_MC_7,
+            AppraisalInfo.
+            policies_EC_7 =  policies_EC_7,
+            AppraisalInfo.
+            policies_ER_7 =  policies_ER_7,
+            AppraisalInfo.
+            policies_MR_7 =  policies_MR_7,
+            AppraisalInfo.
+            policies_MC_7 =  policies_MC_7,
+            AppraisalInfo.
+            Resilience_ER_7 =  Resilience_ER_7,
+            AppraisalInfo.
+            Resilience_EC_7 =  Resilience_EC_7,
+            AppraisalInfo.
+            Resilience_MC_7 =  Resilience_MC_7,
+            AppraisalInfo.
+            Resilience_MR_7 =  Resilience_MR_7,
+            AppraisalInfo.
+            semiannual_EC_8 =  semiannual_EC_8,
+            AppraisalInfo.
+            semiannual_ER_8 =  semiannual_ER_8,
+            AppraisalInfo.
+            semiannual_MC_8 =  semiannual_MC_8,
+            AppraisalInfo.
+            semiannual_MR_8 =  semiannual_MR_8,
+            AppraisalInfo.
+            semiannual2_EC_8 =  semiannual2_EC_8,
+            AppraisalInfo.
+            semiannual2_ER_8 =  semiannual2_ER_8,
+            AppraisalInfo.
+            semiannual2_MC_8 =  semiannual2_MC_8,
+            AppraisalInfo.
+            semiannual2_MR_8 =  semiannual2_MR_8,
+            AppraisalInfo.
+            EC_10_1_3 =  EC_10_1_3,
+            AppraisalInfo.
+            MC_10_1_4 =  MC_10_1_4,
+            AppraisalInfo.
+            EC_10_2_3 =  EC_10_2_3,
+            AppraisalInfo.
+            MC_10_2_4 =  MC_10_2_4,
+            AppraisalInfo.
+            EC_10_3_3 =  EC_10_3_3,
+            AppraisalInfo.
+            MC_10_3_4 =  MC_10_2_4,
+            AppraisalInfo.
+            EC_10_4_3 =  EC_10_4_3,
+            AppraisalInfo.
+            MC_10_4_4 =  MC_10_4_4,
+            AppraisalInfo.
+            EC_10_5_3 =  EC_10_5_3,
+            AppraisalInfo.
+            MC_10_5_4 =  MC_10_5_4,
+            AppraisalInfo.
+            EC_10_6_3 =  EC_10_6_3,
+            AppraisalInfo.
+            MC_10_6_4 =  MC_10_6_4,
+            AppraisalInfo.
+            EC_10_7_3 =  EC_10_7_3,
+            AppraisalInfo.
+            MC_10_7_4 =  MC_10_7_4,
+            AppraisalInfo.
+            EC_10_8_3 =  EC_10_8_3,
+            AppraisalInfo.
+            MC_10_8_4 =  MC_10_8_4,
+            AppraisalInfo.
+            ER_9_1_3 =  ER_9_1_3,
+            AppraisalInfo.
+            EC_9_1_4 =  EC_9_1_4,
+            AppraisalInfo.
+            MR_9_1_5 =  MR_9_1_5,
+            AppraisalInfo.
+            MC_9_1_6 =  MC_9_1_6,
+            AppraisalInfo.
+            ER_9_2_3 =  ER_9_2_3,
+            AppraisalInfo.
+            EC_9_2_4 =  EC_9_2_4,
+            AppraisalInfo.
+            MC_9_2_6 =  MC_9_2_6,
+            AppraisalInfo.
+            MR_9_2_5 =  MR_9_2_5,
+            AppraisalInfo.
+            ER_9_3_3 =  ER_9_3_3,
+            AppraisalInfo.
+            EC_9_3_4 =  EC_9_3_4,
+            AppraisalInfo.
+            MC_9_3_6 =  MC_9_3_6,
+            AppraisalInfo.
+            MR_9_3_5 =  MR_9_3_5,
+            AppraisalInfo.
+            ER_9_4_3 =  ER_9_4_3,
+            AppraisalInfo.
+            EC_9_4_4 =  EC_9_4_4,
+            AppraisalInfo.
+            MC_9_4_6 =  MC_9_4_6,
+            AppraisalInfo.
+            MR_9_4_5 =  MR_9_4_5,
+            AppraisalInfo.
+       TER =  TER,
+       AppraisalInfo.
+       TMR =  TMR,
+       AppraisalInfo.
+       Taverage =  Taverage,
+       AppraisalInfo.
+       TavgMR =  TavgMR,
+       AppraisalInfo.
+       EC_over =  EC_over,
+       AppraisalInfo.
+       MC_over =  MC_over,
+       AppraisalInfo.
+            total_average_ER1 =  total_average_ER1,
+            AppraisalInfo.
+            total_average_MR1 =  total_average_MR1,
+            AppraisalInfo.
+            total_average_ER2 =  total_average_ER2,
+            AppraisalInfo.
+            total_average_MR2 =  total_average_MR2,
+            AppraisalInfo.save();
+            // res.send("Role updated");
+            res.send({ message: " Data updated successfully", val: false, val2: true })
 
         });
     }
