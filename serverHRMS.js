@@ -2256,13 +2256,15 @@ app.get(`/employeeDetail1/:id`, async (req, res, next) => {
             }
             console.warn(employeedetails1);
 
-            fileExists('images/_image.png').then(exists => {
-                console.log(exists) // OUTPUTS: true or false
-                const a = exists;
-                res.send({ user: employeedetails1, dat: exists });
+            // fileExists('images/_image.png').then(exists => {
+            //     console.log(exists) // OUTPUTS: true or false
+            //     const a = exists;
+            //     res.send({ user: employeedetails1, dat: exists });
 
-            })
+            // })
             //res.json(employeedetails);
+            res.send({ user: employeedetails1 });
+
         })
     } catch (err) {
         console.error(err)
