@@ -252,10 +252,10 @@ const userSchema2 = new mongoose.Schema({
     pincode: String,
     highestDegree: String,
     lastCollegeCompany: String,
-    phoneNo: Number,
+    phoneNo: String,
     jobType: String,
     dob: Date,
-    salary: Number,
+    // salary: Number,
 
     noExp: Number,
     status: String,
