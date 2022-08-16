@@ -964,198 +964,18 @@ app.post("/register_appraisal", async (req, res) => {
         // AppraisalInfo
         const { 
             // pid,
-            EmployeeName ,
-            ManagerName ,
-            Designation ,
+            // EmployeeName ,
+            // ManagerName ,
+            // Designation ,
             EmpId ,
-            doj,
+            // doj,
       
-            department ,
-            TotalExperience ,
-            experience ,
+            // department ,
+            // TotalExperience ,
+            // experience ,
             cycle ,
             reviewappariser ,
             HrName ,
-            Lastupdate,
-            // ----------------------Domain and Teachnology-------------------------------
-            Dom_Tech_ER_1 ,
-            Dom_Tech_EC_1 ,
-            // Dom_Tech_MR_1 ,
-            // Dom_Tech_MC_1 ,
-            //---------------------- Understanding function and Technology------------------------------------- 
-            Un_fun_ER_1 ,
-            Un_fun_EC_1 ,
-            // Un_fun_MR_1 ,
-            // Un_fun_MC_1 ,
-            //------------------------------Usage of tools-------------------------
-            Usage_Tools_ER_1 ,
-            Usage_Tools_EC_1 ,
-            // Usage_Tools_MR_1 ,
-            // Usage_Tools_MC_1 ,
-            // -------------------------Ability to learn Technology------------------------
-            Ability_learn_ER_1 ,
-            Ability_learn_EC_1 ,
-            // Ability_learn_MR_1 ,
-            // Ability_learn_MC_1 ,
-      
-            procedure_eqality_ER_2 ,
-            procedure_eqality_EC_2 ,
-            // procedure_eqality_MC_2 ,
-            // procedure_eqality_MR_2 ,
-      
-      
-      
-            problem_finding_skill_ER_2 ,
-            problem_finding_skill_EC_2 ,
-            // problem_finding_skill_MR_2 ,
-            // problem_finding_skill_MC_2 ,
-      
-      
-            contribute_mentor_help_ER_3 ,
-            contribute_mentor_help_EC_3 ,
-            // contribute_mentor_help_MC_3 ,
-            // contribute_mentor_help_MR_3 ,
-      
-            professional_relationship_ER_3 ,
-            professional_relationship_EC_3 ,
-            // professional_relationship_MR_3 ,
-            // professional_relationship_MC_3 ,
-      
-      
-      
-            challenges_responsibility_ER_4 ,
-            challenges_responsibility_EC_4 ,
-            // challenges_responsibility_MR_4 ,
-            // challenges_responsibility_MC_4 ,
-      
-            Ideas_knowledge_ER_4 ,
-            Ideas_knowledge_EC_4 ,
-            // Ideas_knowledge_MR_4 ,
-            // Ideas_knowledge_MC_4 ,
-      
-            Listen_understand_info_ER_5 ,
-            Listen_understand_info_EC_5 ,
-            // Listen_understand_info_MR_5 ,
-            // Listen_understand_info_MC_5 ,
-      
-            info_clear_EC_5 ,
-            info_clear_ER_5 ,
-            // info_clear_MC_5 ,
-            // info_clear_MR_5 ,
-      
-            Plan_Schedules_ER_6 ,
-            Plan_Schedules_EC_6 ,
-            // Plan_Schedules_MR_6 ,
-            // Plan_Schedules_MC_6 ,
-      
-      
-            Effective_work_EC_6 ,
-            Effective_work_ER_6 ,
-            // Effective_work_MR_6 ,
-            // Effective_work_MC_6 ,
-      
-            Management_ER_6 ,
-            Management_EC_6 ,
-            // Management_MC_6 ,
-            // Management_MR_6 ,
-      
-            accomplishment_ER_6 ,
-            // accomplishment_MR_6 ,
-            accomplishment_EC_6 ,
-            // accomplishment_MC_6 ,
-      
-      
-            customer_relationship_EC_7 ,
-            customer_relationship_ER_7 ,
-            // customer_relationship_MC_7 ,
-            // customer_relationship_MR_7 ,
-      
-            Depend_reliability_ER_7 ,
-            Depend_reliability_EC_7 ,
-            // Depend_reliability_MR_7 ,
-            // Depend_reliability_MC_7 ,
-      
-            policies_EC_7 ,
-            policies_ER_7 ,
-            // policies_MR_7 ,
-            // policies_MC_7 ,
-      
-            Resilience_ER_7 ,
-            Resilience_EC_7 ,
-            // Resilience_MC_7 ,
-            // Resilience_MR_7 ,
-      
-            semiannual_EC_8 ,
-            semiannual_ER_8 ,
-            // semiannual_MC_8 ,
-            // semiannual_MR_8 ,
-      
-            semiannual2_EC_8 ,
-            semiannual2_ER_8 ,
-            // semiannual2_MC_8 ,
-            // semiannual2_MR_8 ,
-      
-            EC_10_1_3 ,
-            // MC_10_1_4 ,
-      
-      
-            EC_10_2_3 ,
-            // MC_10_2_4 ,
-      
-            EC_10_3_3 ,
-            // MC_10_3_4 ,
-      
-            EC_10_4_3 ,
-            // MC_10_4_4 ,
-      
-            EC_10_5_3 ,
-            // MC_10_5_4 ,
-      
-            EC_10_6_3 ,
-            // MC_10_6_4 ,
-      
-            EC_10_7_3 ,
-            // MC_10_7_4 ,
-      
-            EC_10_8_3 ,
-            // MC_10_8_4 ,
-      
-            ER_9_1_3 ,
-            EC_9_1_4 ,
-            // MR_9_1_5 ,
-            // MC_9_1_6 ,
-         
-      
-            ER_9_2_3 ,
-            EC_9_2_4 ,
-            // MC_9_2_6 ,
-            // MR_9_2_5 ,
-      
-            ER_9_3_3 ,
-            EC_9_3_4 ,
-            // MC_9_3_6 ,
-            // MR_9_3_5 ,
-      
-            ER_9_4_3 ,
-            EC_9_4_4 ,
-            // MC_9_4_6 ,
-            // MR_9_4_5 ,
-      
-       TER,
-    //    TMR,
-       Taverage,
-    //    TavgMR,
-      
-       EC_over,
-    //    MC_over,
-      
-      
-              
-            total_average_ER1 ,
-            // total_average_MR1 ,
-      
-            total_average_ER2 ,
-            // total_average_MR2 ,
             sys_user,
       } = req.body;
              const today = new Date();
@@ -1166,207 +986,222 @@ app.post("/register_appraisal", async (req, res) => {
       const mont=today.getMonth();
       const year=today.getFullYear(); 
         const oldProject = await AppraisalInfo.findOne({ EmpId });
+        const oldUser = await EmployeeDetails1.findOne({ EmpId });
+        const EmployeeNam=oldUser.name;
+        const ManagerNam=oldUser.ReportingManager;
+        const Designatio=oldUser.jobType;
+        // EmpId=oldUser.;
+        // const doh1=
+        const doh =oldUser.DoJ;
+        const exp=(year-doh.getFullYear())+(mont-doh.getMonth());
+        const departmen=oldUser.department;
+        const experienc=oldUser.noExp;
+        const TotalExperienc=oldUser.noExp+exp;
+        // cycle=oldUser.;
+        // reviewappariser=oldUser.;
+        // HrName=oldUser.;
+        const Lastupdate=new Date();
         if (oldProject) {
             // return res.sendStatus(409).sendStatus("project is already existed");
             res.send({ message2: " Appraisal is alredy exist, try another", val: false })
         }
         else {
             const appraisalInfo = new AppraisalInfo({
-                apprId:"aprr"+hour+min+sec+day+mont+year,
-                EmployeeName ,
-                ManagerName ,
-                Designation ,
-                EmpId ,
-                doj,
+                aprId:"aprr"+hour+min+sec+day+mont+year,
+                EmployeeName:EmployeeNam ,
+                ManagerName:ManagerNam ,
+                Designation:Designatio ,
+                EmpId:EmpId ,
+                doj:doh,
           
-                department ,
-                TotalExperience ,
-                experience ,
+                department:departmen ,
+                TotalExperience:TotalExperienc ,
+                experience:experienc ,
                 cycle ,
                 reviewappariser ,
                 HrName ,
-                Lastupdate,
+                Lastupdate:Lastupdate,
                 
     status:"submitted",
     submission_date:new Date(),
                 // ----------------------Domain and Teachnology-------------------------------
-                Dom_Tech_ER_1 ,
-                Dom_Tech_EC_1 ,
+                Dom_Tech_ER_1 :" ",
+                Dom_Tech_EC_1 :" ",
                 Dom_Tech_MR_1:" " ,
                 Dom_Tech_MC_1 :" ",
                 //---------------------- Understanding function and Technology------------------------------------- 
-                Un_fun_ER_1 ,
-                Un_fun_EC_1 ,
+                Un_fun_ER_1 :" ",
+                Un_fun_EC_1 :" ",
                 Un_fun_MR_1 :" ",
                 Un_fun_MC_1 :" ",
                 //------------------------------Usage of tools-------------------------
-                Usage_Tools_ER_1 ,
-                Usage_Tools_EC_1 ,
+                Usage_Tools_ER_1 :" ",
+                Usage_Tools_EC_1 :" ",
                 Usage_Tools_MR_1:" " ,
                 Usage_Tools_MC_1 :" ",
                 // -------------------------Ability to learn Technology------------------------
-                Ability_learn_ER_1 ,
-                Ability_learn_EC_1 ,
+                Ability_learn_ER_1 :" ",
+                Ability_learn_EC_1 :" ",
                 Ability_learn_MR_1 :" ",
                 Ability_learn_MC_1 :" ",
           
-                procedure_eqality_ER_2 ,
-                procedure_eqality_EC_2 ,
+                procedure_eqality_ER_2 :" ",
+                procedure_eqality_EC_2 :" ",
                 procedure_eqality_MC_2 :" ",
                 procedure_eqality_MR_2 :" ",
           
           
           
-                problem_finding_skill_ER_2 ,
-                problem_finding_skill_EC_2 ,
+                problem_finding_skill_ER_2 :" ",
+                problem_finding_skill_EC_2 :" ",
                 problem_finding_skill_MR_2 :" ",
                 problem_finding_skill_MC_2 :" ",
           
           
-                contribute_mentor_help_ER_3 ,
-                contribute_mentor_help_EC_3 ,
+                contribute_mentor_help_ER_3 :" ",
+                contribute_mentor_help_EC_3 :" ",
                 contribute_mentor_help_MC_3 :" ",
                 contribute_mentor_help_MR_3 :" ",
           
-                professional_relationship_ER_3 ,
-                professional_relationship_EC_3 ,
+                professional_relationship_ER_3 :" ",
+                professional_relationship_EC_3 :" ",
                 professional_relationship_MR_3 :" ",
                 professional_relationship_MC_3 :" ",
           
           
           
-                challenges_responsibility_ER_4 ,
-                challenges_responsibility_EC_4 ,
+                challenges_responsibility_ER_4 :" ",
+                challenges_responsibility_EC_4 :" ",
                 challenges_responsibility_MR_4 :" ",
                 challenges_responsibility_MC_4 :" ",
           
-                Ideas_knowledge_ER_4 ,
-                Ideas_knowledge_EC_4 ,
+                Ideas_knowledge_ER_4 :" ",
+                Ideas_knowledge_EC_4 :" ",
                 Ideas_knowledge_MR_4 :" ",
                 Ideas_knowledge_MC_4 :" ",
           
-                Listen_understand_info_ER_5 ,
-                Listen_understand_info_EC_5 ,
+                Listen_understand_info_ER_5 :" ",
+                Listen_understand_info_EC_5 :" ",
                 Listen_understand_info_MR_5:" " ,
                 Listen_understand_info_MC_5 :" ",
           
-                info_clear_EC_5 ,
-                info_clear_ER_5 ,
+                info_clear_EC_5 :" ",
+                info_clear_ER_5 :" ",
                 info_clear_MC_5:" " ,
                 info_clear_MR_5 :" ",
           
-                Plan_Schedules_ER_6 ,
-                Plan_Schedules_EC_6 ,
+                Plan_Schedules_ER_6 :" ",
+                Plan_Schedules_EC_6 :" ",
                 Plan_Schedules_MR_6 :" ",
                 Plan_Schedules_MC_6 :" ",
           
           
-                Effective_work_EC_6 ,
-                Effective_work_ER_6 ,
+                Effective_work_EC_6 :" ",
+                Effective_work_ER_6 :" ",
                 Effective_work_MR_6 :" ",
                 Effective_work_MC_6 :" ",
           
-                Management_ER_6 ,
-                Management_EC_6 ,
+                Management_ER_6 :" ",
+                Management_EC_6 :" ",
                 Management_MC_6 :" ",
                 Management_MR_6 :" ",
-          
-                accomplishment_ER_6 ,
+        
+                accomplishment_ER_6 :" ",
                 accomplishment_MR_6 :" ",
-                accomplishment_EC_6 ,
+                accomplishment_EC_6 :" ",
                 accomplishment_MC_6 :" ",
           
           
-                customer_relationship_EC_7 ,
-                customer_relationship_ER_7 ,
+                customer_relationship_EC_7 :" ",
+                customer_relationship_ER_7 :" ",
                 customer_relationship_MC_7:" " ,
                 customer_relationship_MR_7 :" ",
           
-                Depend_reliability_ER_7 ,
-                Depend_reliability_EC_7 ,
+                Depend_reliability_ER_7 :" ",
+                Depend_reliability_EC_7 :" ",
                 Depend_reliability_MR_7:" " ,
                 Depend_reliability_MC_7 :" ",
           
-                policies_EC_7 ,
-                policies_ER_7 ,
+                policies_EC_7 :" ",
+                policies_ER_7 :" ",
                 policies_MR_7 :" ",
                 policies_MC_7 :" ",
           
-                Resilience_ER_7 ,
-                Resilience_EC_7 ,
+                Resilience_ER_7 :" ",
+                Resilience_EC_7 :" ",
                 Resilience_MC_7:" " ,
                 Resilience_MR_7 :" ",
           
-                semiannual_EC_8 ,
-                semiannual_ER_8 ,
+                semiannual_EC_8 :" ",
+                semiannual_ER_8 :" ",
                 semiannual_MC_8 :" ",
                 semiannual_MR_8 :" ",
           
-                semiannual2_EC_8 ,
-                semiannual2_ER_8 ,
+                semiannual2_EC_8 :" ",
+                semiannual2_ER_8 :" ",
                 semiannual2_MC_8 :" ",
                 semiannual2_MR_8 :" ",
           
-                EC_10_1_3 ,
+                EC_10_1_3 :" ",
                 MC_10_1_4 :" ",
           
           
-                EC_10_2_3 ,
+                EC_10_2_3 :" ",
                 MC_10_2_4 :" ",
           
-                EC_10_3_3 ,
+                EC_10_3_3 :" ",
                 MC_10_3_4 :" ",
           
-                EC_10_4_3 ,
+                EC_10_4_3 :" ",
                 MC_10_4_4 :" ",
           
-                EC_10_5_3 ,
+                EC_10_5_3 :" ",
                 MC_10_5_4 :" ",
           
-                EC_10_6_3 ,
+                EC_10_6_3 :" ",
                 MC_10_6_4 :" ",
           
-                EC_10_7_3 ,
+                EC_10_7_3 :" ",
                 MC_10_7_4 :" ",
           
-                EC_10_8_3 ,
+                EC_10_8_3 :" ",
                 MC_10_8_4 :" ",
           
-                ER_9_1_3 ,
-                EC_9_1_4 ,
+                ER_9_1_3 :" ",
+                EC_9_1_4 :" ",
                 MR_9_1_5 :" ",
                 MC_9_1_6 :" ",
              
           
-                ER_9_2_3 ,
-                EC_9_2_4 ,
+                ER_9_2_3 :" ",
+                EC_9_2_4 :" ",
                 MC_9_2_6 :" ",
                 MR_9_2_5 :" ",
           
-                ER_9_3_3 ,
-                EC_9_3_4 ,
+                ER_9_3_3 :" ",
+                EC_9_3_4 :" ",
                 MC_9_3_6 :" ",
                 MR_9_3_5 :" ",
           
-                ER_9_4_3 ,
-                EC_9_4_4 ,
+                ER_9_4_3 :" ",
+                EC_9_4_4 :" ",
                 MC_9_4_6 :" ",
                 MR_9_4_5 :" ",
           
-           TER,
+           TER:" ",
            TMR:" ",
-           Taverage,
+           Taverage:" ",
            TavgMR:" ",
           
-           EC_over,
+           EC_over:" ",
            MC_over:" ",
           
           
                   
-                total_average_ER1 ,
+                total_average_ER1 :" ",
                 total_average_MR1:" " ,
           
-                total_average_ER2 ,
+                total_average_ER2 :" ",
                 total_average_MR2 :" ",
           
                 createdBy:sys_user,
@@ -2256,14 +2091,28 @@ app.get(`/employeeDetail1/:id`, async (req, res, next) => {
             }
             console.warn(employeedetails1);
 
-            // fileExists('images/_image.png').then(exists => {
-            //     console.log(exists) // OUTPUTS: true or false
-            //     const a = exists;
-            //     res.send({ user: employeedetails1, dat: exists });
-
-            // })
-            //res.json(employeedetails);
             res.send({ user: employeedetails1 });
+
+        })
+    } catch (err) {
+        console.error(err)
+    }
+
+})
+app.get(`/appraisalDetail1/:id`, async (req, res, next) => {
+    try {
+        const id = req.params.id;
+
+        const fileExists = require('file-exists');
+
+        AppraisalInfo.find({ EmpId: id }, (err, appraisalInfo) => {
+            if (err) {
+                console.warn(err)
+                return next(err)
+            }
+            console.warn(appraisalInfo);
+
+            res.send({ user: appraisalInfo });
 
         })
     } catch (err) {
