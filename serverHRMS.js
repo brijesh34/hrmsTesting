@@ -634,6 +634,79 @@ html: htmlToSend,
     
 }
 
+const sendEmail3=(email,subject,data,data2)=>{
+    // var data=data;
+    // var data=data;
+    const em=email;
+    const dat=subject;
+    var nodemailer = require('nodemailer');
+    var smtpTransport = require("nodemailer-smtp-transport");
+    var handlebars = require("handlebars");
+    var fs = require("fs");
+    const oldUser =  EmployeeDetails1.findOne({ jobType:"Human Resource" });
+    const oldUser2 =  EmployeeDetails1.findOne({ offId:email });
+    // const oldUser3 =  EmployeeDetails1.findOne({ offId:reviewappariser });
+    
+    var readHTMLFile = function (path, callback) {
+      fs.readFile(path, { encoding: "utf-8" }, function (err, html) {
+        if (err) {
+          callback(err);
+          throw err;
+        } else {
+          callback(null, html);
+        }
+      });
+    };
+    try {
+        let mailTransporter = nodemailer.createTransport(
+          smtpTransport({
+            service: 'gmail',
+                host: "gsmtp.gmail.com",
+            port: 587,
+            requireTLS:true,
+            secure: false,
+                auth: {
+                    user: 'inevitableapptest@gmail.com',
+                    pass: 'fiddtnvwktcucugh'
+                }
+          })
+        );
+        // let htmlFile = "/secondfromat.html";
+    
+        let htmlFile = "/secondfromat.html";
+        // const html="aa";
+        //  readHTMLFile(__dirname + "/../public/code.html", function (err, html) {
+        readHTMLFile(__dirname + htmlFile, function (err, html) {
+          var template = handlebars.compile(html);
+          var replacements = {
+            verificationcode: dat,
+            verificationcode2: em,
+            
+            verificationcode3: data,
+            
+            verificationcode4: data2,
+          };
+          var htmlToSend = template(replacements);
+          var mailOptions = {
+            from: 'inevitableapptest@gmail.com',
+                to: oldUser2.offEmail,
+                cc:oldUser.offEmail,
+                subject: subject,
+                // text: JSON.stringify(data),
+html: htmlToSend,
+          };
+          mailTransporter.sendMail(mailOptions, function (error, response) {
+            if (error) {
+              console.log(error);
+            }
+          });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    
+}
+
 app.post("/sendPasswordResetLink",  (req, res) => {
     //res.send("my Api  login")
     try {
@@ -1022,7 +1095,7 @@ app.post("/register_appraisal", async (req, res) => {
                 HrName ,
                 Lastupdate:Lastupdate,
                 
-    status:"submitted",
+    status:"In Process",
     submission_date:new Date(),
                 // ----------------------Domain and Teachnology-------------------------------
                 Dom_Tech_ER_1 :" ",
@@ -1905,16 +1978,6 @@ const id=req.params.id;
   
             
 
-
-        // LeaveManage.find({}, (err, leaveManage) => {
-        //     if (err) {
-        //         console.warn(err)
-        //         return next(err)
-        //     }
-        //     console.warn(leaveManage);
-        //     //res.json(employeedetails);
-        //     res.send({leave:leaveManage});
-        // })
     } catch (err) {
         console.error(err)
     }
@@ -1959,7 +2022,9 @@ app.get(`/leavesDetail_personal/:id`, async (req, res, next) => {
     try {
         const offId=req.params.id;
         const oldUser = await LeaveManage.find({ eid:offId }&&{l_status:"approved"});
-    const tempar=[
+    
+    
+        const tempar=[
 //        {eid:'',l_id:'',ename:'',reportingPerson:'',
 //         l_reason:'',start_date:'',end_date:'',l_status:''
 // ,l_type:'',l_category:''}
@@ -2103,8 +2168,6 @@ app.get(`/appraisalDetail1/:id`, async (req, res, next) => {
     try {
         const id = req.params.id;
 
-        const fileExists = require('file-exists');
-
         AppraisalInfo.find({ EmpId: id }, (err, appraisalInfo) => {
             if (err) {
                 console.warn(err)
@@ -2123,15 +2186,62 @@ app.get(`/appraisalDetail1/:id`, async (req, res, next) => {
 
 app.get("/appraisalDetail1", async (req, res, next) => {
     try {
-        AppraisalInfo.find({}, (err, appraisalInfo) => {
+
+
+        // AppraisalInfo.find({}, (err, appraisalInfo) => {
+        //     if (err) {
+        //         console.warn(err)
+        //         return next(err)
+        //     }
+        //     console.warn(appraisalInfo);
+        //     //res.json(employeedetails);
+        //     res.send(appraisalInfo);
+        // })
+        const tempar=[
+        ]   
+        
+                AppraisalInfo.find({}, (err, appraisalInfo) => {
+                    if (err) {
+                        console.warn(err)
+                        return next(err)
+                    }
+                    var ar3=appraisalInfo;
+                    ar3.map((data)=>{
+                   if((data.status=="submitted")||(data.status=="appraised")){
+                        tempar.push( data)}})
+                   
+                    // console.warn(appraisalInfo);
+                    //res.json(employeedetails);
+                    res.send(tempar);
+                })  
+    } catch (err) {
+        console.error(err)
+    }
+
+})
+app.get(`/appraisalDetail1Manager/:id`, async (req, res, next) => {
+    try {
+
+const id=req.params.id;
+// const employee = await AppraisalInfo.find({ reviewappariser:id }&&{status:"submitted"});
+const tempar=[
+]   
+
+        AppraisalInfo.find({reviewappariser:id}, (err, appraisalInfo) => {
             if (err) {
                 console.warn(err)
                 return next(err)
             }
-            console.warn(appraisalInfo);
+            var ar3=appraisalInfo;
+            ar3.map((data)=>{
+           if((data.status=="submitted")||(data.status=="appraised")){
+                tempar.push( data)}})
+           
+            // console.warn(appraisalInfo);
             //res.json(employeedetails);
-            res.send(appraisalInfo);
-        })
+            res.send(tempar);
+        })  
+
     } catch (err) {
         console.error(err)
     }
@@ -2727,11 +2837,10 @@ app.put("/appraisalUpdate", async (req, res) => {
         const Designation = req.body.Designation;
         const EmpId = req.body.EmpId;
         const doj = req.body.doj;
-        const
-        Pending_2_3 = req.body.Pending_2_3;
+        const status = req.body.status;
  
 const
-  SubmissionDate = req.body.SubmissionDate;
+  submission_date = req.body.submission_date;
   const
         department = req.body.department;
         const
@@ -3051,8 +3160,8 @@ const
             AppraisalInfo.Designation =  Designation,
             AppraisalInfo.EmpId =  EmpId,
             AppraisalInfo.doj =  doj,
-            AppraisalInfo.Pending_2_3 =  Pending_2_3,
-            AppraisalInfo.SubmissionDate =  SubmissionDate,
+            AppraisalInfo.status =  status,
+            AppraisalInfo.submission_date =  submission_date,
       AppraisalInfo.department =  department,
             AppraisalInfo.TotalExperience =  TotalExperience,
             AppraisalInfo.experience =  experience,
@@ -3329,6 +3438,11 @@ const
             AppraisalInfo.
             total_average_MR2 =  total_average_MR2,
             AppraisalInfo.save();
+
+            // sendEmail3(EmpId, "Appraisal Form Submitted","Appraisal Form Submitted","");
+            // sendEmail3(reviewappariser, "Appraisal Form Submitted","Appraisal Form Submitted","")
+            // sendEmail3(reviewappariser, "Appraisal Form Submitted","Appraisal Form Submitted","")
+           
             // res.send("Role updated");
             res.send({ message: " Data updated successfully", val: false, val2: true })
 
