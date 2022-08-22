@@ -634,7 +634,7 @@ html: htmlToSend,
     
 }
 
-const sendEmail3=(email,subject,data,data2)=>{
+const sendEmail3=(email,subject,email2,email3,data)=>{
     // var data=data;
     // var data=data;
     const em=email;
@@ -643,9 +643,6 @@ const sendEmail3=(email,subject,data,data2)=>{
     var smtpTransport = require("nodemailer-smtp-transport");
     var handlebars = require("handlebars");
     var fs = require("fs");
-    const oldUser =  EmployeeDetails1.findOne({ jobType:"Human Resource" });
-    const oldUser2 =  EmployeeDetails1.findOne({ offId:email });
-    // const oldUser3 =  EmployeeDetails1.findOne({ offId:reviewappariser });
     
     var readHTMLFile = function (path, callback) {
       fs.readFile(path, { encoding: "utf-8" }, function (err, html) {
@@ -673,7 +670,7 @@ const sendEmail3=(email,subject,data,data2)=>{
         );
         // let htmlFile = "/secondfromat.html";
     
-        let htmlFile = "/secondfromat.html";
+        let htmlFile = "/appraisalFormat.html";
         // const html="aa";
         //  readHTMLFile(__dirname + "/../public/code.html", function (err, html) {
         readHTMLFile(__dirname + htmlFile, function (err, html) {
@@ -684,19 +681,27 @@ const sendEmail3=(email,subject,data,data2)=>{
             
             verificationcode3: data,
             
-            verificationcode4: data2,
+            // verificationcode4: data2,
           };
           var htmlToSend = template(replacements);
+    //       var oldUser =  EmployeeDetails1.findOne({offId:email });
+    // const oldUser2 =  EmployeeDetails1.findOne({offId:email2 });
+    // const oldUser3 =  EmployeeDetails1.findOne({ offId:email3 });
+    
+    // const oldUser = await EmployeeDetailsLogin.findOne({ emp_id:eid });
           var mailOptions = {
             from: 'inevitableapptest@gmail.com',
-                to: oldUser2.offEmail,
-                cc:oldUser.offEmail,
+                to: email,
+                // cc:oldUser2.offEmail,
+                // bcc:oldUser3.offEmail,
                 subject: subject,
                 // text: JSON.stringify(data),
 html: htmlToSend,
           };
           mailTransporter.sendMail(mailOptions, function (error, response) {
             if (error) {
+                console.log("this is error at the time of sending"+
+                 "email and "+email)
               console.log(error);
             }
           });
@@ -1060,6 +1065,13 @@ app.post("/register_appraisal", async (req, res) => {
       const year=today.getFullYear(); 
         const oldProject = await AppraisalInfo.findOne({ EmpId });
         const oldUser = await EmployeeDetails1.findOne({ EmpId });
+        const oldUser3 =await  EmployeeDetails1.findOne({offId:EmpId });
+        const oldUser4 =await  EmployeeDetails1.findOne({offId:reviewappariser });
+        const oldUser5 =await  EmployeeDetails1.findOne({offId:HrName });
+        const em=oldUser3.offEmail;
+        const em2=oldUser4.offEmail;
+        const em3=oldUser5.offEmail;
+        
         const EmployeeNam=oldUser.name;
         const ManagerNam=oldUser.ReportingManager;
         const Designatio=oldUser.jobType;
@@ -1079,6 +1091,8 @@ app.post("/register_appraisal", async (req, res) => {
             res.send({ message2: " Appraisal is alredy exist, try another", val: false })
         }
         else {
+            
+        console.log("==============line 1089"+ em);
             const appraisalInfo = new AppraisalInfo({
                 aprId:"aprr"+hour+min+sec+day+mont+year,
                 EmployeeName:EmployeeNam ,
@@ -1284,9 +1298,12 @@ app.post("/register_appraisal", async (req, res) => {
             });
             appraisalInfo.save(err => {
                 if (err) {
-                    res.send(err)
+                    res.send({ message: "err", val2: true })
                 }
                 else {
+                    sendEmail3( em,"Appraisal  of"+EmpId,em2,em3,"Appraisal is started, Please Chaeck on system");
+
+                    // sendEmail3( em,"subject",em2,em3,"data")
                     res.send({ message: "successfully registered Appraisal", val2: true })
                 }
             })
@@ -2207,7 +2224,7 @@ app.get("/appraisalDetail1", async (req, res, next) => {
                     }
                     var ar3=appraisalInfo;
                     ar3.map((data)=>{
-                   if((data.status=="submitted")||(data.status=="appraised")){
+                   if((data.status=="submitted")||(data.status=="appraised")||(data.status=="In Process")){
                         tempar.push( data)}})
                    
                     // console.warn(appraisalInfo);
@@ -3153,7 +3170,15 @@ const
         total_average_ER2 = req.body.total_average_ER2;
         const
         total_average_MR2 = req.body.total_average_MR2;
-  
+//         const oldUser =  EmployeeDetails1.findOne({offId:email });
+//    console.log("==============line 3163"+ oldUser.offEmail)
+   const oldUser3 =await  EmployeeDetails1.findOne({offId:EmpId });
+        const oldUser4 =await  EmployeeDetails1.findOne({offId:reviewappariser });
+        const oldUser5 =await  EmployeeDetails1.findOne({offId:HrName });
+        const em=oldUser3.offEmail;
+        const em2=oldUser4.offEmail;
+        const em3=oldUser5.offEmail;
+        
         await AppraisalInfo.findOne({ EmpId:EmpId }, (err, AppraisalInfo) => {
             AppraisalInfo.EmployeeName =  EmployeeName,
             AppraisalInfo.ManagerName =  ManagerName,
@@ -3438,6 +3463,7 @@ const
             AppraisalInfo.
             total_average_MR2 =  total_average_MR2,
             AppraisalInfo.save();
+            sendEmail3( em,"Appraisal  of"+EmpId,em2,em3,"Appraisal Information Updated, Please Chaeck on system");
 
             // sendEmail3(EmpId, "Appraisal Form Submitted","Appraisal Form Submitted","");
             // sendEmail3(reviewappariser, "Appraisal Form Submitted","Appraisal Form Submitted","")
