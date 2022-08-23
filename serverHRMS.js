@@ -2211,9 +2211,10 @@ app.get(`/appraisalDetailStatus/:id`, async (req, res, next) => {
                 res.send({ user: " " });
             }
             else{
+                const as=appraisalInfo.status;
             console.warn(appraisalInfo);
 
-            res.send({ user: appraisalInfo.status });
+            res.send({ user:"appraised"});
             }
         })
     } catch (err) {
