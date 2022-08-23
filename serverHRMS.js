@@ -1301,7 +1301,7 @@ app.post("/register_appraisal", async (req, res) => {
                     res.send({ message: "err", val2: true })
                 }
                 else {
-                    sendEmail3( em,"Appraisal  of"+EmpId,em2,em3,"Appraisal is started, Please Chaeck on system");
+                    sendEmail3( em,"Appraisal  of "+EmpId,em2,em3,"Appraisal is started, Please Chaeck on system");
 
                     // sendEmail3( em,"subject",em2,em3,"data")
                     res.send({ message: "successfully registered Appraisal", val2: true })
@@ -2200,6 +2200,28 @@ app.get(`/appraisalDetail1/:id`, async (req, res, next) => {
     }
 
 })
+app.get(`/appraisalDetailStatus/:id`, async (req, res, next) => {
+    try {
+        const id = req.params.id;
+
+        AppraisalInfo.find({ EmpId: id }, (err, appraisalInfo) => {
+            if (err) {
+                console.warn(err)
+                // return next(err)
+                res.send({ user: " " });
+            }
+            else{
+            console.warn(appraisalInfo);
+
+            res.send({ user: appraisalInfo.status });
+            }
+        })
+    } catch (err) {
+        console.error(err)
+    }
+
+})
+
 
 app.get("/appraisalDetail1", async (req, res, next) => {
     try {
@@ -3463,7 +3485,7 @@ const
             AppraisalInfo.
             total_average_MR2 =  total_average_MR2,
             AppraisalInfo.save();
-            sendEmail3( em,"Appraisal  of"+EmpId,em2,em3,"Appraisal Information Updated, Please Chaeck on system");
+            sendEmail3( em,"Appraisal  of "+EmpId,em2,em3,"Appraisal Information Updated, Please Chaeck on system");
 
             // sendEmail3(EmpId, "Appraisal Form Submitted","Appraisal Form Submitted","");
             // sendEmail3(reviewappariser, "Appraisal Form Submitted","Appraisal Form Submitted","")
