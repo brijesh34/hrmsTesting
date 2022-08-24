@@ -1078,7 +1078,8 @@ app.post("/register_appraisal", async (req, res) => {
         // EmpId=oldUser.;
         // const doh1=
         const doh =oldUser3.DoJ;
-        const exp=(year-doh.getFullYear())+(mont-doh.getMonth());
+        const doh_year=doh.getFullYear();
+        const exp=(year-doh_year)+(mont-doh.getMonth());
         const departmen=oldUser3.department;
         const experienc=oldUser3.noExp;
         const TotalExperienc=oldUser3.noExp+exp;
@@ -2063,26 +2064,7 @@ l_reason:data.l_reason,l_reason2:data.l_reason2,start_date:date,end_date:date2,l
 res.send({leave:tempar , doj:oldUser.length});
 
 })
-
-
-
-
-
-
-        // LeaveManage.find({eid:offId}, (err, leaveManage) => {
-        //     if (err) {
-        //         console.warn(err)
-        //         return next(err)
-        //     }
-        //     leaves=leaveManage;
-        //     //res.json(employeedetails);
-        //     res.send({leave:tempar , doj:oldUser.length});
-            
-        //     // res.send({leave:leaveManage , doj:oldUser.length});
-        // })
-        // res.send({leave:leaves , doj:"ddddd"});
-    
-    } catch (err) {
+  } catch (err) {
         console.error(err)
     }
 
@@ -2201,25 +2183,67 @@ app.get(`/appraisalDetail1/:id`, async (req, res, next) => {
 
 })
 app.get(`/appraisalDetailStatus/:id`, async (req, res, next) => {
+    // try {
+    //     const id = req.params.id;
+
+    //      await AppraisalInfo.find({ EmpId: id }, (err, appraisalInfo) => {
+    //         if (err) {
+    //             console.warn(err)
+    //             // return next(err)
+    //             res.send({ user: " " });
+    //         }
+    //         else{
+                
+    //             const as=appraisalInfo.status;
+    //         console.warn(appraisalInfo.status+"--------------------------line 2216");
+
+    //         res.send({ user:as});
+    //         }
+    //     })
+    // } catch (err) {
+    //     console.error(err)
+    // }
+
+
+
     try {
+    
         const id = req.params.id;
 
-        AppraisalInfo.find({ EmpId: id }, (err, appraisalInfo) => {
+    
+        const tempar=[
+//        {eid:'',l_id:'',ename:'',reportingPerson:'',
+//         l_reason:'',start_date:'',end_date:'',l_status:''
+// ,l_type:'',l_category:''}
+    ]   
+         
+        await AppraisalInfo.find({ EmpId: id }, (err, appraisalInfo) => {
             if (err) {
                 console.warn(err)
                 // return next(err)
                 res.send({ user: " " });
-            }
-            else{
-                const as=appraisalInfo.status;
-            console.warn(appraisalInfo);
+            }   else{
+                const ar3=appraisalInfo;
+    ar3.map((data)=>{
+        if(data.status==="appraised"){
+            tempar.push({ status:data.status })
+        }
+        else if((data.status==="In Process")||(data.status==="submitted")){
+            tempar.push({  status:data.status})
+        }
+           else{
+            tempar.push({  status:data.status})
+           }
+})
+        }
 
-            res.send({ user:"appraised"});
-            }
-        })
-    } catch (err) {
+res.send({user:tempar });
+
+})
+  } catch (err) {
         console.error(err)
     }
+
 
 })
 
