@@ -2183,70 +2183,89 @@ app.get(`/appraisalDetail1/:id`, async (req, res, next) => {
 
 })
 app.get(`/appraisalDetailStatus/:id`, async (req, res, next) => {
-    // try {
-    //     const id = req.params.id;
-
-    //      await AppraisalInfo.find({ EmpId: id }, (err, appraisalInfo) => {
-    //         if (err) {
-    //             console.warn(err)
-    //             // return next(err)
-    //             res.send({ user: " " });
-    //         }
-    //         else{
-                
-    //             const as=appraisalInfo.status;
-    //         console.warn(appraisalInfo.status+"--------------------------line 2216");
-
-    //         res.send({ user:as});
-    //         }
-    //     })
-    // } catch (err) {
-    //     console.error(err)
-    // }
-
-
-
     try {
-    
         const id = req.params.id;
-
-    
-        const tempar=[
-//        {eid:'',l_id:'',ename:'',reportingPerson:'',
-//         l_reason:'',start_date:'',end_date:'',l_status:''
-// ,l_type:'',l_category:''}
-    ]   
-         
-        await AppraisalInfo.find({ EmpId: id }, (err, appraisalInfo) => {
+        var user2;
+        const oldUser = await AppraisalInfo.findOne({ reviewappariser:id });
+        
+        const oldUser2 = await AppraisalInfo.findOne({EmpId:id});
+        if(oldUser){
+            user2=id
+        }
+        else{
+            user2=""
+        }
+         await AppraisalInfo.find({EmpId:id}, (err, appraisalInfo) => {
             if (err) {
                 console.warn(err)
                 // return next(err)
-                res.send({ user: " " });
-            }   else{
-                const ar3=appraisalInfo;
-    ar3.map((data)=>{
-        if(data.status==="appraised"){
-            tempar.push({ status:data.status })
-        }
-        else if((data.status==="In Process")||(data.status==="submitted")){
-            tempar.push({  status:data.status})
-        }
-           else{
-            tempar.push({  status:data.status})
-           }
-})
-        }
+                res.send({ user: "" });
+            }
+            else{
+                var as;
+                if(oldUser2){
+                    as=oldUser2.EmpId;
+                    console.warn(oldUser2.EmpId+"--------------------------line 2216");
 
-res.send({user:tempar });
+                }
+                else{
+                    as=""
+                }
+               
+            // console.warn(oldUser2.EmpId+"--------------------------line 2216");
 
-})
-  } catch (err) {
+            res.send({ user:as,user2:user2});
+            }
+        })
+} catch (err) {
         console.error(err)
     }
 
 
 })
 
+
+app.get(`/appraisalDetailStatusPersonal/:id`, async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        var user2;
+        const oldUser = await AppraisalInfo.findOne({ reviewappariser:id });
+        
+        const oldUser2 = await AppraisalInfo.findOne({EmpId:id});
+        if(oldUser){
+            user2=id
+        }
+        else{
+            user2=""
+        }
+         await AppraisalInfo.find({EmpId:id}, (err, appraisalInfo) => {
+            if (err) {
+                console.warn(err)
+                // return next(err)
+                res.send({ user: "" });
+            }
+            else{
+                var as;
+                if(oldUser2){
+                    as=oldUser2.status;
+                    console.warn(oldUser2.EmpId+"--------------------------line 2216");
+
+                }
+                else{
+                    as=""
+                }
+               
+            // console.warn(oldUser2.EmpId+"--------------------------line 2216");
+
+            res.send({ user:as,user2:user2});
+            }
+        })
+} catch (err) {
+        console.error(err)
+    }
+
+
+})
 
 app.get("/appraisalDetail1", async (req, res, next) => {
     try {
