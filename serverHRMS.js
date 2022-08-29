@@ -2167,14 +2167,14 @@ app.get(`/appraisalDetail1/:id`, async (req, res, next) => {
     try {
         const id = req.params.id;
 
-        AppraisalInfo.find({ EmpId: id }, (err, appraisalInfo) => {
+        AppraisalInfo.findOne({EmpId:id }, (err, appraisalInfo) => {
             if (err) {
                 console.warn(err)
                 return next(err)
             }
             console.warn(appraisalInfo);
 
-            res.send({ user: appraisalInfo });
+            res.send({ user:appraisalInfo });
 
         })
     } catch (err) {
@@ -2257,7 +2257,7 @@ app.get(`/appraisalDetailStatusPersonal/:id`, async (req, res, next) => {
                
             // console.warn(oldUser2.EmpId+"--------------------------line 2216");
 
-            res.send({ user:as,user2:user2});
+            res.send({ user:as,user2:user2,user3:oldUser2});
             }
         })
 } catch (err) {
@@ -3766,6 +3766,25 @@ sendEmail2(req.body.reportingPerson, "Leave have canceled",tempar,mess)
     res.send("deleted");
 
 });
+
+/////////cancel apraisal 
+app.post(`/cancelAppraisal/:id`, async (req, res) => {
+    const l_id = req.params.id;
+    const eid=req.body.eid;
+    const mess=req.body.message;
+    const oldUser = await EmployeeDetailsLogin.findOne({ emp_id:eid });
+    const oldUser2 = await EmployeeDetailsLogin.findOne({ emp_id:l_id });
+    
+    await AppraisalInfo.deleteOne({EmpId:eid});
+    // console.log("------------------->line 1796"+req.body.message);
+    sendEmail2(oldUser.emp_email, "Appraisal have canceled","",mess);
+sendEmail2(oldUser2.emp_email, "Appraisal have canceled","",mess)
+
+    res.send("deleted");
+
+});
+
+
 const fs = require("fs");
 
 const path = "images/inv0010brijesh@inevitableinfotech.com_image.png";
