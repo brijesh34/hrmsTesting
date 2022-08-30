@@ -315,7 +315,7 @@ const userSchema12=new mongoose.Schema({
     department: String,
     TotalExperience:Number,
     experience: Number,
-    cycle: String,
+    cycle: Date,
     reviewappariser: String,
     HrName: String,
     Lastupdate: Date,
