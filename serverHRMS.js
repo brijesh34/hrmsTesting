@@ -2167,16 +2167,34 @@ app.get(`/appraisalDetail1/:id`, async (req, res, next) => {
     try {
         const id = req.params.id;
 
-        AppraisalInfo.findOne({EmpId:id }, (err, appraisalInfo) => {
-            if (err) {
-                console.warn(err)
-                return next(err)
-            }
-            console.warn(appraisalInfo);
+        // AppraisalInfo.find({EmpId:id }, (err, appraisalInfo) => {
+        //     if (err) {
+        //         console.warn(err)
+        //         return next(err)
+        //     }
+        //     console.warn(appraisalInfo);
 
-            res.send({ user:appraisalInfo });
+        //     res.send({ appraisalInfo });
 
-        })
+        // })
+        
+        const tempar=[
+        ]   
+        
+                AppraisalInfo.find({EmpId:id }, (err, appraisalInfo) => {
+                    if (err) {
+                        console.warn(err)
+                        return next(err)
+                    }
+                    var ar3=appraisalInfo;
+                    ar3.map((data)=>{
+                   if((data.status=="submitted")||(data.status=="appraised")||(data.status=="In Process")){
+                        tempar.push( data)}})
+                   
+                    // console.warn(appraisalInfo);
+                    //res.json(employeedetails);
+                    res.send(tempar);
+                })  
     } catch (err) {
         console.error(err)
     }
