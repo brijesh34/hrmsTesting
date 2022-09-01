@@ -1087,7 +1087,7 @@ app.post("/register_appraisal", async (req, res) => {
         // reviewappariser=oldUser.;
         // HrName=oldUser.;
         const Lastupdate=new Date();
-        if (oldProject) {
+        if (oldProject&&(oldProject.status=="In Process")) {
             // return res.sendStatus(409).sendStatus("project is already existed");
             res.send({ message2: " Appraisal is alredy exist, try another", val: false })
         }
