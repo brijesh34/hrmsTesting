@@ -2933,7 +2933,7 @@ const sys_user=req.body.sys_user;
 app.put("/appraisalUpdate", async (req, res) => {
     try {
         // const  id = req.body.id;
-       const  aprId=req.body.aprId;
+        const aprId=req.body.aprId;
         const EmployeeName = req.body.EmployeeName;
         const ManagerName = req.body.ManagerName;
         const Designation = req.body.Designation;
