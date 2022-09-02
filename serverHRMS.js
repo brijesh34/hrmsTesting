@@ -2933,6 +2933,7 @@ const sys_user=req.body.sys_user;
 app.put("/appraisalUpdate", async (req, res) => {
     try {
         // const  id = req.body.id;
+       const  aprId=req.body.aprId;
         const EmployeeName = req.body.EmployeeName;
         const ManagerName = req.body.ManagerName;
         const Designation = req.body.Designation;
@@ -3263,7 +3264,7 @@ const
         const em2=oldUser4.offEmail;
         const em3=oldUser5.offEmail;
         
-        await AppraisalInfo.findOne({ EmpId:EmpId }, (err, AppraisalInfo) => {
+        await AppraisalInfo.findOne({ aprId:aprId }, (err, AppraisalInfo) => {
             AppraisalInfo.EmployeeName =  EmployeeName,
             AppraisalInfo.ManagerName =  ManagerName,
             AppraisalInfo.Designation =  Designation,
