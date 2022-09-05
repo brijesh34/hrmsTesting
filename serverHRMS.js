@@ -1003,7 +1003,7 @@ app.post("/register_project", async (req, res) => {
       const day=today.getDay();
       const mont=today.getMonth();
       const year=today.getFullYear(); 
-        const oldProject = await ProjectInfo.findOne({ pname });
+        const oldProject = await ProjectInfo.findOne({pname:pname});
         if (oldProject) {
             // return res.sendStatus(409).sendStatus("project is already existed");
             res.send({ message2: " Project is alredy exist, try another", val: false })
