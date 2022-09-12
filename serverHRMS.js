@@ -137,7 +137,7 @@ const mess=mongoose.Schema(
 )
 /////////////////timesheet
 const userSchema6 = new mongoose.Schema({
-    
+    tid:String,
     emp_id: String,
     start: Date,
     end: Date,
@@ -1336,6 +1336,7 @@ app.post("/register_title", async (req, res) => {
         // }
         // else{
         const empTimesheet = new EmpTimesheet({
+            tid:new Date(),
             emp_id,
             start,
             end,
@@ -1876,10 +1877,10 @@ app.get("/timesheetDetails", async (req, res, next) => {
     try {
       
         const tempar=[{
-            end:'', start:'', Duration:'', description:'',id:'',title:''
+            end:'', start:'', Duration:'', description:'',id:'',title:'',idt:''
         },];
         const tempar2=[{
-            end:'', start:'', Duration:'', description:'',id:'',title:''
+            end:'', start:'', Duration:'', description:'',id:'',title:'',idt:''
         },];
        
         EmpTimesheet.find().then(function(empTimesheet){
@@ -1889,6 +1890,7 @@ app.get("/timesheetDetails", async (req, res, next) => {
            var dur;
                console.log(ar2+"--------------------------------------------------------------------------------851 line")                   
             ar3.map((data)=>{
+               
                 var ndate= new Date(data.start);
                 var date=ndate.getFullYear()+'/'+(ndate.getMonth()+1)+'/'+ndate.getDate(); 
                 var n2date=new Date(date);
@@ -2896,26 +2898,26 @@ app.put("/updateTimesheet", async (req, res) => {
         const emp_id=req.body.emp_id;
         const start=req.body.start;
         const end=req.body.end;
-
+const tid=req.body.tid;
         const id=req.body.id;
         const title=req.body.title;
         const description=req.body.description;
         const Duration=req.body.Duration;
 const sys_user=req.body.sys_user;
-        await EmpTimesheet.findOne({ start: start }, (err, empTimesheet) => {
+        await EmpTimesheet.findOne({tid:tid }, (err, empTimesheet) => {
 
-            empTimesheet.emp_id=emp_id;
-            empTimesheet.start=start;
-            empTimesheet.end=end;
+            empTimesheet.emp_id=emp_id,
+            empTimesheet.start=start,
+            empTimesheet.end=end,
     
-            empTimesheet.id=id;
-            empTimesheet.title=title;
-            empTimesheet.description=description;
-            empTimesheet.Duration=Duration;
-            empTimesheet.createdBy=sys_user;
-            empTimesheet.updatedBy=sys_user;
-            empTimesheet.cr_time=new Date();
-            empTimesheet.up_date=new Date();
+            empTimesheet.id=id,
+            empTimesheet.title=title,
+            empTimesheet.description=description,
+            empTimesheet.Duration=Duration,
+            empTimesheet.createdBy=sys_user,
+            empTimesheet.updatedBy=sys_user,
+            empTimesheet.cr_time=new Date(),
+            empTimesheet.up_date=new Date(),
             empTimesheet.save();
             // res.send("timesheet info updated");
             res.send({ message: " Data updated successfully", val: false , val2: true})
@@ -3770,10 +3772,14 @@ app.post(`/delete/:id`, async (req, res) => {
         const ar3=leaveManage;
     ar3.map((data)=>{
 
+
         tempar={eid:data.eid,ename:data.ename,
             reportingPerson:data.reportingPerson,l_reason:data.l_reason,l_reason2:data.l_reason2,
             start_date:data.start_date,end_date:data.end_date
             ,l_type:data.l_type,l_category:data.l_category,approvedBy:data.approvedBy,l_status:data.l_status}
+
+
+
 
 
     })})
