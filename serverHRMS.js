@@ -3596,7 +3596,7 @@ const eDataS={eid:eid,ename:ename,
     ,l_type:l_type,l_category:l_category,approvedBy:approvedBy,l_status:l_status
     }
         const diff=(day2.getTime()-day1.getTime())/(24*60*60*1000);
-const days=Math.abs(Math.round(diff));
+const days=Math.abs(Math.round(diff))+1;
 // const m=2; EmployeeDetailsLogin
 await EmployeeDetailsLogin.findOne({emp_id:eid},(err,employeeDetailsLogin)=>{
 
