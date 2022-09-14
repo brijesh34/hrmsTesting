@@ -1876,9 +1876,7 @@ app.get(`/leaveReport/:id`, async (req, res, next) => {
 app.get("/timesheetDetails", async (req, res, next) => {
     try {
       
-        const tempar=[{
-            end:'', start:'', Duration:'', description:'',id:'',title:'',idt:''
-        },];
+        const tempar=[];
         const tempar2=[{
             end:'', start:'', Duration:'', description:'',id:'',title:'',idt:''
         },];
@@ -1898,7 +1896,7 @@ if(sdate!=n2date){
     dur=0;
     console.log(sdate+" ----if- change--- ");
     start_d=new Date(date);
-tempar.push({end:data.end,start:start_d,Duration:(data.end-data.start),description:data.description,id:data.id,title:data.title})
+tempar.push({end:data.end,start:start_d,Duration:data.tid,description:data.description,id:data.id,title:data.title,idt:data.tid,tid:"data.tid"})
            console.log(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; line 873")
                 // tempar2.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
                  sdate=n2date;
