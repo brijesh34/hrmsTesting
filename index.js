@@ -530,7 +530,7 @@ const sendEmail=(email,subject,data)=>{
                 }
           })
         );
-        let htmlFile = "/index.html";
+        let htmlFile = "/public/index.html";
     
         const html="aa";
         //  readHTMLFile(__dirname + "/../public/code.html", function (err, html) {
@@ -600,7 +600,7 @@ const sendEmail2=(email,subject,data,data2)=>{
         );
         // let htmlFile = "/secondfromat.html";
     
-        let htmlFile = "/secondfromat.html";
+        let htmlFile = "/public/secondfromat.html";
         // const html="aa";
         //  readHTMLFile(__dirname + "/../public/code.html", function (err, html) {
         readHTMLFile(__dirname + htmlFile, function (err, html) {
@@ -670,7 +670,7 @@ const sendEmail3=(email,subject,email2,email3,data)=>{
         );
         // let htmlFile = "/secondfromat.html";
     
-        let htmlFile = "/appraisalFormat.html";
+        let htmlFile = "/public/appraisalFormat.html";
         // const html="aa";
         //  readHTMLFile(__dirname + "/../public/code.html", function (err, html) {
         readHTMLFile(__dirname + htmlFile, function (err, html) {
@@ -1056,8 +1056,8 @@ app.post("/register_appraisal", async (req, res) => {
             HrName ,
             sys_user,
       } = req.body;
-      const cycle1=cycle;
-      console.log(cycle1+".....................................................line 1059");
+    //   const cycle1=cycle;
+      console.log(cycle+".....................................................line 1059");
              const today = new Date();
         const hour=today.getHours();
         const min=today.getMinutes();
@@ -1107,7 +1107,7 @@ app.post("/register_appraisal", async (req, res) => {
                 department:departmen ,
                 TotalExperience:TotalExperienc ,
                 experience:experienc ,
-                cycle:cycle1 ,
+                cycle,
                 reviewappariser ,
                 HrName ,
                 Lastupdate:Lastupdate,
