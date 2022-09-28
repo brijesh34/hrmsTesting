@@ -315,12 +315,12 @@ const userSchema12=new mongoose.Schema({
     department: String,
     TotalExperience:Number,
     experience: Number,
-    cycle: Date,
+    cycle: String,
     reviewappariser: String,
     HrName: String,
     Lastupdate: Date,
     status:String,
-    submission_date:Date,
+    submission_date:String,
     // ----------------------Domain and Teachnology-------------------------------
     Dom_Tech_ER_1:Number,
     Dom_Tech_EC_1:String,
@@ -1056,6 +1056,8 @@ app.post("/register_appraisal", async (req, res) => {
             HrName ,
             sys_user,
       } = req.body;
+      const cycle1=cycle;
+      console.log(cycle1+".....................................................line 1059");
              const today = new Date();
         const hour=today.getHours();
         const min=today.getMinutes();
@@ -1105,7 +1107,7 @@ app.post("/register_appraisal", async (req, res) => {
                 department:departmen ,
                 TotalExperience:TotalExperienc ,
                 experience:experienc ,
-                cycle ,
+                cycle:cycle1 ,
                 reviewappariser ,
                 HrName ,
                 Lastupdate:Lastupdate,
