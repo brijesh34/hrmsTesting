@@ -14,6 +14,13 @@ module.exports = function (app) {
 app.get("/api/leave/getPersonalLeave/:id", controller.getPersonalLeave);
 
 app.post("/api/leave/addLeave", controller.addLeave);
+app.put("/api/leave/updateLeaveBySelf", controller.updateLeaveBySelf);
+app.post("/api/leave/delete/:id", controller.delete_self_leave);
+
+app.get("/api/leave/leaveManagementInfo/:id", controller.leaveManagementInfo);
+app.put("/api/leave/updateLeaveByManager", controller.updateLeaveByManager);
+
+
 // app.put("/api/role/updateRole", controller.updateRole);
 
 };

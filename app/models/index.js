@@ -26,6 +26,7 @@ db.LeaveCategory=require("./LeaveCategory");
 db.LeaveInfo=require("./LeaveInfo");
 db.LeaveManage=require("./LeaveManage");
 db.LeaveTypes=require("./LeaveTypes");
+db.ProjectInfo=require("./ProjectInfo");
 
 
 module.exports = db;

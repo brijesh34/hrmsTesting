@@ -908,144 +908,144 @@ app.post("/register_roles", async (req, res) => {
 
 
 ///////////////////add leaves types//////////////
-app.post("/register_leaveType", async (req, res) => {
-    try {
-        const {
-            // leaveType_id,
-            leaveType_name,
-            sys_user
-        } = req.body;
-        // console.log(leaveType_id)
-        const today = new Date();
-        const hour=today.getHours();
-        const min=today.getMinutes();
-      const sec=today.getSeconds();
-      const day=today.getDay();
-      const mont=today.getMonth();
-      const year=today.getFullYear(); 
-       const oldUser = await LeaveTypes.findOne({ leaveType_name });
-        if (oldUser) {
-            // return res.status(409).send("User Already Exist. Please Login");
-            res.send({ message2: " Leave Type alredy exist, try another", val: false })
-        }
-        else {
-            const leaveTypes = new LeaveTypes({
-                leaveType_id:"lev"+hour+min+sec+day+mont+year,
-                leaveType_name,
-                createdBy:sys_user,
-   updatedBy:sys_user,
-    cr_time:new Date(),
-    up_date:new Date()
-                // role_display_name: role_name,
-            });
-            leaveTypes.save(err => {
-                if (err) {
-                    res.send(err)
-                }
+// app.post("/register_leaveType", async (req, res) => {
+//     try {
+//         const {
+//             // leaveType_id,
+//             leaveType_name,
+//             sys_user
+//         } = req.body;
+//         // console.log(leaveType_id)
+//         const today = new Date();
+//         const hour=today.getHours();
+//         const min=today.getMinutes();
+//       const sec=today.getSeconds();
+//       const day=today.getDay();
+//       const mont=today.getMonth();
+//       const year=today.getFullYear(); 
+//        const oldUser = await LeaveTypes.findOne({ leaveType_name });
+//         if (oldUser) {
+//             // return res.status(409).send("User Already Exist. Please Login");
+//             res.send({ message2: " Leave Type alredy exist, try another", val: false })
+//         }
+//         else {
+//             const leaveTypes = new LeaveTypes({
+//                 leaveType_id:"lev"+hour+min+sec+day+mont+year,
+//                 leaveType_name,
+//                 createdBy:sys_user,
+//    updatedBy:sys_user,
+//     cr_time:new Date(),
+//     up_date:new Date()
+//                 // role_display_name: role_name,
+//             });
+//             leaveTypes.save(err => {
+//                 if (err) {
+//                     res.send(err)
+//                 }
 
-                else {
+//                 else {
 
-                    res.send({ message: "Successfully Resitered", val2: true })
-                }
-            })
-        }
-    } catch (err) {
-        console.error(err)
-    }
+//                     res.send({ message: "Successfully Resitered", val2: true })
+//                 }
+//             })
+//         }
+//     } catch (err) {
+//         console.error(err)
+//     }
 
-})
+// })
 
 ///////////////////Leave Category//////////////
-app.post("/register_leaveCategory", async (req, res) => {
-    try {
-        const {
-            // leaveCategory_id,
-            leaveCategory_name,
-            sys_user
-        } = req.body;
-        const today = new Date();
-        const hour=today.getHours();
-        const min=today.getMinutes();
-      const sec=today.getSeconds();
-      const day=today.getDay();
-      const mont=today.getMonth();
-      const year=today.getFullYear();
-        // console.log(leaveCategory_id)
-        const oldUser = await LeaveCategory.findOne({ leaveCategory_name });
-        if (oldUser) {
-            // return res.status(409).send("User Already Exist. Please Login");
-            res.send({ message2: " Leave Category alredy exist, try another", val: false })
-        }
-        else {
-            const leaveCategory = new LeaveCategory({
-                leaveCategory_id:"lcat"+hour+min+sec+day+mont+year,
-                leaveCategory_name,
-                createdBy:sys_user,
-   updatedBy:sys_user,
-    cr_time:new Date(),
-    up_date:new Date()
-                // role_display_name: role_name,
-            });
-            leaveCategory.save(err => {
-                if (err) {
-                    res.send(err)
-                }
+// app.post("/register_leaveCategory", async (req, res) => {
+//     try {
+//         const {
+//             // leaveCategory_id,
+//             leaveCategory_name,
+//             sys_user
+//         } = req.body;
+//         const today = new Date();
+//         const hour=today.getHours();
+//         const min=today.getMinutes();
+//       const sec=today.getSeconds();
+//       const day=today.getDay();
+//       const mont=today.getMonth();
+//       const year=today.getFullYear();
+//         // console.log(leaveCategory_id)
+//         const oldUser = await LeaveCategory.findOne({ leaveCategory_name });
+//         if (oldUser) {
+//             // return res.status(409).send("User Already Exist. Please Login");
+//             res.send({ message2: " Leave Category alredy exist, try another", val: false })
+//         }
+//         else {
+//             const leaveCategory = new LeaveCategory({
+//                 leaveCategory_id:"lcat"+hour+min+sec+day+mont+year,
+//                 leaveCategory_name,
+//                 createdBy:sys_user,
+//    updatedBy:sys_user,
+//     cr_time:new Date(),
+//     up_date:new Date()
+//                 // role_display_name: role_name,
+//             });
+//             leaveCategory.save(err => {
+//                 if (err) {
+//                     res.send(err)
+//                 }
 
-                else {
+//                 else {
 
-                    res.send({ message: "Successfully Resitered" , val2: true})
-                }
-            })
-        }
-    } catch (err) {
-        console.error(err)
-    }
+//                     res.send({ message: "Successfully Resitered" , val2: true})
+//                 }
+//             })
+//         }
+//     } catch (err) {
+//         console.error(err)
+//     }
 
-})
+// })
 //////////////////////////////////////////////////////
 ///////////add Project/////////////////
-app.post("/register_project", async (req, res) => {
-    try {
-        const { 
-            // pid,
-             pname, pstatus, phead, pdescription ,sys_user} = req.body;
-             const today = new Date();
-        const hour=today.getHours();
-        const min=today.getMinutes();
-      const sec=today.getSeconds();
-      const day=today.getDay();
-      const mont=today.getMonth();
-      const year=today.getFullYear(); 
-        const oldProject = await ProjectInfo.findOne({pname:pname});
-        if (oldProject) {
-            // return res.sendStatus(409).sendStatus("project is already existed");
-            res.send({ message2: " Project is alredy exist, try another", val: false })
-        }
-        else {
-            const projectInfo = new ProjectInfo({
-                pid:"proj"+hour+min+sec+day+mont+year,
-                 pname, pstatus, phead, pdescription,
-                createdBy:sys_user,
-   updatedBy:sys_user,
-    cr_time:new Date(),
-    up_date:new Date()
-            });
-            projectInfo.save(err => {
-                if (err) {
-                    res.send(err)
-                }
-                else {
-                    console.log("line no----------------------->399")
-                    res.send({ message: "successfully registered project", val2: true })
-                }
-            })
-        }
-    }
+// app.post("/register_project", async (req, res) => {
+//     try {
+//         const { 
+//             // pid,
+//              pname, pstatus, phead, pdescription ,sys_user} = req.body;
+//              const today = new Date();
+//         const hour=today.getHours();
+//         const min=today.getMinutes();
+//       const sec=today.getSeconds();
+//       const day=today.getDay();
+//       const mont=today.getMonth();
+//       const year=today.getFullYear(); 
+//         const oldProject = await ProjectInfo.findOne({pname:pname});
+//         if (oldProject) {
+//             // return res.sendStatus(409).sendStatus("project is already existed");
+//             res.send({ message2: " Project is alredy exist, try another", val: false })
+//         }
+//         else {
+//             const projectInfo = new ProjectInfo({
+//                 pid:"proj"+hour+min+sec+day+mont+year,
+//                  pname, pstatus, phead, pdescription,
+//                 createdBy:sys_user,
+//    updatedBy:sys_user,
+//     cr_time:new Date(),
+//     up_date:new Date()
+//             });
+//             projectInfo.save(err => {
+//                 if (err) {
+//                     res.send(err)
+//                 }
+//                 else {
+//                     console.log("line no----------------------->399")
+//                     res.send({ message: "successfully registered project", val2: true })
+//                 }
+//             })
+//         }
+//     }
 
-    catch (err) {
-        console.log(err);
-    }
-})
+//     catch (err) {
+//         console.log(err);
+//     }
+// })
 
 
 //////////////////////////////////////////////////////
@@ -1159,57 +1159,57 @@ app.post("/register_appraisal", async (req, res) => {
 
 //////////////////////////////////////////////////////
 ///////////add timesheet title/////////////////
-app.post("/register_title", async (req, res) => {
-    try {
-        const { emp_id,
-            start,
-            end,
+// app.post("/register_title", async (req, res) => {
+//     try {
+//         const { emp_id,
+//             start,
+//             end,
 
-            id,
+//             id,
         
-            title,
-        description,
-        Duration,
-        sys_user } = req.body;
-        // const old=await EmpTimesheet.findOne({pid});
-        // if(oldProject){
-        //     return res.sendStatus(409).sendStatus("project is already existed");
-        // }
-        // else{
-        const empTimesheet = new EmpTimesheet({
-            tid:new Date(),
-            emp_id,
-            start,
-            end,
+//             title,
+//         description,
+//         Duration,
+//         sys_user } = req.body;
+//         // const old=await EmpTimesheet.findOne({pid});
+//         // if(oldProject){
+//         //     return res.sendStatus(409).sendStatus("project is already existed");
+//         // }
+//         // else{
+//         const empTimesheet = new EmpTimesheet({
+//             tid:new Date(),
+//             emp_id,
+//             start,
+//             end,
 
-            id,
-            title,
-            description,
-//             ab:[{
-// ad:title,
-//             }],
-            Duration,
-            createdBy:sys_user,
-   updatedBy:sys_user,
-    cr_time:new Date(),
-    up_date:new Date()
-        });
-        empTimesheet.save(err => {
-            if (err) {
-                res.send(err)
-            }
-            else {
-                console.log("line no----------------------->440")
-                res.send({ message: "successfully registered title", val2: true })
-            }
-        })
-        // }
-    }
+//             id,
+//             title,
+//             description,
+// //             ab:[{
+// // ad:title,
+// //             }],
+//             Duration,
+//             createdBy:sys_user,
+//    updatedBy:sys_user,
+//     cr_time:new Date(),
+//     up_date:new Date()
+//         });
+//         empTimesheet.save(err => {
+//             if (err) {
+//                 res.send(err)
+//             }
+//             else {
+//                 console.log("line no----------------------->440")
+//                 res.send({ message: "successfully registered title", val2: true })
+//             }
+//         })
+//         // }
+//     }
 
-    catch (err) {
-        console.log(err);
-    }
-})
+//     catch (err) {
+//         console.log(err);
+//     }
+// })
 
 //////////////////////////////////////////////////////
 ///////////add New Leave/////////////////
@@ -1258,83 +1258,83 @@ createdBy:sys_user,
 
 
 ////add new employee
-app.post("/employeedetailsform", async (req, res) => {
-    try {
+// app.post("/employeedetailsform", async (req, res) => {
+//     try {
 
-        const {
-            name,
-            fname,
-            email,
-            gender,
-            offEmail,
-            offPassword,
-            offId,
-            address,
-            aadhar,
-            pan,
-            bankAccount,
-            Country,
-            state,
-            city,
-            pincode,
-            highestDegree,
-            lastCollege,
-            sys_user
+//         const {
+//             name,
+//             fname,
+//             email,
+//             gender,
+//             offEmail,
+//             offPassword,
+//             offId,
+//             address,
+//             aadhar,
+//             pan,
+//             bankAccount,
+//             Country,
+//             state,
+//             city,
+//             pincode,
+//             highestDegree,
+//             lastCollege,
+//             sys_user
 
-        } = req.body;
-        const oldUser = await EmployeeDetails.findOne({ email });
-        if (oldUser) {
-            // return res.status(409).send("User Already Exist. Please Login");
-            res.send({ message2: " User alredy exist, Please Login", val: false })
-        }
-        else {
-            //Encrypt user password
-            //encryptedPassword = await bcrypt.hash(OffPassword, 10);
-            const user = new EmployeeDetails({
-                name,
-                fname,
-                email,
-                gender,
-                offEmail,
-                offPassword,
-                offId,
-                address,
-                aadhar,
-                pan,
-                bankAccount,
-                Country,
-                state,
-                city,
-                pincode,
-                highestDegree,
-                lastCollege,
+//         } = req.body;
+//         const oldUser = await EmployeeDetails.findOne({ email });
+//         if (oldUser) {
+//             // return res.status(409).send("User Already Exist. Please Login");
+//             res.send({ message2: " User alredy exist, Please Login", val: false })
+//         }
+//         else {
+//             //Encrypt user password
+//             //encryptedPassword = await bcrypt.hash(OffPassword, 10);
+//             const user = new EmployeeDetails({
+//                 name,
+//                 fname,
+//                 email,
+//                 gender,
+//                 offEmail,
+//                 offPassword,
+//                 offId,
+//                 address,
+//                 aadhar,
+//                 pan,
+//                 bankAccount,
+//                 Country,
+//                 state,
+//                 city,
+//                 pincode,
+//                 highestDegree,
+//                 lastCollege,
 
-                DoJ,
-                ReportingManager,
-                createdBy:sys_user,
-               updatedBy:sys_user,
-                cr_time:new Date(),
-                up_date:new Date()
+//                 DoJ,
+//                 ReportingManager,
+//                 createdBy:sys_user,
+//                updatedBy:sys_user,
+//                 cr_time:new Date(),
+//                 up_date:new Date()
 
-            });
+//             });
 
-            user.save(err => {
-                if (err) {
-                    res.send(err)
-                }
+//             user.save(err => {
+//                 if (err) {
+//                     res.send(err)
+//                 }
 
-                else {
+//                 else {
 
-                    res.send({ message: "Successfully Resitered" , val2: true})
-                }
-            })
-        }
-    } catch (err) {
-        console.error(err)
-    }
+//                     res.send({ message: "Successfully Resitered" , val2: true})
+//                 }
+//             })
+//         }
+//     } catch (err) {
+//         console.error(err)
+//     }
 
-}
-)
+// }
+// )
 
 
 
@@ -1633,60 +1633,60 @@ app.get("/employeeDetail", (req, res, next) => {
 //////////////////////////////////////////////////////
 //////////////////////Leaves Types Details/////////////////
 ////////////////////////////////////////////////////
-app.get("/leaveTypesDetail", async (req, res, next) => {
-    try {
-        LeaveTypes.find({}, (err, leaveTypes) => {
-            if (err) {
-                console.warn(err)
-                return next(err)
-            }
-            console.warn(leaveTypes);
-            //res.json(employeedetails);
-            res.send(leaveTypes);
-        })
-    } catch (err) {
-        console.error(err)
-    }
+// app.get("/leaveTypesDetail", async (req, res, next) => {
+//     try {
+//         LeaveTypes.find({}, (err, leaveTypes) => {
+//             if (err) {
+//                 console.warn(err)
+//                 return next(err)
+//             }
+//             console.warn(leaveTypes);
+//             //res.json(employeedetails);
+//             res.send(leaveTypes);
+//         })
+//     } catch (err) {
+//         console.error(err)
+//     }
 
-})
+// })
+
+
 //////////////////////////////////////////////////////
 //////////////////////Leave Category Details/////////////////
 ////////////////////////////////////////////////////
-app.get("/leaveCategoryDetail", async (req, res, next) => {
-    try {
-        LeaveCategory.find({}, (err, leaveCategory) => {
-            if (err) {
-                console.warn(err)
-                return next(err)
-            }
-            console.warn(leaveCategory);
-            //res.json(employeedetails);
-            res.send(leaveCategory);
-        })
-    } catch (err) {
-        console.error(err)
-    }
+// app.get("/leaveCategoryDetail", async (req, res, next) => {
+//     try {
+//         LeaveCategory.find({}, (err, leaveCategory) => {
+//             if (err) {
+//                 console.warn(err)
+//                 return next(err)
+//             }
+//             console.warn(leaveCategory);
+//             //res.json(employeedetails);
+//             res.send(leaveCategory);
+//         })
+//     } catch (err) {
+//         console.error(err)
+//     }
 
-})
+// })
 
+// app.get("/projectDetail", async (req, res, next) => {
+//     try {
+//         ProjectInfo.find({}, (err, projectInfo) => {
+//             if (err) {
+//                 console.warn(err)
+//                 return next(err)
+//             }
+//             console.warn(projectInfo);
+//             //res.json(employeedetails);
+//             res.send(projectInfo);
+//         })
+//     } catch (err) {
+//         console.error(err)
+//     }
 
-app.get("/projectDetail", async (req, res, next) => {
-    try {
-        ProjectInfo.find({}, (err, projectInfo) => {
-            if (err) {
-                console.warn(err)
-                return next(err)
-            }
-            console.warn(projectInfo);
-            //res.json(employeedetails);
-            res.send(projectInfo);
-        })
-    } catch (err) {
-        console.error(err)
-    }
-
-})
-
+// })
 
 app.get(`/leaveReport/:id`, async (req, res, next) => {
     try {
@@ -1714,58 +1714,58 @@ app.get(`/leaveReport/:id`, async (req, res, next) => {
 
 
 
-app.get("/timesheetDetails", async (req, res, next) => {
-    try {
+// app.get("/timesheetDetails", async (req, res, next) => {
+//     try {
       
-        const tempar=[];
-        const tempar2=[{
-            end:'', start:'', Duration:'', description:'',id:'',title:'',idt:''
-        },];
+//         const tempar=[];
+//         const tempar2=[{
+//             end:'', start:'', Duration:'', description:'',id:'',title:'',idt:''
+//         },];
        
-        EmpTimesheet.find().then(function(empTimesheet){
-            var ar2=empTimesheet;
-           var ar3= ar2.sort(function(a, b){return a.start - b.start});
-           var sdate=new Date();
-           var dur;
-               console.log(ar2+"--------------------------------------------------------------------------------851 line")                   
-            ar3.map((data)=>{
+//         EmpTimesheet.find().then(function(empTimesheet){
+//             var ar2=empTimesheet;
+//            var ar3= ar2.sort(function(a, b){return a.start - b.start});
+//            var sdate=new Date();
+//            var dur;
+//                console.log(ar2+"--------------------------------------------------------------------------------851 line")                   
+//             ar3.map((data)=>{
                
-                var ndate= new Date(data.start);
-                var date=ndate.getFullYear()+'/'+(ndate.getMonth()+1)+'/'+ndate.getDate(); 
-                var n2date=new Date(date);
-if(sdate!=n2date){
-    dur=0;
-    console.log(sdate+" ----if- change--- ");
-    start_d=new Date(date);
-tempar.push({end:data.end,start:start_d,Duration:data.tid,description:data.description,id:data.id,title:data.title,idt:data.tid,tid:"data.tid"})
-           console.log(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; line 873")
-                // tempar2.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
-                 sdate=n2date;
-                 dur=data.end-data.start;
-                console.log(sdate+" ----if---- ");
-         }
-        else{
-            tempar.map((project, index)=>{
-                console.log(project.start+"--line 870")
+//                 var ndate= new Date(data.start);
+//                 var date=ndate.getFullYear()+'/'+(ndate.getMonth()+1)+'/'+ndate.getDate(); 
+//                 var n2date=new Date(date);
+// if(sdate!=n2date){
+//     dur=0;
+//     console.log(sdate+" ----if- change--- ");
+//     start_d=new Date(date);
+// tempar.push({end:data.end,start:start_d,Duration:data.tid,description:data.description,id:data.id,title:data.title,idt:data.tid,tid:"data.tid"})
+//            console.log(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; line 873")
+//                 // tempar2.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
+//                  sdate=n2date;
+//                  dur=data.end-data.start;
+//                 console.log(sdate+" ----if---- ");
+//          }
+//         else{
+//             tempar.map((project, index)=>{
+//                 console.log(project.start+"--line 870")
                 
-                console.log(n2date+"--line 872")
-                if(project.start ===n2date){
-                      project.Duration =dur+(project.end-project.start);
-                      dur=project.Duration;
-                }
-           });
-            // tempar.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
-  sdate=date;
-  console.log(sdate+" ----else---- ");
+//                 console.log(n2date+"--line 872")
+//                 if(project.start ===n2date){
+//                       project.Duration =dur+(project.end-project.start);
+//                       dur=project.Duration;
+//                 }
+//            });
+//             // tempar.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
+//   sdate=date;
+//   console.log(sdate+" ----else---- ");
         
-        } })
+//         } })
             
-            // as=tempar;
-            console.log( tempar);
-            res.send({mess:tempar});
-            // res.send({mess:empTimesheet})
+//             // as=tempar;
+//             console.log( tempar);
+//             res.send({mess:tempar});
+//             // res.send({mess:empTimesheet})
   
-        })
+//         })
     
         // EmpTimesheet.find({}, (err, empTimesheet) => {
         //     var arr=new Map([empTimesheet]);
@@ -1803,45 +1803,45 @@ tempar.push({end:data.end,start:start_d,Duration:data.tid,description:data.descr
         //     // console.log(typeof ab);
         //     res.send({mess:empTimesheet});
         // })
-    } catch (err) {
-        console.error(err)
-    }
+//     } catch (err) {
+//         console.error(err)
+//     }
 
-})
-app.get(`/leavesDetail/:id`, async (req, res, next) => {
-    try {
+// })
+// app.get(`/leavesDetail/:id`, async (req, res, next) => {
+//     try {
 
-const id=req.params.id;
-        const tempar=[
-            //        {eid:'',l_id:'',ename:'',reportingPerson:'',
-            //         l_reason:'',start_date:'',end_date:'',l_status:''
-            // ,l_type:'',l_category:''}
-                ]   
-                LeaveManage.find({reportingPerson:id}).then(function(leaveManage){
-                    var ar3=leaveManage;
-                   var sdate=new Date();
-                    ar3.map((data)=>{
-                        var ndate= new Date(data.start_date);
-            var date=ndate.getDate()+'/'+(ndate.getMonth()+1)+'/'+ndate.getFullYear(); 
-            var ndate2= new Date(data.end_date);
-            var date2=ndate2.getDate()+'/'+(ndate2.getMonth()+1)+'/'+ndate2.getFullYear(); 
+// const id=req.params.id;
+//         const tempar=[
+//             //        {eid:'',l_id:'',ename:'',reportingPerson:'',
+//             //         l_reason:'',start_date:'',end_date:'',l_status:''
+//             // ,l_type:'',l_category:''}
+//                 ]   
+//                 LeaveManage.find({reportingPerson:id}).then(function(leaveManage){
+//                     var ar3=leaveManage;
+//                    var sdate=new Date();
+//                     ar3.map((data)=>{
+//                         var ndate= new Date(data.start_date);
+//             var date=ndate.getDate()+'/'+(ndate.getMonth()+1)+'/'+ndate.getFullYear(); 
+//             var ndate2= new Date(data.end_date);
+//             var date2=ndate2.getDate()+'/'+(ndate2.getMonth()+1)+'/'+ndate2.getFullYear(); 
            
-            tempar.push({ eid:data.eid,l_id:data.l_id,ename:data.ename,reportingPerson:data.reportingPerson,
-            l_reason:data.l_reason, l_reason2:data.l_reason2,start_date:date,end_date:date2,l_status:data.l_status
-            ,l_type:data.l_type,l_category:data.l_category,s_date:data.start_date,e_date:data.end_date,approvedBy:data.approvedBy})})
+//             tempar.push({ eid:data.eid,l_id:data.l_id,ename:data.ename,reportingPerson:data.reportingPerson,
+//             l_reason:data.l_reason, l_reason2:data.l_reason2,start_date:date,end_date:date2,l_status:data.l_status
+//             ,l_type:data.l_type,l_category:data.l_category,s_date:data.start_date,e_date:data.end_date,approvedBy:data.approvedBy})})
         
-            res.send({leave:tempar});
+//             res.send({leave:tempar});
          
-        })
+//         })
             
   
             
 
-    } catch (err) {
-        console.error(err)
-    }
+//     } catch (err) {
+//         console.error(err)
+//     }
 
-})
+// })
 
 app.get(`/leavesDetailPending/:id`, async (req, res, next) => {
     try {
@@ -1985,6 +1985,9 @@ app.get(`/detail_personal/:id`, async (req, res, next) => {
 require("./app/routes/Emp.routes")(app);
 require("./app/routes/Role.routes")(app);
 require("./app/routes/Leave.routes")(app);
+require("./app/routes/LeaveInfoSettings.routes")(app);
+require("./app/routes/Project.routes")(app);
+require("./app/routes/Timesheet.routes")(app);
 
 
 // app.get("/currentemployeeDetail1",controller.getAllEmp);
@@ -2546,86 +2549,86 @@ const sys_user=req.body.sys_user;
 //     }
 // })
 
-app.put("/leaveType", async (req, res) => {
-    try {
-        // const  id = req.body.id;
-        const id = req.body.leaveType_id;
-        const name = req.body.leaveType_name;
-const sys_user=req.body.sys_user;
-        await LeaveTypes.findOne({ leaveType_id: id }, (err, leaveTypes) => {
-            leaveTypes.leaveType_id = id;
+// app.put("/leaveType", async (req, res) => {
+//     try {
+//         // const  id = req.body.id;
+//         const id = req.body.leaveType_id;
+//         const name = req.body.leaveType_name;
+// const sys_user=req.body.sys_user;
+//         await LeaveTypes.findOne({ leaveType_id: id }, (err, leaveTypes) => {
+//             leaveTypes.leaveType_id = id;
 
-            leaveTypes.leaveType_name = name;
-            leaveTypes.createdBy=sys_user,
-            leaveTypes.updatedBy=sys_user,
-            leaveTypes.cr_time=new Date(),
-            leaveTypes.up_date=new Date(),
-            leaveTypes.save();
-            // res.send("leave type updated");
-            res.send({ message: " Data updated successfully", val: false, val2: true })
-        });
-    }
-    catch (err) {
-        console.log(err);
-    }
-})
-app.put("/leaveCategory", async (req, res) => {
-    try {
-        // const  id = req.body.id;
-        const id = req.body.leaveCategory_id;
-        const name = req.body.leaveCategory_name;
-const sys_user=req.body.sys_user;
-        await LeaveCategory.findOne({ leaveCategory_id: id }, (err, leaveCategory) => {
-            leaveCategory.leaveCategory_id = id;
+//             leaveTypes.leaveType_name = name;
+//             leaveTypes.createdBy=sys_user,
+//             leaveTypes.updatedBy=sys_user,
+//             leaveTypes.cr_time=new Date(),
+//             leaveTypes.up_date=new Date(),
+//             leaveTypes.save();
+//             // res.send("leave type updated");
+//             res.send({ message: " Data updated successfully", val: false, val2: true })
+//         });
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// })
+// app.put("/leaveCategory", async (req, res) => {
+//     try {
+//         // const  id = req.body.id;
+//         const id = req.body.leaveCategory_id;
+//         const name = req.body.leaveCategory_name;
+// const sys_user=req.body.sys_user;
+//         await LeaveCategory.findOne({ leaveCategory_id: id }, (err, leaveCategory) => {
+//             leaveCategory.leaveCategory_id = id;
 
-            leaveCategory.leaveCategory_name = name;
-            leaveCategory.leaveCategory_name = name;
-            leaveCategory.createdBy=sys_user,
-            leaveCategory.updatedBy=sys_user,
-            leaveCategory.cr_time=leaveCategory.cr_time,
-            leaveCategory.up_date=new Date(),
-            leaveCategory.save();
-            // res.send("Role updated");
-            res.send({ message: " Data updated successfully", val: false, val2: true })
+//             leaveCategory.leaveCategory_name = name;
+//             leaveCategory.leaveCategory_name = name;
+//             leaveCategory.createdBy=sys_user,
+//             leaveCategory.updatedBy=sys_user,
+//             leaveCategory.cr_time=leaveCategory.cr_time,
+//             leaveCategory.up_date=new Date(),
+//             leaveCategory.save();
+//             // res.send("Role updated");
+//             res.send({ message: " Data updated successfully", val: false, val2: true })
 
-        });
-    }
-    catch (err) {
-        console.log(err);
-    }
-})
+//         });
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// })
 
 
 /////update project
-app.put("/updateProject", async (req, res) => {
-    try {
-        // const  id = req.body.id;
-        const pid = req.body.pid;
-        const pname = req.body.pname;
-        const pstatus = req.body.pstatus;
-        const phead = req.body.phead;
-        const pdescription = req.body.pdescription;
-const sys_user=req.body.sys_user;
-        await ProjectInfo.findOne({ pid: pid }, (err, projectInfo) => {
-            projectInfo.pid = pid;
+// app.put("/updateProject", async (req, res) => {
+//     try {
+//         // const  id = req.body.id;
+//         const pid = req.body.pid;
+//         const pname = req.body.pname;
+//         const pstatus = req.body.pstatus;
+//         const phead = req.body.phead;
+//         const pdescription = req.body.pdescription;
+// const sys_user=req.body.sys_user;
+//         await ProjectInfo.findOne({ pid: pid }, (err, projectInfo) => {
+//             projectInfo.pid = pid;
 
-            projectInfo.pname = pname;
-            projectInfo.pstatus = pstatus;
-            projectInfo.phead = phead;
-            projectInfo.pdescription = pdescription;
-            projectInfo.createdBy=sys_user,
-            projectInfo.updatedBy=sys_user,
-            projectInfo.cr_time=new Date(),
-            projectInfo.up_date=new Date(),
-            projectInfo.save();
-            // res.send("Project info updated");
-            res.send({ message: " Data updated successfully", val: false , val2: true})
-        });
-    }
-    catch (err) {
-        console.log(err);
-    }
-})
+//             projectInfo.pname = pname;
+//             projectInfo.pstatus = pstatus;
+//             projectInfo.phead = phead;
+//             projectInfo.pdescription = pdescription;
+//             projectInfo.createdBy=sys_user,
+//             projectInfo.updatedBy=sys_user,
+//             projectInfo.cr_time=new Date(),
+//             projectInfo.up_date=new Date(),
+//             projectInfo.save();
+//             // res.send("Project info updated");
+//             res.send({ message: " Data updated successfully", val: false , val2: true})
+//         });
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// })
 ////////////update monthly
 function bachProcess(){
     
@@ -2720,47 +2723,47 @@ function bachProcess(){
 ////////update timesheet////////////////
 ////////////////////////////////////////
 
-app.put("/updateTimesheet", async (req, res) => {
-    try {
-        // const  id = req.body.id;
-        // const pid = req.body.pid;
-        // const pname = req.body.pname;
-        // const pstatus = req.body.pstatus;
-        // const phead = req.body.phead;
-        // const pdescription = req.body.pdescription;
-        const emp_id=req.body.emp_id;
-        const start=req.body.start;
-        const end=req.body.end;
-const tid=req.body.tid;
-        const id=req.body.id;
-        const title=req.body.title;
-        const description=req.body.description;
-        const Duration=req.body.Duration;
-const sys_user=req.body.sys_user;
-        await EmpTimesheet.findOne({tid:tid }, (err, empTimesheet) => {
+// app.put("/updateTimesheet", async (req, res) => {
+//     try {
+//         // const  id = req.body.id;
+//         // const pid = req.body.pid;
+//         // const pname = req.body.pname;
+//         // const pstatus = req.body.pstatus;
+//         // const phead = req.body.phead;
+//         // const pdescription = req.body.pdescription;
+//         const emp_id=req.body.emp_id;
+//         const start=req.body.start;
+//         const end=req.body.end;
+// const tid=req.body.tid;
+//         const id=req.body.id;
+//         const title=req.body.title;
+//         const description=req.body.description;
+//         const Duration=req.body.Duration;
+// const sys_user=req.body.sys_user;
+//         await EmpTimesheet.findOne({tid:tid }, (err, empTimesheet) => {
 
-            empTimesheet.emp_id=emp_id,
-            empTimesheet.start=start,
-            empTimesheet.end=end,
+//             empTimesheet.emp_id=emp_id,
+//             empTimesheet.start=start,
+//             empTimesheet.end=end,
     
-            empTimesheet.id=id,
-            empTimesheet.title=title,
-            empTimesheet.description=description,
-            empTimesheet.Duration=Duration,
-            empTimesheet.createdBy=sys_user,
-            empTimesheet.updatedBy=sys_user,
-            empTimesheet.cr_time=new Date(),
-            empTimesheet.up_date=new Date(),
-            empTimesheet.save();
-            // res.send("timesheet info updated");
-            res.send({ message: " Data updated successfully", val: false , val2: true})
+//             empTimesheet.id=id,
+//             empTimesheet.title=title,
+//             empTimesheet.description=description,
+//             empTimesheet.Duration=Duration,
+//             empTimesheet.createdBy=sys_user,
+//             empTimesheet.updatedBy=sys_user,
+//             empTimesheet.cr_time=new Date(),
+//             empTimesheet.up_date=new Date(),
+//             empTimesheet.save();
+//             // res.send("timesheet info updated");
+//             res.send({ message: " Data updated successfully", val: false , val2: true})
 
-        });
-    }
-    catch (err) {
-        console.log(err);
-    }
-})
+//         });
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// })
 
 ////////////////////update Appraisal/////
 /////////////////////////////////////////
@@ -3497,133 +3500,133 @@ sendEmail2(reportingPerson, "Leave have replied",eDataS,"")
     }
 })
 
-app.put("/updateLeaveInfo2", async (req, res) => {
-    try {
-        // const  id = req.body.id;
-        const eid=req.body.eid;
-        const l_id=req.body. l_id;
-        const ename=req.body.ename;
-        const reportingPerson=req.body.reportingPerson;
-        const l_reason=req.body.l_reason;
-        const l_reason2=req.body.l_reason2
+// app.put("/updateLeaveInfo2", async (req, res) => {
+//     try {
+//         // const  id = req.body.id;
+//         const eid=req.body.eid;
+//         const l_id=req.body. l_id;
+//         const ename=req.body.ename;
+//         const reportingPerson=req.body.reportingPerson;
+//         const l_reason=req.body.l_reason;
+//         const l_reason2=req.body.l_reason2
 
-        const start_date=req.body.start_date;
-        const end_date=req.body.end_date;
-        const l_status=req.body.l_status;
-        const l_type=req.body.l_type;
-        const l_category=req.body.l_category;
-        const approvedBy=req.body.approvedBy;
-        const sys_user=req.body.sys_user;
-        const day1=new Date(start_date);
-        const day2=new Date(end_date);
+//         const start_date=req.body.start_date;
+//         const end_date=req.body.end_date;
+//         const l_status=req.body.l_status;
+//         const l_type=req.body.l_type;
+//         const l_category=req.body.l_category;
+//         const approvedBy=req.body.approvedBy;
+//         const sys_user=req.body.sys_user;
+//         const day1=new Date(start_date);
+//         const day2=new Date(end_date);
         
-const eDataS={eid:eid,ename:ename,
-    reportingPerson:reportingPerson,l_reason:l_reason,l_reason2:l_reason2,
-    start_date:start_date,end_date:end_date
-    ,l_type:l_type,l_category:l_category,approvedBy:approvedBy,l_status:l_status
-    }
-        const diff=(day2.getTime()-day1.getTime())/(24*60*60*1000);
-const days=Math.abs(Math.round(diff));
-// const m=2; EmployeeDetailsLogin
-await EmployeeDetailsLogin.findOne({emp_id:eid},(err,employeeDetailsLogin)=>{
+// const eDataS={eid:eid,ename:ename,
+//     reportingPerson:reportingPerson,l_reason:l_reason,l_reason2:l_reason2,
+//     start_date:start_date,end_date:end_date
+//     ,l_type:l_type,l_category:l_category,approvedBy:approvedBy,l_status:l_status
+//     }
+//         const diff=(day2.getTime()-day1.getTime())/(24*60*60*1000);
+// const days=Math.abs(Math.round(diff));
+// // const m=2; EmployeeDetailsLogin
+// await EmployeeDetailsLogin.findOne({emp_id:eid},(err,employeeDetailsLogin)=>{
 
 
 
 
 
-console.log(employeeDetailsLogin.emp_email+"-------------------------------------------------line 1863");
+// console.log(employeeDetailsLogin.emp_email+"-------------------------------------------------line 1863");
 
-        // await 
-        LeaveManage.findOne({ l_id: l_id }, (err, leaveManage) => {
+//         // await 
+//         LeaveManage.findOne({ l_id: l_id }, (err, leaveManage) => {
 
-        leaveManage.eid=eid;
-        leaveManage.l_id=l_id;
-        leaveManage.ename=ename;
-        leaveManage.reportingPerson=reportingPerson;
-        leaveManage.l_reason=l_reason;
-        leaveManage.l_reason2=l_reason2
+//         leaveManage.eid=eid;
+//         leaveManage.l_id=l_id;
+//         leaveManage.ename=ename;
+//         leaveManage.reportingPerson=reportingPerson;
+//         leaveManage.l_reason=l_reason;
+//         leaveManage.l_reason2=l_reason2
 
-        leaveManage.start_date=start_date;
-        leaveManage.end_date=end_date;
-        leaveManage.l_status=l_status;
-        leaveManage.l_type=l_type;
-        leaveManage.l_category=l_category;
-   leaveManage.approvedBy=approvedBy;
-   leaveManage.createdBy=sys_user;
-   leaveManage.updatedBy=sys_user;
-   leaveManage.cr_time=new Date();
-   leaveManage.up_date=new Date();
-        leaveManage.save();
+//         leaveManage.start_date=start_date;
+//         leaveManage.end_date=end_date;
+//         leaveManage.l_status=l_status;
+//         leaveManage.l_type=l_type;
+//         leaveManage.l_category=l_category;
+//    leaveManage.approvedBy=approvedBy;
+//    leaveManage.createdBy=sys_user;
+//    leaveManage.updatedBy=sys_user;
+//    leaveManage.cr_time=new Date();
+//    leaveManage.up_date=new Date();
+//         leaveManage.save();
              
-// await
-if(l_status=="approved")
-{ LeaveInfo.findOne({ eid: eid }, (err, leaveInfo) => {
-    const l1=leaveInfo.leave_in_buck;
-    const l2=leaveInfo.availed_leave;
-    leaveInfo.eid=eid;
-    // leaveInfo.total_leave;
-    if(l1<days){
-        const a=days-l1;
-    leaveInfo.leave_in_buck=0;
-    leaveInfo.lop=a+leaveInfo.lop;
-    }
-    else{
+// // await
+// if(l_status=="approved")
+// { LeaveInfo.findOne({ eid: eid }, (err, leaveInfo) => {
+//     const l1=leaveInfo.leave_in_buck;
+//     const l2=leaveInfo.availed_leave;
+//     leaveInfo.eid=eid;
+//     // leaveInfo.total_leave;
+//     if(l1<days){
+//         const a=days-l1;
+//     leaveInfo.leave_in_buck=0;
+//     leaveInfo.lop=a+leaveInfo.lop;
+//     }
+//     else{
 
-        leaveInfo.leave_in_buck=l1-days;
-        leaveInfo.lop=leaveInfo.lop;
-    }
-    leaveInfo.availed_leave=l2+days;
-    const d =new Date();
-    cr_date=d.getMonth();
-    leaveInfo.save();
-    // res.send("leave updated");
+//         leaveInfo.leave_in_buck=l1-days;
+//         leaveInfo.lop=leaveInfo.lop;
+//     }
+//     leaveInfo.availed_leave=l2+days;
+//     const d =new Date();
+//     cr_date=d.getMonth();
+//     leaveInfo.save();
+//     // res.send("leave updated");
 
-});}
-sendEmail2(employeeDetailsLogin.emp_email, "Leave have updated",eDataS,"");
-sendEmail2(reportingPerson, "Leave have updated",eDataS,"")
-            res.send("leave  info updated");
+// });}
+// sendEmail2(employeeDetailsLogin.emp_email, "Leave have updated",eDataS,"");
+// sendEmail2(reportingPerson, "Leave have updated",eDataS,"")
+//             res.send("leave  info updated");
 
-        });        });
-    }
-    catch (err) {
-        console.log(err);
-    }
-})
+//         });        });
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
+// })
 /* DELETE BOOK */
-app.post(`/delete/:id`, async (req, res) => {
-    const l_id = req.params.id;
-    // await EmployeeDetails1.findOne({emp_id:req.body.eid},(err,employeeDetailsLogin)=>{
-    // });
-    // await
+// app.post(`/delete/:id`, async (req, res) => {
+//     const l_id = req.params.id;
+//     // await EmployeeDetails1.findOne({emp_id:req.body.eid},(err,employeeDetailsLogin)=>{
+//     // });
+//     // await
     
-    //  await 
-    // LeaveManage.find({l_id:l_id}).remove();
-    const eid=req.body.eid;
-    const mess=req.body.message;
-    const oldUser = await EmployeeDetailsLogin.findOne({ emp_id:eid });
-    await LeaveManage.find({emp_id:eid}).then(function(leaveManage) {
-        const ar3=leaveManage;
-    ar3.map((data)=>{
+//     //  await 
+//     // LeaveManage.find({l_id:l_id}).remove();
+//     const eid=req.body.eid;
+//     const mess=req.body.message;
+//     const oldUser = await EmployeeDetailsLogin.findOne({ emp_id:eid });
+//     await LeaveManage.find({emp_id:eid}).then(function(leaveManage) {
+//         const ar3=leaveManage;
+//     ar3.map((data)=>{
 
 
-        tempar={eid:data.eid,ename:data.ename,
-            reportingPerson:data.reportingPerson,l_reason:data.l_reason,l_reason2:data.l_reason2,
-            start_date:data.start_date,end_date:data.end_date
-            ,l_type:data.l_type,l_category:data.l_category,approvedBy:data.approvedBy,l_status:data.l_status}
+//         tempar={eid:data.eid,ename:data.ename,
+//             reportingPerson:data.reportingPerson,l_reason:data.l_reason,l_reason2:data.l_reason2,
+//             start_date:data.start_date,end_date:data.end_date
+//             ,l_type:data.l_type,l_category:data.l_category,approvedBy:data.approvedBy,l_status:data.l_status}
 
 
 
 
 
-    })})
-    await LeaveManage.deleteOne({l_id:l_id});
-    // console.log("------------------->line 1796"+req.body.message);
-    sendEmail2(oldUser.emp_email, "Leave have canceled",tempar,mess);
-sendEmail2(req.body.reportingPerson, "Leave have canceled",tempar,mess)
+//     })})
+//     await LeaveManage.deleteOne({l_id:l_id});
+//     // console.log("------------------->line 1796"+req.body.message);
+//     sendEmail2(oldUser.emp_email, "Leave have canceled",tempar,mess);
+// sendEmail2(req.body.reportingPerson, "Leave have canceled",tempar,mess)
 
-    res.send("deleted");
+//     res.send("deleted");
 
-});
+// });
 
 /////////cancel apraisal 
 app.post(`/cancelAppraisal/:id`, async (req, res) => {
