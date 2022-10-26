@@ -3,6 +3,7 @@ const db = require("../models");
 // const Role = db.role;
 const AppraisalInfo = db.AppraisalInfo;
 const EmployeeDetails1 = db.EmployeeDetails1;
+const sendEmail3=require("../../utils/sendEmail3");
 
 // const LeaveInfo=db.LeaveInfo;
 const EmployeeDetailsLogin=db.EmployeeDetailsLogin;
@@ -128,9 +129,9 @@ exports.addNewAppraisal = async (req, res) => {
                     res.send({ message: "err", val2: true })
                 }
                 else {
-                    // sendEmail3( em,"Appraisal  of "+EmpId,em2,em3,"Appraisal is started, Please Chaeck on system");
+                    sendEmail3( em,"Appraisal  of "+EmpId,em2,em3,"Appraisal is started, Please Chaeck on system");
 
-                    // sendEmail3( em,"subject",em2,em3,"data")
+                    sendEmail3( em,"subject",em2,em3,"data")
                     res.send({ message: "successfully registered Appraisal", val2: true })
                 }
             })
@@ -759,7 +760,7 @@ const
             AppraisalInfo.
             total_average_MR2 =  total_average_MR2,
             AppraisalInfo.save();
-            // sendEmail3( em,"Appraisal  of "+EmpId,em2,em3,"Appraisal Information Updated, Please Chaeck on system");
+            sendEmail3( em,"Appraisal  of "+EmpId,em2,em3,"Appraisal Information Updated, Please Chaeck on system");
 
             //// sendEmail3(EmpId, "Appraisal Form Submitted","Appraisal Form Submitted","");
             //// sendEmail3(reviewappariser, "Appraisal Form Submitted","Appraisal Form Submitted","")
@@ -1417,7 +1418,7 @@ const
             AppraisalInfo.
             total_average_MR2 =  total_average_MR2,
             AppraisalInfo.save();
-            // sendEmail3( em,"Appraisal  of "+EmpId,em2,em3,"Appraisal Information Updated, Please Chaeck on system");
+            sendEmail3( em,"Appraisal  of "+EmpId,em2,em3,"Appraisal Information Updated, Please Chaeck on system");
 
            // // sendEmail3(EmpId, "Appraisal Form Submitted","Appraisal Form Submitted","");
             //// sendEmail3(reviewappariser, "Appraisal Form Submitted","Appraisal Form Submitted","")
@@ -2110,7 +2111,7 @@ exports.editByReportingPerson = async (req, res) => {
                     AppraisalInfo.
                     total_average_MR2 =  total_average_MR2,
                     AppraisalInfo.save();
-                //     sendEmail3( em,"Appraisal  of "+EmpId,em2,em3,"Appraisal Information Updated, Please Chaeck on system");
+                    sendEmail3( em,"Appraisal  of "+EmpId,em2,em3,"Appraisal Information Updated, Please Chaeck on system");
         
                     //// sendEmail3(EmpId, "Appraisal Form Submitted","Appraisal Form Submitted","");
                     // //sendEmail3(reviewappariser, "Appraisal Form Submitted","Appraisal Form Submitted","")

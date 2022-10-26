@@ -5,6 +5,8 @@ const EmployeeDetails1 = db.EmployeeDetails1;
 const LeaveInfo=db.LeaveInfo;
 const EmployeeDetailsLogin=db.EmployeeDetailsLogin;
 const LeaveManage=db.LeaveManage;
+const sendEmail2=require("../../utils/sendEmail2");
+
 
 // const EmployeeDetails1 = db.EmployeeDetails1;
 
@@ -74,9 +76,9 @@ up_date:new Date()});
                 res.send(err)
             }
             else {
-                // sendEmail2(reportingPerson,"Leave Request",eDataS,"yes");
+                sendEmail2(reportingPerson,"Leave Request",eDataS,"yes");
                 
-                // sendEmail2(userEmail,"Leave Request send",eDataS,"yes");
+                sendEmail2(userEmail,"Leave Request send",eDataS,"yes");
                 console.log("line no----------------------->399")
                 res.send({ message: "Request successfully registered" , val2: true})
             }
@@ -171,8 +173,8 @@ if(l_status=="approved")
     // res.send("leave updated");
 
 });}
-// sendEmail2(employeeDetailsLogin.emp_email, "Leave have updated",eDataS,"");
-// sendEmail2(reportingPerson, "Leave have updated",eDataS,"")
+sendEmail2(employeeDetailsLogin.emp_email, "Leave have updated",eDataS,"");
+sendEmail2(reportingPerson, "Leave have updated",eDataS,"")
             res.send("leave  info updated");
 
         });        });
@@ -215,8 +217,8 @@ exports.delete_self_leave = async (req, res) => {
         })})
         await LeaveManage.deleteOne({l_id:l_id});
         // console.log("------------------->line 1796"+req.body.message);
-    //     sendEmail2(oldUser.emp_email, "Leave have canceled",tempar,mess);
-    // sendEmail2(req.body.reportingPerson, "Leave have canceled",tempar,mess)
+        sendEmail2(oldUser.emp_email, "Leave have canceled",tempar,mess);
+    sendEmail2(req.body.reportingPerson, "Leave have canceled",tempar,mess)
     
         res.send("deleted");
     
@@ -342,8 +344,8 @@ if(l_status=="approved")
     // res.send("leave updated");
 
 });}
-// sendEmail2(employeeDetailsLogin.emp_email, "Leave have replied",eDataS,"");
-// sendEmail2(reportingPerson, "Leave have replied",eDataS,"")
+sendEmail2(employeeDetailsLogin.emp_email, "Leave have replied",eDataS,"");
+sendEmail2(reportingPerson, "Leave have replied",eDataS,"")
             // res.send("leave  info updated");
             res.send({ message: " Data updated successfully", val: false, val2: true })
 
@@ -351,6 +353,41 @@ if(l_status=="approved")
   
 
     } catch (err) {
+        console.error(err)
+    }
+
+};
+
+exports.pendingLeave = async (req, res) => {
+    try {
+
+        
+const id=req.params.id;
+const tempar=[
+    //        {eid:'',l_id:'',ename:'',reportingPerson:'',
+    //         l_reason:'',start_date:'',end_date:'',l_status:''
+    // ,l_type:'',l_category:''}
+        ]   
+        LeaveManage.find({reportingPerson:id}).then(function(leaveManage){
+            var ar3=leaveManage;
+           var sdate=new Date();
+            ar3.map((data)=>{
+                if(data.l_status==="pending"){
+                var ndate= new Date(data.start_date);
+                var date=(ndate.getMonth()+1)+'/'+ndate.getDate()+'/'+ndate.getFullYear(); 
+                var ndate2= new Date(data.end_date);
+                var date2=(ndate2.getMonth()+1)+'/'+ndate2.getDate()+'/'+ndate2.getFullYear(); 
+               
+    tempar.push({ eid:data.eid,l_id:data.l_id,ename:data.ename,reportingPerson:data.reportingPerson,
+    l_reason:data.l_reason, l_reason2:data.l_reason2,start_date:date,end_date:date2,l_status:data.l_status
+    ,l_type:data.l_type,l_category:data.l_category,s_date:data.start_date,e_date:data.end_date,approvedBy:data.approvedBy}
+    )}})
+
+    res.send({leave:tempar});
+ 
+})
+
+      } catch (err) {
         console.error(err)
     }
 

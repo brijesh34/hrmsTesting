@@ -3,15 +3,16 @@ const db = require("../app/models");
 // const Role = db.role;
 const EmployeeDetails1 = db.EmployeeDetails1;
 
+var nodemailer = require('nodemailer');
+var smtpTransport = require("nodemailer-smtp-transport");
+var handlebars = require("handlebars");
+var fs = require("fs");
+
 const sendEmail2=(email,subject,data,data2)=>{
     // var data=data;
     // var data=data;
     const em=email;
     const dat=subject;
-    var nodemailer = require('nodemailer');
-    var smtpTransport = require("nodemailer-smtp-transport");
-    var handlebars = require("handlebars");
-    var fs = require("fs");
     const oldUser =  EmployeeDetails1.findOne({ jobType:"Human Resource" });
     
     var readHTMLFile = function (path, callback) {
@@ -40,7 +41,7 @@ const sendEmail2=(email,subject,data,data2)=>{
         );
         // let htmlFile = "/secondfromat.html";
     
-        let htmlFile = "/public/secondfromat.html";
+        let htmlFile = "../../public/secondfromat.html";
         // const html="aa";
         //  readHTMLFile(__dirname + "/../public/code.html", function (err, html) {
         readHTMLFile(__dirname + htmlFile, function (err, html) {
