@@ -17,6 +17,8 @@ module.exports = function (app) {
     app.put("/api/leave/updateLeaveBySelf", controller.updateLeaveBySelf);
     app.post("/api/leave/delete/:id", controller.delete_self_leave);
     app.get("/api/leave/pendingLeave/:id", controller.pendingLeave);
+    app.get("/api/leave/detailPersonal/:id", controller.detailPersonal);
+    app.get("/api/leave/leaveReport/:id", controller.leaveReport);
 
     app.get("/api/leave/leaveManagementInfo/:id", controller.leaveManagementInfo);
     app.put("/api/leave/updateLeaveByManager", controller.updateLeaveByManager);

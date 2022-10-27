@@ -2126,3 +2126,88 @@ exports.editByReportingPerson = async (req, res) => {
         }
     
     };
+
+    exports.appraisalDetailStatus = async (req, res) => {
+        try {
+                const id = req.params.id;
+                var user2;
+                const oldUser = await AppraisalInfo.findOne({ reviewappariser:id });
+                
+                const oldUser2 = await AppraisalInfo.findOne({EmpId:id});
+                if(oldUser){
+                    user2=id
+                }
+                else{
+                    user2=""
+                }
+                 await AppraisalInfo.find({EmpId:id}, (err, appraisalInfo) => {
+                    if (err) {
+                        console.warn(err)
+                        // return next(err)
+                        res.send({ user: "" });
+                    }
+                    else{
+                        var as;
+                        if(oldUser2){
+                            as=oldUser2.EmpId;
+                            console.warn(oldUser2.EmpId+"--------------------------line 2216");
+        
+                        }
+                        else{
+                            as=""
+                        }
+                       
+                    // console.warn(oldUser2.EmpId+"--------------------------line 2216");
+        
+                    res.send({ user:as,user2:user2});
+                    }
+                })
+        } catch (err) {
+            console.error(err)
+        }
+    
+    };
+    
+    
+    exports.appraisalDetailStatusPersonal = async (req, res) => {
+        try {
+                const id = req.params.id;
+        var user2;
+        const oldUser = await AppraisalInfo.findOne({ reviewappariser:id });
+        
+        const oldUser2 = await AppraisalInfo.findOne({EmpId:id});
+        if(oldUser){
+            user2=id
+        }
+        else{
+            user2=""
+        }
+         await AppraisalInfo.find({EmpId:id}, (err, appraisalInfo) => {
+            if (err) {
+                console.warn(err)
+                // return next(err)
+                res.send({ user: "" });
+            }
+            else{
+                var as;
+                if(oldUser2){
+                    as=oldUser2.status;
+                    console.warn(oldUser2.EmpId+"--------------------------line 2216");
+
+                }
+                else{
+                    as=""
+                }
+               
+            // console.warn(oldUser2.EmpId+"--------------------------line 2216");
+
+            res.send({ user:as,user2:user2,user3:oldUser2});
+            }
+        })
+        } catch (err) {
+            console.error(err)
+        }
+    
+    };
+    
+    

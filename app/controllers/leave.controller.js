@@ -392,3 +392,45 @@ const tempar=[
     }
 
 };
+exports.detailPersonal = async (req, res) => {
+    try {
+        const offId=req.params.id;
+        
+        EmployeeDetails1.findOne({ offId: offId}, (err, employeedetails1) => {
+            if (err) {
+                console.warn(err)
+                return next(err)
+            }
+            console.warn(employeedetails1);
+            console.log("oooooooooooooo      1181"+employeedetails1);
+            res.send(employeedetails1);
+   })
+  } catch (err) {
+        console.error(err)
+    }
+
+};
+
+
+exports.leaveReport = async (req, res) => {
+    try {
+        const eid=req.params.id;
+        console.warn(".................................................................line1087");
+           
+        // const eid="inv0095";
+        // const oldUser = await LeaveInfo.find({ eid:eid });
+    
+        LeaveInfo.find({eid:eid}, (err, leaveInfo) => {
+            if (err) {
+                console.warn(err)
+                return next(err)
+            }
+            console.warn(leaveInfo+".................................................................line1096");
+            //res.json(employeedetails);
+            res.send(leaveInfo);
+        })
+  } catch (err) {
+        console.error(err)
+    }
+
+};

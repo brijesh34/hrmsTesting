@@ -102,3 +102,26 @@ exports.sendPassword = async (req, res) => {
     }
 
 };
+
+
+
+
+exports.updatePassword = async (req, res) => {
+    try {
+        const newuser_HName = req.body.password;
+
+        const id = req.body.id;
+
+        await EmployeeDetailsLogin.findOne({ emp_email: id }, (err, employeeDetailsLogin) => {
+            employeeDetailsLogin.emp_password = newuser_HName;
+
+            employeeDetailsLogin.save();
+            // res.send("Password updated");
+            res.send({ message: " Data updated successfully", val: false, val2: true })
+        });
+
+    } catch (err) {
+        console.error(err)
+    }
+
+};

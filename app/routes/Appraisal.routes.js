@@ -23,5 +23,7 @@ app.put("/api/appraisal/editByEmployee/", controller.editByEmployee);
 app.get("/api/appraisal/getSelfAppraisal/:id", controller.getSelfAppraisal);
 app.get("/api/appraisal/appraisalDetailManager/:id", controller.appraisalDetailManager);
 app.put("/api/appraisal/editByReportingPerson/", controller.editByReportingPerson);
+app.get("/api/appraisal/appraisalDetailStatus/:id", controller.appraisalDetailStatus);
+app.get("/api/appraisal/appraisalDetailStatusPersonal/:id", controller.appraisalDetailStatusPersonal);
 
 };
