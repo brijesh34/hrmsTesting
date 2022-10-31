@@ -2041,7 +2041,7 @@ app.get(`/appraisalDetailStatus/:id`, async (req, res, next) => {
         else{
             user2=""
         }
-         await AppraisalInfo.find({EmpId:id}, (err, appraisalInfo) => {
+         await {EmpId:id}, (err, appraisalInfo) => {
             if (err) {
                 console.warn(err)
                 // return next(err)
