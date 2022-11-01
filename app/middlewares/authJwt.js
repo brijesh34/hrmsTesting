@@ -5,7 +5,7 @@ const config = require("../config/auth.config");
 // const Role = db.role;
 // const Employee = db.employee;
 
-verifyToken = () => (req, res, next) => {
+verifyToken =  (req, res, next) => {
 
   try {
     let token = req.headers["authorization"];
@@ -18,7 +18,22 @@ verifyToken = () => (req, res, next) => {
     //   if (err) {
     //     return res.status(401).send({ message: "Unauthorized! " + err.message + " " + token });
     //   }
-    //   req.userId = decoded.id;
+    
+    console.log("==================================line 21"+config.secret)
+    const verified = jwt.verify(token, config.secret, (err, decoded) => { console.log("line 22;;;;"+err) });
+        if(verified){
+            console.log("Successfully Verified===================line23");
+        }else{
+            // Access Denied
+            console.log("not Verified====================line26");
+            // return res.status(401).send(error);
+        }
+    
+    
+    next();
+    // return;
+      //  })  
+        //   req.userId = decoded.id;
     //   User.findById(req.userId).exec((err, user) => {
     //     if (err || user === null) {
     //       let mess = err;

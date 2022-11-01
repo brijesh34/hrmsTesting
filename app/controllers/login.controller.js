@@ -45,7 +45,7 @@ exports.login = async (req, res) => {
                                     { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet },
                                     jwtSecretKey,
                                     {
-                                        expiresIn: "2h",
+                                        // expiresIn: "2h",
                                     }
                                 );
                                 res.send({ message: "Login successfully", user: employeedetails1, val: true, val2: token })
