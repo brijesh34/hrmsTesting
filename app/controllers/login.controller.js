@@ -23,12 +23,12 @@ exports.login = async (req, res) => {
         ////////////////////////
         await EmployeeDetailsLogin.findOne(
             { emp_id: email },
-            (err, employeedetails1) => {
-                console.log("employeedetails1: ", employeedetails1);
-                if (employeedetails1) {
+            (err, employeedetails) => {
+                console.log("employeedetails1: ", employeedetails);
+                if (employeedetails) {
 
-                    console.log("292: Pass: ", employeedetails1.emp_password);
-                    if (password === employeedetails1.emp_password) {
+                    console.log("292: Pass: ", employeedetails.emp_password);
+                    if (password === employeedetails.emp_password) {
                         const employeedetails2 = tab.findOne({ offId: email }, (err, employeedetails1) => {
 
                             const jobtype = employeedetails1.jobType;
@@ -41,6 +41,7 @@ exports.login = async (req, res) => {
 
 
                                 const offId = employeedetails1.offId;
+                               
                                 const token = jwt.sign(
                                     { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet },
                                     jwtSecretKey,
@@ -48,6 +49,10 @@ exports.login = async (req, res) => {
                                         // expiresIn: "2h",
                                     }
                                 );
+                                employeedetails.emp_token = token;
+
+                                employeedetails.save();
+            
                                 res.send({ message: "Login successfully", user: employeedetails1, val: true, val2: token })
 
                             });

@@ -146,7 +146,9 @@ const month=doj.getMonth();
             emp_password: name,
             emp_email: offEmail,
 
-            emp_status: status
+            emp_status: status,
+            emp_token:""
+
         });
 
         const user = await EmployeeDetails1.create({

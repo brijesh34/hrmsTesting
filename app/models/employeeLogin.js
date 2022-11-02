@@ -6,6 +6,7 @@ const userSchema5 = new mongoose.Schema({
     emp_password: String,
     emp_email: String,
     emp_status: String,
+    emp_token:String,
    createdBy:String,
    updatedBy:String,
    cr_time:Date,
