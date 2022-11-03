@@ -12,13 +12,13 @@ module.exports = function (app) {
 //   app.get("/api/emp/getAllEmp/", [authJwt.verifyToken(["ADMIN", "BM", "FO"])], controller.getAllEmp);
 
 app.get("/api/emp/getAllCurrentEmp",authJwt.verifyToken, controller.getAllCurrentEmp);
-app.get("/api/emp/getAllEmp", controller.getAllEmp);
+app.get("/api/emp/getAllEmp",authJwt.verifyToken, controller.getAllEmp);
   
-app.get("/api/emp/exemployeeDetail1", controller.getAllExEmp);
-app.get(`/api/emp/employeeDetail1/:id`, controller.getPersonal);
+app.get("/api/emp/exemployeeDetail1",authJwt.verifyToken, controller.getAllExEmp);
+app.get(`/api/emp/employeeDetail1/:id`,authJwt.verifyToken, controller.getPersonal);
 
-app.post("/api/emp/addNew", controller.addNew);
-app.put("/api/emp/updateProfile", controller.updateProfile);
+app.post("/api/emp/addNew",authJwt.verifyToken, controller.addNew);
+app.put("/api/emp/updateProfile",authJwt.verifyToken, controller.updateProfile);
   
 
 

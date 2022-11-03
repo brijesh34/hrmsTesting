@@ -31,7 +31,7 @@ const mongoose = require("mongoose")
 const multer = require('multer')
 const jwt = require('jsonwebtoken');
 
-const API_PORT = 9005;
+const API_PORT = 9001;
 const port = process.env.PORT || API_PORT;
 
 //configure
@@ -198,6 +198,6 @@ bachProcess2();
 }, 1000*60*60*24);
 // bachProcess2();
 app.listen(port, () => {
-    console.log("BE started at port 9005")
+    console.log("BE started at port 9001")
 })
 

@@ -3,6 +3,7 @@
 // const verifyEmp = require("../middlewares/verifyEmp");
 const controller = require("../controllers/role.controller");
 const { application } = require("express");
+const authJwt = require("../middlewares/authJwt");
 
 module.exports = function (app) {
 //   app.use(function (req, res, next) {
@@ -11,9 +12,9 @@ module.exports = function (app) {
 //   });
 //   app.get("/api/emp/getAllEmp/", [authJwt.verifyToken(["ADMIN", "BM", "FO"])], controller.getAllEmp);
 
-app.get("/api/role/getRole", controller.getRole);
+app.get("/api/role/getRole",authJwt.verifyToken, controller.getRole);
 
-app.post("/api/role/addRole", controller.addRole);
-app.put("/api/role/updateRole", controller.updateRole);
+app.post("/api/role/addRole",authJwt.verifyToken, controller.addRole);
+app.put("/api/role/updateRole",authJwt.verifyToken, controller.updateRole);
 
 };

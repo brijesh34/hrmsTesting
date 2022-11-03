@@ -10,15 +10,16 @@ module.exports = function (app) {
 //     next();
 //   });
 //   app.get("/api/emp/getAllEmp/", [authJwt.verifyToken(["ADMIN", "BM", "FO"])], controller.getAllEmp);
+const authJwt = require("../middlewares/authJwt");
 
-app.get("/api/leaveInfoSettings/leaveTypesDetail", controller.leaveTypesDetail);
-app.get("/api/leaveInfoSettings/leaveCategoryDetail", controller.leaveCategoryDetail);
+app.get("/api/leaveInfoSettings/leaveTypesDetail",authJwt.verifyToken, controller.leaveTypesDetail);
+app.get("/api/leaveInfoSettings/leaveCategoryDetail",authJwt.verifyToken, controller.leaveCategoryDetail);
 
-app.post("/api/leaveInfoSettings/addLeaveType", controller.addLeaveType);
-app.put("/api/leaveInfoSettings/updateLeaveType", controller.updateLeaveType);
+app.post("/api/leaveInfoSettings/addLeaveType",authJwt.verifyToken, controller.addLeaveType);
+app.put("/api/leaveInfoSettings/updateLeaveType",authJwt.verifyToken, controller.updateLeaveType);
 
-app.post("/api/leaveInfoSettings/addLeaveCategory", controller.addLeaveCategory);
-app.put("/api/leaveInfoSettings/updateLeaveCategory", controller.updateLeaveCategory);
+app.post("/api/leaveInfoSettings/addLeaveCategory",authJwt.verifyToken, controller.addLeaveCategory);
+app.put("/api/leaveInfoSettings/updateLeaveCategory",authJwt.verifyToken, controller.updateLeaveCategory);
 
 
 // app.post("/api/role/addRole", controller.addRole);

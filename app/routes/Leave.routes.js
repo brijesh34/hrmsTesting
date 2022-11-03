@@ -3,6 +3,7 @@
 // const verifyEmp = require("../middlewares/verifyEmp");
 const controller = require("../controllers/leave.controller");
 const { application } = require("express");
+const authJwt = require("../middlewares/authJwt");
 
 module.exports = function (app) {
     //   app.use(function (req, res, next) {
@@ -11,17 +12,17 @@ module.exports = function (app) {
     //   });
     //   app.get("/api/emp/getAllEmp/", [authJwt.verifyToken(["ADMIN", "BM", "FO"])], controller.getAllEmp);
 
-    app.get("/api/leave/getPersonalLeave/:id", controller.getPersonalLeave);
+    app.get("/api/leave/getPersonalLeave/:id",authJwt.verifyToken, controller.getPersonalLeave);
 
-    app.post("/api/leave/addLeave", controller.addLeave);
-    app.put("/api/leave/updateLeaveBySelf", controller.updateLeaveBySelf);
-    app.post("/api/leave/delete/:id", controller.delete_self_leave);
-    app.get("/api/leave/pendingLeave/:id", controller.pendingLeave);
-    app.get("/api/leave/detailPersonal/:id", controller.detailPersonal);
-    app.get("/api/leave/leaveReport/:id", controller.leaveReport);
+    app.post("/api/leave/addLeave", authJwt.verifyToken,controller.addLeave);
+    app.put("/api/leave/updateLeaveBySelf", authJwt.verifyToken,controller.updateLeaveBySelf);
+    app.post("/api/leave/delete/:id",authJwt.verifyToken, controller.delete_self_leave);
+    app.get("/api/leave/pendingLeave/:id",authJwt.verifyToken, controller.pendingLeave);
+    app.get("/api/leave/detailPersonal/:id",authJwt.verifyToken, controller.detailPersonal);
+    app.get("/api/leave/leaveReport/:id",authJwt.verifyToken, controller.leaveReport);
 
-    app.get("/api/leave/leaveManagementInfo/:id", controller.leaveManagementInfo);
-    app.put("/api/leave/updateLeaveByManager", controller.updateLeaveByManager);
+    app.get("/api/leave/leaveManagementInfo/:id",authJwt.verifyToken, controller.leaveManagementInfo);
+    app.put("/api/leave/updateLeaveByManager",authJwt.verifyToken, controller.updateLeaveByManager);
 
 
     // app.put("/api/role/updateRole", controller.updateRole);

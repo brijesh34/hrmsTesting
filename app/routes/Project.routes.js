@@ -1,5 +1,6 @@
 const controller = require("../controllers/projectInfo.controller");
 const { application } = require("express");
+const authJwt = require("../middlewares/authJwt");
 
 module.exports = function (app) {
 //   app.use(function (req, res, next) {
@@ -8,9 +9,9 @@ module.exports = function (app) {
 //   });
 //   app.get("/api/emp/getAllEmp/", [authJwt.verifyToken(["ADMIN", "BM", "FO"])], controller.getAllEmp);
 
-app.get("/api/project/projectInfo", controller.projectInfo);
+app.get("/api/project/projectInfo",authJwt.verifyToken, controller.projectInfo);
 
-app.post("/api/project/addProject", controller.addProject);
-app.put("/api/project/updateProject", controller.updateProject);
+app.post("/api/project/addProject",authJwt.verifyToken, controller.addProject);
+app.put("/api/project/updateProject",authJwt.verifyToken, controller.updateProject);
 
 };
