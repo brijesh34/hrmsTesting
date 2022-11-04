@@ -1,14 +1,9 @@
 const db = require("../models");
-// const config = require("../config/auth.config");
-// const Role = db.role;
-// const EmployeeDetails1 = db.EmployeeDetails1;
-// const LeaveInfo=db.LeaveInfo;
-const EmployeeDetailsLogin=db.EmployeeDetailsLogin;
-const EmployeeRoles=db.EmployeeRoles;
+const EmployeeDetailsLogin = db.EmployeeDetailsLogin;
+const EmployeeRoles = db.EmployeeRoles;
 
 const EmployeeDetails1 = db.EmployeeDetails1;
-const sendEmail=require("../../utils/sendEmail");
-// const sendHtmlEmail = require("./passwordEmail.controller");
+const sendEmail = require("../../utils/sendEmail");
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 exports.login = async (req, res) => {
@@ -41,7 +36,7 @@ exports.login = async (req, res) => {
 
 
                                 const offId = employeedetails1.offId;
-                               
+
                                 const token = jwt.sign(
                                     { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet },
                                     jwtSecretKey,
@@ -52,7 +47,7 @@ exports.login = async (req, res) => {
                                 employeedetails.emp_token = token;
 
                                 employeedetails.save();
-            
+
                                 res.send({ message: "Login successfully", user: employeedetails1, val: true, val2: token })
 
                             });
@@ -69,7 +64,7 @@ exports.login = async (req, res) => {
                 }
 
             }).clone();
-       
+
     } catch (err) {
         console.error(err)
     }
@@ -84,10 +79,10 @@ exports.sendPassword = async (req, res) => {
         EmployeeDetailsLogin.findOne({ emp_email: email }, (err, employeeDetailsLogin) => {
             if (employeeDetailsLogin) {
                 if (email === employeeDetailsLogin.emp_email) {
-                    
+
                     var data = Math.floor(Math.random() * (8000 - 1000) + 1000);
-                    sendEmail(email, "Otp for Password Reset",data);
-                    
+                    sendEmail(email, "Otp for Password Reset", data);
+
                     res.send({ message: "Check Otp on your e-mail , If e-mail is registered ", val: data, vemail: employeeDetailsLogin.email })
 
                 }

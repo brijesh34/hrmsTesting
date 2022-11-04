@@ -1,7 +1,7 @@
 exports.files = async (req, res) => {
     try {
-        
-        
+
+
         const id = req.params.id;
 
         const fileExists = require('file-exists');
@@ -96,7 +96,6 @@ exports.files = async (req, res) => {
             console.log("DOES NOT exist:", path);
         }
 
-        // console.log("mmmmmmmmmmmmmmmmmmmm"+exists)
 
         console.log(id) // OUTPUTS: true or false
         // const a=exists;

@@ -2,13 +2,10 @@ const db = require("../models");
 // const config = require("../config/auth.config");
 // const Role = db.role;
 const EmployeeDetails1 = db.EmployeeDetails1;
-const LeaveInfo=db.LeaveInfo;
-const EmployeeDetailsLogin=db.EmployeeDetailsLogin;
-const EmployeeRoles=db.EmployeeRoles;
+const LeaveInfo = db.LeaveInfo;
+const EmployeeDetailsLogin = db.EmployeeDetailsLogin;
+const EmployeeRoles = db.EmployeeRoles;
 
-// const EmployeeDetails1 = db.EmployeeDetails1;
-
-// const sendHtmlEmail = require("./passwordEmail.controller");
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
@@ -38,29 +35,27 @@ exports.addRole = async (req, res) => {
             sys_user
 
         } = req.body;
-        // console.log(role_id)
         const today = new Date();
-        const hour=today.getHours();
-        const min=today.getMinutes();
-      const sec=today.getSeconds();
-      const day=today.getDay();
-      const mont=today.getMonth();
-      const year=today.getFullYear(); 
-      
+        const hour = today.getHours();
+        const min = today.getMinutes();
+        const sec = today.getSeconds();
+        const day = today.getDay();
+        const mont = today.getMonth();
+        const year = today.getFullYear();
+
         const oldUser = await EmployeeRoles.findOne({ role_name });
         if (oldUser) {
-            // return res.status(409).send("User Already Exist. Please Login");
             res.send({ message2: "Role Already Exist, Try another.", val: false })
         }
         else {
             const employeeRoles = new EmployeeRoles({
-                role_id:"rol"+hour+min+sec+day+mont+year,
+                role_id: "rol" + hour + min + sec + day + mont + year,
                 role_name,
                 role_display_name: role_name,
-                createdBy:sys_user,
-   updatedBy:sys_user,
-    cr_time:new Date(),
-    up_date:new Date()
+                createdBy: sys_user,
+                updatedBy: sys_user,
+                cr_time: new Date(),
+                up_date: new Date()
             });
             employeeRoles.save(err => {
                 if (err) {
@@ -84,17 +79,17 @@ exports.updateRole = async (req, res) => {
         // const  id = req.body.id;
         const id = req.body.id;
         const name = req.body.name;
-const sys_user=req.body.sys_user;
+        const sys_user = req.body.sys_user;
         await EmployeeRoles.findOne({ role_id: id }, (err, employeeRoles) => {
             employeeRoles.role_id = id;
 
             employeeRoles.role_name = name;
             employeeRoles.role_display_name = name;
-            employeeRoles.createdBy=sys_user,
-            employeeRoles.updatedBy=sys_user,
-            employeeRoles.cr_time=new Date(),
-            employeeRoles.up_date=new Date(),
-            employeeRoles.save();
+            employeeRoles.createdBy = sys_user,
+                employeeRoles.updatedBy = sys_user,
+                employeeRoles.cr_time = new Date(),
+                employeeRoles.up_date = new Date(),
+                employeeRoles.save();
             // res.send("Role updated");
             res.send({ message: " Data updated successfully", val: false, val2: true })
 

@@ -5,7 +5,7 @@ const { application } = require("express");
 
 module.exports = function (app) {
 
-app.get(`/api/files/files/:id`,authJwt.verifyToken, controller.files);
+    app.get(`/api/files/files/:id`, authJwt.verifyToken, controller.files);
 
 
 };
