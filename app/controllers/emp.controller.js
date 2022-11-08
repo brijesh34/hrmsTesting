@@ -140,7 +140,8 @@ exports.addNew = async (req, res) => {
                 emp_email: offEmail,
 
                 emp_status: status,
-                emp_token: ""
+                emp_token: "",
+                emp_policy_status:""
 
             });
 

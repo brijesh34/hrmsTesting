@@ -7,6 +7,7 @@ const userSchema5 = new mongoose.Schema({
     emp_email: String,
     emp_status: String,
     emp_token:String,
+    emp_policy_status:String,
    createdBy:String,
    updatedBy:String,
    cr_time:Date,

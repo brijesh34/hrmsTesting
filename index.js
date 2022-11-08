@@ -11,6 +11,7 @@ const LeaveCategory = db.LeaveCategory;
 const LeaveInfo = db.LeaveInfo;
 const LeaveManage = db.LeaveManage;
 const LeaveTypes = db.LeaveTypes;
+const Policy=db.PolicyInfo;
 var nodemailer = require('nodemailer');
 const express = require("express")
 
@@ -55,8 +56,17 @@ const fileStorageEngine = multer.diskStorage({
 
 const upload = multer({ storage: fileStorageEngine });
 
-app.post('/employeefiles', upload.single("highschoolPic"), (req, res) => {
+app.post('/employeefiles', upload.single("highschoolPic"), async (req, res) => {
     console.log(req.file + "single file uploadede successfully.........................>>>>>>>>>>>>>>>>");
+    let profile = (req.file) ? req.file.filename : null;
+      console.log(profile);
+    //   const { policy_id,policy_name,policy_img } = req.body
+      
+    //   const { policy_id,policy_name } = req.body
+      
+    //   const policy = await Policy.create({
+    //     policy_id,policy_name,policy_img:profile});
+  
     res.send("single file uploadede successfully.........................>>>>>>>>>>>>>>>>");
 })
 app.post("/multiple", upload.array("images", 3),
@@ -88,8 +98,24 @@ require("./app/routes/Timesheet.routes")(app);
 require("./app/routes/Appraisal.routes")(app);
 require("./app/routes/Login.routes")(app);
 require("./app/routes/Files.routes")(app);
+require("./app/routes/Policy.routes")(app);
+
+
+
+
+
+
+
+
+
+
+
+
 
 ////////////update monthly
+
+
+
 ///////////update yearly
 function bachProcess2() {
     //     const d=new Date();
