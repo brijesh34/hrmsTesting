@@ -45,3 +45,19 @@ exports.updatePolicy=async(req,res)=>{
       console.log(err);
   }
 };
+exports.getPolicy = async (req, res) => {
+  try {
+    Policy.find({}, (err, Policy) => {
+          if (err) {
+              console.warn(err)
+              return next(err)
+          }
+          console.warn(Policy);
+          //res.json(employeedetails);
+          res.send(Policy);
+      })
+  } catch (err) {
+      console.error(err)
+  }
+
+};

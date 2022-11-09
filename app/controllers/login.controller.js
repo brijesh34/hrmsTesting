@@ -42,7 +42,7 @@ exports.login = async (req, res) => {
                                 const emp_policy_status= employeedetails.emp_policy_status;
 
                                 const token = jwt.sign(
-                                    { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet,emp_policy_status },
+                                    { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet },
                                     jwtSecretKey,
                                     {
                                         // expiresIn: "2h",

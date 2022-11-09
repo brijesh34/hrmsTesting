@@ -2,6 +2,7 @@ const controller= require("../controllers/policy.controller");
 const express = require("express")
 const cors = require("cors")
 
+const authJwt = require("../middlewares/authJwt");
 const multer = require('multer')
 const app = express()
 app.use(express.json())
@@ -36,7 +37,7 @@ const fileStorageEngine = multer.diskStorage({
 const upload = multer({ storage: fileStorageEngine });
 
 module.exports = function (app) {
-    // app.get("/api/project/projectInfo", authJwt.verifyToken, controller.projectInfo);
+ app.get("/api/policy/getPolicy", authJwt.verifyToken, controller.getPolicy);
 
     app.post("/api/policy/addPolicy", upload.single("highschoolPic"),controller.addPolicy);
     // app.put("/api/project/updateProject", authJwt.verifyToken, controller.updateProject);
