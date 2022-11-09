@@ -8,13 +8,13 @@ db.mongoose = mongoose;
 db.AppraisalInfo = require("./appraisalInfo");
 db.EmployeeDetails1 = require("./employeeInfo");
 db.EmployeeDetailsLogin = require("./employeeLogin");
-db.EmployeeRoles = require("./EmployeeRoles");
-db.EmpTimesheet = require("./EmployeeTimesheet");
-db.LeaveCategory = require("./LeaveCategory");
-db.LeaveInfo = require("./LeaveInfo");
-db.LeaveManage = require("./LeaveManage");
-db.LeaveTypes = require("./LeaveTypes");
-db.ProjectInfo = require("./ProjectInfo");
+db.EmployeeRoles = require("./employeeRoles");
+db.EmpTimesheet = require("./employeeTimesheet");
+db.LeaveCategory = require("./leaveCategory");
+db.LeaveInfo = require("./leaveInfo");
+db.LeaveManage = require("./leaveManage");
+db.LeaveTypes = require("./leaveTypes");
+db.ProjectInfo = require("./projectInfo");
 
 
 module.exports = db;
