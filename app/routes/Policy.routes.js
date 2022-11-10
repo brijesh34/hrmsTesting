@@ -38,8 +38,11 @@ const upload = multer({ storage: fileStorageEngine });
 
 module.exports = function (app) {
  app.get("/api/policy/getPolicy", authJwt.verifyToken, controller.getPolicy);
-
+ app.get("/api/policy/viewPolicy", controller.viewPolicy);
+ 
+ 
     app.post("/api/policy/addPolicy", upload.single("highschoolPic"),controller.addPolicy);
-    // app.put("/api/project/updateProject", authJwt.verifyToken, controller.updateProject);
+    app.put("/api/policy/updatePolicy", upload.single("highschoolPic"), controller.updatePolicy);
+    app.put("/api/policy/setStatus", controller.setStatus);
 
 };
