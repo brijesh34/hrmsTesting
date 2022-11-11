@@ -16,6 +16,7 @@ db.LeaveInfo = require("./leaveInfo");
 db.LeaveManage = require("./leaveManage");
 db.LeaveTypes = require("./leaveTypes");
 db.ProjectInfo = require("./projectInfo");
+db.PolicyInfo = require("./policyInfo");
 
 
 module.exports = db;
