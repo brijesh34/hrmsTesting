@@ -90,8 +90,8 @@ exports.viewPolicy = async (req, res) => {
 
 exports.setStatus=async(req,res)=>{
 try {
-    const policy_status = req.body.policy_status;
-const token =req.body.token
+    const {policy_status,token} = req.body;
+// const token =req.body.token
     // const id = req.body.id;
     console.log(token + policy_status+"===================line96")
 
