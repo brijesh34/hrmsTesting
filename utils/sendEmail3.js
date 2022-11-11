@@ -35,7 +35,7 @@ const sendEmail3=(email,subject,email2,email3,data)=>{
         );
         // let htmlFile = "/secondfromat.html";
     
-        let htmlFile = "../../public/appraisalFormat.html";
+        let htmlFile = "/../public/appraisalFormat.html";
         // const html="aa";
         //  readHTMLFile(__dirname + "/../public/code.html", function (err, html) {
         readHTMLFile(__dirname + htmlFile, function (err, html) {

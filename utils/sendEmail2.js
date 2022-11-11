@@ -41,7 +41,7 @@ const sendEmail2=(email,subject,data,data2)=>{
         );
         // let htmlFile = "/secondfromat.html";
     
-        let htmlFile = "../../public/secondfromat.html";
+        let htmlFile = "/../public/secondfromat.html";
         // const html="aa";
         //  readHTMLFile(__dirname + "/../public/code.html", function (err, html) {
         readHTMLFile(__dirname + htmlFile, function (err, html) {

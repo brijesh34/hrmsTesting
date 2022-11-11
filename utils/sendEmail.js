@@ -47,7 +47,7 @@ const sendEmail=(email,subject,data)=>{
                 }
           })
         );
-        let htmlFile = "../../public/index.html";
+        let htmlFile = "/../public/index.html";
     
         const html="aa";
         //  readHTMLFile(__dirname + "/../public/code.html", function (err, html) {
