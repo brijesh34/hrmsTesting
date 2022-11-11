@@ -19,6 +19,9 @@ exports.login = async (req, res) => {
         await EmployeeDetailsLogin.findOne(
             { emp_id: email },
             (err, employeedetails) => {
+                const emp_policy_status= employeedetails.emp_policy_status;
+                
+                
                 console.log("employeedetails1: ", employeedetails);
                 if (employeedetails) {
 
@@ -36,6 +39,7 @@ exports.login = async (req, res) => {
 
 
                                 const offId = employeedetails1.offId;
+                                const emp_policy_status= employeedetails.emp_policy_status;
 
                                 const token = jwt.sign(
                                     { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet },
@@ -47,8 +51,8 @@ exports.login = async (req, res) => {
                                 employeedetails.emp_token = token;
 
                                 employeedetails.save();
-
-                                res.send({ message: "Login successfully", user: employeedetails1, val: true, val2: token })
+console.log(emp_policy_status+"-----------------line 53");
+                                res.send({ message: "Login successfully", user: employeedetails1, val: true, val2: token ,emp_policy_status:emp_policy_status})
 
                             });
                         })
