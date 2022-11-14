@@ -10,8 +10,12 @@ exports.addPolicy=async(req,res)=>{
           console.log(profile);
         //   const { policy_id,policy_name,policy_img } = req.body
         //   upload.upload();
-          const { policy_id,policy_name } = req.body
-          
+        
+        // const { policy_id,policy_name } = req.body
+          const { policy_name } = req.body
+          const policy_no = await Policy.find({});
+        const len = policy_no.length + 1;
+        const policy_id="inv_pol_0"+len;
           const policy = await Policy.create({
             policy_id,policy_name,policy_img:profile});
       
