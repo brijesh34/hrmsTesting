@@ -26,7 +26,8 @@ exports.gettimeSheet = async (req, res) => {
                     dur = 0;
                     console.log(sdate + " ----if- change--- ");
                     start_d = new Date(date);
-                    tempar.push({ end: data.end, start: start_d, Duration: data.tid, description: data.description, id: data.id, title: data.title, idt: data.tid, tid: "data.tid" })
+                    tempar.push({ end: data.end, start: start_d, Duration: data.tid, description: data.description,
+                         id: data.id, title: data.title, idt: data.tid, tid: "data.tid" })
                     console.log(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; line 873")
                     // tempar2.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
                     sdate = n2date;
@@ -64,96 +65,68 @@ exports.gettimeSheet = async (req, res) => {
 
 };
 
-// exports.gettimeSheet = async (req, res) => {
-//     try {
-//         var tempar = [];//full
-//         var tempar2 = [];//partial
-//         var tempar3 = [];//partial
+exports.gettimeSheet1 = async (req, res) => {
+    try {
+        var tempar = [];//full
+        var tempar2 = [];//partial
+        var tempar3 = [];//partial
 
-//         EmpTimesheet.find().then(function (empTimesheet) {
-//             var ar2 = empTimesheet;
-//             var ar3 = ar2.sort(function (a, b) { return a.start - b.start });
-//             const ar4=ar3;
-//             var sdate = new Date();
-//             var dur;
-//             /////
-//             var sdate2 = sdate.getDate() + '/' + (sdate.getMonth() + 1) + '/' +sdate.getFullYear() ;
-            
-//             var ndate = new Date(sdate);
-//             // var ndate2 = ndate.getFullYear() + '/' + (ndate.getMonth() + 1) + '/' + ndate.getDate();
-//             //                 
-//             ndate = ndate.getDate() + '/' + (ndate.getMonth() + 1) + '/' +ndate.getFullYear() ;
-               
-//             ar4.map((data)=>{
-//                 if(sdate2==ndate){
-//                     // var ndate4= new Date(data.start);
-//                     // var ndate3 = ndate4.getFullYear() + '/' + (ndate4.getMonth() + 1) + '/' + ndate4.getDate();
-               
-//                 ndate= data.description;
-//                 }
+        EmpTimesheet.find().then(function (empTimesheet) {
+            var ar2 = empTimesheet;
+            var ar3 = ar2.sort(function (a, b) { return a.start - b.start });
+            const ar4=ar3;
+            var sdate = new Date();
+            var dur;
+            /////
+            // var sdate2 = sdate.getDate() + '/' + (sdate.getMonth() + 1) + '/' +sdate.getFullYear() ;
+            var sdate2="0/0/2000"
+            var ndate = new Date(sdate);
+            // var ndate2 = ndate.getFullYear() + '/' + (ndate.getMonth() + 1) + '/' + ndate.getDate();
+            //                 
+            ndate = ndate.getDate() + '/' + (ndate.getMonth() + 1) + '/' +ndate.getFullYear() ;
+               var count=0;
+               var old_row;
+            ar4.map((data)=>{
+                if(sdate2==ndate){
+                    // var ndate4= new Date(data.start);
+                    // var ndate3 = ndate4.getFullYear() + '/' + (ndate4.getMonth() + 1) + '/' + ndate4.getDate();
+                    // tempar3.push({ start: data.start,title:count+data.Duration });
+                    // count =data.Duration;
+                ndate= data.description;
+                }
                  
-//         //         var adate2 = new Date(data.start);
-//         //   var       adate = adate2.getFullYear() + '/' + (adate2.getMonth() + 1) + '/' + adate2.getDate();
+        //         var adate2 = new Date(data.start);
+        //   var       adate = adate2.getFullYear() + '/' + (adate2.getMonth() + 1) + '/' + adate2.getDate();
                
-//                 if(ndate==data.description){
-//                     tempar2.push({ end: data.end, Duration: data.tid,
-//                          description: data.description, id: data.id, title: data.title, 
-//                          idt: data.tid, tid: "data.tid" })
+                if(ndate==data.description){
+                    // tempar2.push({ end: data.end, Duration: data.tid,
+                    //      description: data.description, id: data.id, title: data.title, 
+                    //      idt: data.tid, tid: "data.tid" })
+                    count=count+data.Duration;
+                old_row=data.start;
+                }
+                else{
+                    tempar3.push({ start: old_row ,title:count});
+                    // tempar3=[];
+                    ndate=data.description;
+                    count=data.Duration;
                 
-//                 }
-//                 else{
-//                     tempar3.push({ start: data.start,title:tempar2 });
-//                     // tempar3=[];
-//                     ndate=data.description;
-                
-//                 }
+                }
 
-//             })
+            })
            
-//             console.log(ar2 + "--------------------------------------------------------------------------------851 line")
-//             // ar3.map((data) => {
-//             //     var date = ndate.getFullYear() + '/' + (ndate.getMonth() + 1) + '/' + ndate.getDate();
-//             //     var n2date = new Date(date);
-//             //     if (sdate != n2date) {
-//             //         dur = 0;
-//             //         console.log(sdate + " ----if- change--- ");
-//             //         start_d = new Date(date);
-//             //         tempar.push({ end: data.end, start: start_d, Duration: data.tid, description: data.description, id: data.id, title: data.title, idt: data.tid, tid: "data.tid" })
-//             //         console.log(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; line 873")
-//             //         // tempar2.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
-//             //         sdate = n2date;
-//             //         dur = data.end - data.start;
-//             //         console.log(sdate + " ----if---- ");
-//             //     }
-//             //     else {
-//             //         tempar.map((project, index) => {
-//             //             console.log(project.start + "--line 870")
+            console.log(ar2 + "--------------------------------------------------------------------------------851 line")
+            console.log(tempar3);
+            res.send({ mess: tempar3 });
+            // res.send({mess:empTimesheet})
 
-//             //             console.log(n2date + "--line 872")
-//             //             if (project.start === n2date) {
-//             //                 project.Duration = dur + (project.end - project.start);
-//             //                 dur = project.Duration;
-//             //             }
-//             //         });
-//             //         // tempar.push({end:data.end,start:data.start,Duration:data.Duration,description:data.description,id:data.id,title:data.title})
-//             //         sdate = date;
-//             //         console.log(sdate + " ----else---- ");
+        })
 
-//             //     }
-//             // })
+    } catch (err) {
+        console.error(err)
+    }
 
-//             // as=tempar;
-//             console.log(tempar3);
-//             res.send({ mess: tempar3 });
-//             // res.send({mess:empTimesheet})
-
-//         })
-
-//     } catch (err) {
-//         console.error(err)
-//     }
-
-// };
+};
 
 
 exports.addtimeSheet = async (req, res) => {
