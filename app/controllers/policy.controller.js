@@ -44,14 +44,15 @@ exports.updatePolicy=async(req,res)=>{
             policy.policy_name=policy_name,
             policy.policy_img=profile,
             policy.save();
-            
+            res.send("single file uploadede successfully.........................>>>>>>>>>>>>>>>>");
+    
           }
           )
 
         // const policy = await Policy.create({
         //   policy_id,policy_name,policy_img:profile});
     
-      res.send("single file uploadede successfully.........................>>>>>>>>>>>>>>>>");
+      // res.send("single file uploadede successfully.........................>>>>>>>>>>>>>>>>");
     }
   catch(err){
       console.log(err);
