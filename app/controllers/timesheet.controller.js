@@ -16,7 +16,9 @@ exports.gettimeSheet = async (req, res) => {
         EmpTimesheet.find({emp_id:offId}).then(function (empTimesheet) {
             var ar2 = empTimesheet;
             var ar3 = ar2.sort(function (a, b) { return a.start - b.start });
-            var sdate = new Date();
+            // var sdate = new Date();
+            var sdate = '0/0/0000';
+            
             var dur;
             console.log(ar2 + "--------------------------------------------------------------------------------851 line")
             ar3.map((data) => {
@@ -79,7 +81,9 @@ exports.gettimeSheet1 = async (req, res) => {
             var ar2 = empTimesheet;
             var ar3 = ar2.sort(function (a, b) { return a.start - b.start });
             const ar4=ar3;
-            var sdate = new Date();
+            // var sdate = new Date();
+
+            var sdate = '0/0/0000';
             var dur;
             /////
             // var sdate2 = sdate.getDate() + '/' + (sdate.getMonth() + 1) + '/' +sdate.getFullYear() ;
@@ -114,6 +118,7 @@ exports.gettimeSheet1 = async (req, res) => {
                     // tempar3=[];
                     ndate=data.description;
                     count=data.Duration;
+                    old_row=data.start;
                 
                 }
 
