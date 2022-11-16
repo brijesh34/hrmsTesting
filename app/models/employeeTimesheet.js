@@ -11,7 +11,7 @@ const userSchema6 = new mongoose.Schema({
     description: String,
     // ab:[mess],
 
-     Duration:String,
+     Duration:Number,
      createdBy:String,
     updatedBy:String,
     cr_time:Date,
