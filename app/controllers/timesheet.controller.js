@@ -6,12 +6,14 @@ var bcrypt = require("bcryptjs");
 
 exports.gettimeSheet = async (req, res) => {
     try {
+        
+        const offId = req.params.id;
         const tempar = [];
         const tempar2 = [{
             end: '', start: '', Duration: '', description: '', id: '', title: '', idt: ''
         },];
 
-        EmpTimesheet.find().then(function (empTimesheet) {
+        EmpTimesheet.find({emp_id:offId}).then(function (empTimesheet) {
             var ar2 = empTimesheet;
             var ar3 = ar2.sort(function (a, b) { return a.start - b.start });
             var sdate = new Date();
@@ -67,11 +69,13 @@ exports.gettimeSheet = async (req, res) => {
 
 exports.gettimeSheet1 = async (req, res) => {
     try {
+        const offId = req.params.id;
+        
         var tempar = [];//full
         var tempar2 = [];//partial
         var tempar3 = [];//partial
 
-        EmpTimesheet.find().then(function (empTimesheet) {
+        EmpTimesheet.find({emp_id:offId}).then(function (empTimesheet) {
             var ar2 = empTimesheet;
             var ar3 = ar2.sort(function (a, b) { return a.start - b.start });
             const ar4=ar3;
