@@ -165,7 +165,7 @@ exports.updateLeaveBySelf = async (req, res) => {
                 }
                 sendEmail2(employeeDetailsLogin.emp_email, "Leave have updated", eDataS, "");
                 sendEmail2(reportingPerson, "Leave have updated", eDataS, "")
-                res.send("leave  info updated");
+                res.send({ message: "Request successfully updated", val2: true });
 
             });
         });
@@ -207,7 +207,7 @@ exports.delete_self_leave = async (req, res) => {
         sendEmail2(oldUser.emp_email, "Leave have canceled", tempar, mess);
         sendEmail2(req.body.reportingPerson, "Leave have canceled", tempar, mess)
 
-        res.send("deleted");
+        res.send({ message: "Request successfully deleted", val2: true });
 
     } catch (err) {
         console.error(err)
@@ -277,6 +277,12 @@ exports.updateLeaveByManager = async (req, res) => {
         }
         const diff = (day2.getTime() - day1.getTime()) / (24 * 60 * 60 * 1000);
         const days = Math.abs(Math.round(diff)) + 1;
+        // const diff = (day2.getDate() - day1.getDate())+((day2.getMonth() - day1.getMonth()))
+
+        // (day2.getDate() - day1.getDate());
+
+        // const days = Math.abs(Math.round(diff)) + 1;
+     
         await EmployeeDetailsLogin.findOne({ emp_id: eid }, (err, employeeDetailsLogin) => {
 
 
@@ -305,7 +311,7 @@ exports.updateLeaveByManager = async (req, res) => {
                 leaveManage.updatedBy = sys_user;
                 leaveManage.cr_time = new Date();
                 leaveManage.up_date = new Date();
-                leaveManage.save();
+                // leaveManage.save();
 
                 // await
                 if (l_status == "approved") {
@@ -328,6 +334,8 @@ exports.updateLeaveByManager = async (req, res) => {
                         const d = new Date();
                         cr_date = d.getMonth();
                         leaveInfo.save();
+                        leaveManage.save();
+
                         // res.send("leave updated");
 
                     });
@@ -335,7 +343,7 @@ exports.updateLeaveByManager = async (req, res) => {
                 sendEmail2(employeeDetailsLogin.emp_email, "Leave have replied", eDataS, "");
                 sendEmail2(reportingPerson, "Leave have replied", eDataS, "")
                 // res.send("leave  info updated");
-                res.send({ message: " Data updated successfully", val: false, val2: true })
+                res.send({ message: " Data  successfully send", val: false, val2: true })
 
             });
         });

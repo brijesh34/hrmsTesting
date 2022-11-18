@@ -219,3 +219,18 @@ exports.updatetimeSheet = async (req, res) => {
         console.log(err);
     }
 };
+
+
+exports.delete_self_leave = async (req, res) => {
+    try {
+
+        const tid = req.params.id;
+        await EmpTimesheet.deleteOne({tid: tid });
+
+        res.send("deleted");
+
+    } catch (err) {
+        console.error(err)
+    }
+
+};
