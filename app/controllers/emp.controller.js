@@ -2,6 +2,8 @@ const db = require("../models");
 const EmployeeDetails1 = db.EmployeeDetails1;
 const LeaveInfo = db.LeaveInfo;
 const EmployeeDetailsLogin = db.EmployeeDetailsLogin;
+
+const EmpTimesheet = db.EmpTimesheet;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
@@ -182,7 +184,24 @@ exports.addNew = async (req, res) => {
 
             });
 
-
+            const empTimesheet = new EmpTimesheet({
+                tid: "Tue Nov 15 9999 12:33:32 GMT+0530 (India Standard Time)",
+                emp_id:"inv0" + len,
+                start:"Tue Nov 15 2022 12:33:32 GMT+0530 (India Standard Time)",
+                end:"Tue Nov 15 2022 12:33:32 GMT+0530 (India Standard Time)",
+    
+                id:"9/10/9999",
+                title:"9/10/9999",
+                description:"9/10/9999",
+                //             ab:[{
+                // ad:title,
+                //             }],
+                Duration:0000,
+                createdBy: sys_user,
+                updatedBy: sys_user,
+                cr_time: new Date(),
+                up_date: new Date()
+            });
             user.save(err => {
                 if (err) {
                     res.send(err)
@@ -211,6 +230,18 @@ exports.addNew = async (req, res) => {
                     }
 
                     )
+                    empTimesheet.save(err => {
+                        if (err) {
+                            res.send(err)
+                        }
+
+                        else {
+                            // res.send({ message: "Successfully Resitered", verify: "true" })
+                        }
+                    }
+
+                    )
+       
                     res.send({ message: "Successfully Resitered", dt: user })
                 }
             }
