@@ -9,12 +9,12 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 const date_format=(d)=>{
     var e=new Date(d)
+    
     const day=e.getDate();
     const mon=e.getMonth();
     const year=e.getFullYear();
-    const hour=e.getHours();
-    const min=e.getMinutes();
-    return day+"/"+mon+"/"+year+";"+hour+":"+min
+
+    return day+"/"+mon+"/"+year
 }
 exports.getPersonalLeave = async (req, res) => {
     try {
@@ -201,7 +201,7 @@ exports.delete_self_leave = async (req, res) => {
                 tempar = {
                     eid: data.eid, ename: data.ename,
                     reportingPerson: data.reportingPerson, l_reason: data.l_reason, l_reason2: data.l_reason2,
-                    start_date: data.start_date, end_date: data.end_date
+                    start_date: date_format(data.start_date), end_date: date_format(data.end_date)
                     , l_type: data.l_type, l_category: data.l_category, approvedBy: data.approvedBy, l_status: data.l_status
                 }
 
