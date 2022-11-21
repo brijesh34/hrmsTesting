@@ -7,7 +7,15 @@ const sendEmail2 = require("../../utils/sendEmail2");
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
-
+const date_format=(d)=>{
+    var e=new Date(d)
+    const day=e.getDate();
+    const mon=e.getMonth();
+    const year=e.getFullYear();
+    const hour=e.getHours();
+    const min=e.getMinutes();
+    return day+"/"+mon+"/"+year+";"+hour+":"+min
+}
 exports.getPersonalLeave = async (req, res) => {
     try {
         const offId = req.params.id;
@@ -51,7 +59,7 @@ exports.addLeave = async (req, res) => {
         const eDataS = {
             eid: eid, ename: ename,
             reportingPerson: reportingPerson, l_reason: l_reason, l_reason2: l_reason2,
-            start_date: start_date, end_date: end_date
+            start_date: date_format(start_date), end_date: date_format(end_date)
             , l_type: l_type, l_category: l_category, approvedBy: approvedBy, l_status: l_status
         }
         const leaveManage = new LeaveManage({
@@ -105,7 +113,7 @@ exports.updateLeaveBySelf = async (req, res) => {
         const eDataS = {
             eid: eid, ename: ename,
             reportingPerson: reportingPerson, l_reason: l_reason, l_reason2: l_reason2,
-            start_date: start_date, end_date: end_date
+            start_date: date_format(start_date), end_date: date_format(end_date)
             , l_type: l_type, l_category: l_category, approvedBy: approvedBy, l_status: l_status
         }
         const diff = (day2.getTime() - day1.getTime()) / (24 * 60 * 60 * 1000);
@@ -272,7 +280,7 @@ exports.updateLeaveByManager = async (req, res) => {
         const eDataS = {
             eid: eid, ename: ename,
             reportingPerson: reportingPerson, l_reason: l_reason, l_reason2: l_reason2,
-            start_date: start_date, end_date: end_date
+            start_date: date_format(start_date), end_date: date_format(end_date)
             , l_type: l_type, l_category: l_category, approvedBy: approvedBy, l_status: l_status
         }
         const diff = (day2.getTime() - day1.getTime()) / (24 * 60 * 60 * 1000);
