@@ -215,8 +215,8 @@ exports.delete_self_leave = async (req, res) => {
         sendEmail2(oldUser.emp_email, "Leave have canceled", tempar, mess);
         sendEmail2(req.body.reportingPerson, "Leave have canceled", tempar, mess)
 
-        res.send({ message: "Request successfully deleted", val2: true });
-
+        res.send({ message2: "successfully canceled", val2: "true",val: "false" })
+  
     } catch (err) {
         console.error(err)
     }

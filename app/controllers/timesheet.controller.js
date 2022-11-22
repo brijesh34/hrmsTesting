@@ -174,8 +174,9 @@ exports.addtimeSheet = async (req, res) => {
             }
             else {
                 console.log("line no----------------------->440")
-                res.send({ message: "successfully registered title", val2: true })
-            }
+                res.send({ message2: "successfully registered task", val2: "true",val: "false" })
+  
+                 }
         })
 
     } catch (err) {
@@ -211,8 +212,8 @@ exports.updatetimeSheet = async (req, res) => {
                 empTimesheet.up_date = new Date(),
                 empTimesheet.save();
             // res.send("timesheet info updated");
-            res.send({ message: " Data updated successfully", val: false, val2: true })
-
+            res.send({ message2: "successfully updated task", val2: "true",val: "false" })
+  
         });
     }
     catch (err) {
@@ -227,8 +228,8 @@ exports.delete_self_leave = async (req, res) => {
         const tid = req.params.id;
         await EmpTimesheet.deleteOne({tid: tid });
 
-        res.send("deleted");
-
+        res.send({ message2: "Task successfully deleted", val2: "true",val: "false" })
+  
     } catch (err) {
         console.error(err)
     }

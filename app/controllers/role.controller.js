@@ -45,8 +45,8 @@ exports.addRole = async (req, res) => {
 
         const oldUser = await EmployeeRoles.findOne({ role_name });
         if (oldUser) {
-            res.send({ message2: "Role Already Exist, Try another.", val: false })
-        }
+            res.send({ message: " Role is alredy exist, try another", val2: "false",val: "true" })
+ }
         else {
             const employeeRoles = new EmployeeRoles({
                 role_id: "rol" + hour + min + sec + day + mont + year,
@@ -64,8 +64,8 @@ exports.addRole = async (req, res) => {
 
                 else {
 
-                    res.send({ message: "Successfully Resitered", val2: true })
-                }
+                    res.send({ message2: "successfully registered role", val2: "true",val: "false" })
+  }
             })
         }
     } catch (err) {
@@ -91,8 +91,8 @@ exports.updateRole = async (req, res) => {
                 employeeRoles.up_date = new Date(),
                 employeeRoles.save();
             // res.send("Role updated");
-            res.send({ message: " Data updated successfully", val: false, val2: true })
-
+            res.send({ message2: "Role successfully updated", val2: "true",val: "false" })
+  
         });
     }
     catch (err) {

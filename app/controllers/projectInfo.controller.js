@@ -30,12 +30,15 @@ exports.addProject = async (req, res) => {
         const mont = today.getMonth();
         const year = today.getFullYear();
         const oldProject = await ProjectInfo.findOne({ pname: pname });
+        const oldProject2 = await ProjectInfo.find({});
+        const len = oldProject2.length + 1;
+       
         if (oldProject) {
-            res.send({ message2: " Project is alredy exist, try another", val: false })
+            res.send({ message: " Project is alredy exist, try another", val2: "false",val: true })
         }
         else {
             const projectInfo = new ProjectInfo({
-                pid: "proj" + hour + min + sec + day + mont + year,
+                pid: "proj"+len,
                 pname, pstatus, phead, pdescription,
                 createdBy: sys_user,
                 updatedBy: sys_user,
@@ -48,9 +51,11 @@ exports.addProject = async (req, res) => {
                 }
                 else {
                     console.log("line no----------------------->399")
-                    res.send({ message: "successfully registered project", val2: true })
+                    // res.send({ message2: "successfully registered project", val2: true,val: false })
                 }
             })
+            res.send({ message2: "successfully registered project", val2: "true",val: "false" })
+                
         }
 
     } catch (err) {
@@ -79,11 +84,15 @@ exports.updateProject = async (req, res) => {
                 projectInfo.cr_time = new Date(),
                 projectInfo.up_date = new Date(),
                 projectInfo.save();
-            res.send({ message: " Data updated successfully", val: false, val2: true })
+                // res.send({ message2: "successfully registered project", val2: "true",val: "false" })
+          
+                res.send({ message2: " Data updated successfully", val: "false", val2: "true" })
         });
 
     } catch (err) {
         console.error(err)
+        // res.send({ message: err, val: "true",val2: "false" })
+          
     }
 
 };

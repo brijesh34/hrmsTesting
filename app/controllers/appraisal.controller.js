@@ -107,7 +107,8 @@ exports.addNewAppraisal = async (req, res) => {
                                         sendEmail3(em, "Appraisal  of " + EmpId, em2, em3, "Appraisal is started, Please Chaeck on system");
 
                                         sendEmail3(em, "subject", em2, em3, "data")
-                                        res.send({ message: "successfully registered Appraisal", val2: true })
+                                        res.send({ message2: "successfully registered Appraisal", val2: "true",val: "false" })
+  
                                 }
                         })
                 }
@@ -736,8 +737,8 @@ exports.updateAppraisal = async (req, res) => {
                                         total_average_MR2 = total_average_MR2,
                                 AppraisalInfo.save();
                         sendEmail3(em, "Appraisal  of " + EmpId, em2, em3, "Appraisal Information Updated, Please Chaeck on system");
-
-                        res.send({ message: " Data updated successfully", val: false, val2: true })
+                        res.send({ message2: "data successfully saved ", val2: "true",val: "false" })
+  
 
                 });
         } catch (err) {
