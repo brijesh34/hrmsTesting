@@ -1386,8 +1386,8 @@ exports.editByEmployee = async (req, res) => {
                                 AppraisalInfo.save();
                         sendEmail3(em, "Appraisal  of " + EmpId, em2, em3, "Appraisal Information Updated, Please Chaeck on system");
 
-                        res.send({ message: " Data updated successfully", val: false, val2: true })
-
+                        res.send({ message2: " Data updated successfully", val: "false", val2: "true" })
+ 
                 });
         } catch (err) {
                 console.error(err)

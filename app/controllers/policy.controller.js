@@ -18,8 +18,9 @@ exports.addPolicy=async(req,res)=>{
         const policy_id="inv_pol_0"+len;
           const policy = await Policy.create({
             policy_id,policy_name,policy_img:profile});
-      
-        res.send("single file uploadede successfully.........................>>>>>>>>>>>>>>>>");
+            res.send({ message2: "successfully registered policy", val2: "true",val: "false" })
+
+        // res.send("single file uploadede successfully.........................>>>>>>>>>>>>>>>>");
       }
     catch(err){
         console.log(err);
@@ -44,8 +45,9 @@ exports.updatePolicy=async(req,res)=>{
             policy.policy_name=policy_name,
             policy.policy_img=profile,
             policy.save();
-            res.send("single file uploadede successfully.........................>>>>>>>>>>>>>>>>");
-    
+            // res.send("single file uploadede successfully.........................>>>>>>>>>>>>>>>>");
+            res.send({ message2: "policy successfully updated", val2: "true",val: "false" })
+
           }
           )
 

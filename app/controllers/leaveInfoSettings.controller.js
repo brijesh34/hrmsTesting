@@ -69,8 +69,9 @@ exports.addLeaveType = async (req, res) => {
                 }
 
                 else {
-
-                    res.send({ message: "Successfully Resitered", val2: true })
+                    res.send({ message2: "successfully registered leave type", val2: "true",val: "false" })
+            
+                    // res.send({ message: "Successfully Resitered", val2: true })
                 }
             })
         }
@@ -96,7 +97,7 @@ exports.updateLeaveType = async (req, res) => {
                 leaveTypes.up_date = new Date(),
                 leaveTypes.save();
             // res.send("leave type updated");
-            res.send({ message: " Data updated successfully", val: false, val2: true })
+            res.send({ message2: "successfully updated leave type", val2: "true",val: "false" })
         });
 
     } catch (err) {
@@ -137,7 +138,7 @@ exports.addLeaveCategory = async (req, res) => {
 
                 else {
 
-                    res.send({ message: "Successfully Resitered", val2: true })
+                    res.send({ message2: "successfully registered category", val2: "true",val: "false" })
                 }
             })
         }
@@ -162,8 +163,9 @@ exports.updateLeaveCategory = async (req, res) => {
                 leaveCategory.cr_time = leaveCategory.cr_time,
                 leaveCategory.up_date = new Date(),
                 leaveCategory.save();
-            res.send({ message: " Data updated successfully", val: false, val2: true })
-
+            // res.send({ message: " Data updated successfully", val: false, val2: true })
+            res.send({ message2: "successfully updated category", val2: "true",val: "false" })
+    
         });
 
 
