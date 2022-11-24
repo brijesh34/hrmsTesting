@@ -94,6 +94,8 @@ exports.updateRole = async (req, res) => {
             res.send({ message2: "Role successfully updated", val2: "true",val: "false" })
   
         });
+        // res.send({ message2: "Role successfully updated", val2: "true",val: "false" })
+  
     }
     catch (err) {
         console.log(err);
