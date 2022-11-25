@@ -89,7 +89,26 @@ exports.addLeave = async (req, res) => {
 };
 
 
+function getDatesInRange(startDate, endDate) {
+    const date = new Date(startDate);
+  
+    const dates = [];
+  
+    while (date <= endDate) {
+        let d = new Date(date);
+let day = d.getDay()
+if((day==5)||(day==6))
+{
 
+    date.setDate(date.getDate() + 1);
+}else{
+      dates.push(day);
+
+      date.setDate(date.getDate() + 1);
+    }}
+  console.log(dates.length+"--------------------------------------line 109")
+    return dates;
+  }
 
 exports.updateLeaveBySelf = async (req, res) => {
     try {
@@ -116,8 +135,17 @@ exports.updateLeaveBySelf = async (req, res) => {
             start_date: date_format(start_date), end_date: date_format(end_date)
             , l_type: l_type, l_category: l_category, approvedBy: approvedBy, l_status: l_status
         }
-        const diff = (day2.getTime() - day1.getTime()) / (24 * 60 * 60 * 1000);
-        const days = Math.abs(Math.round(diff));
+        // const diff = (day2.getTime() - day1.getTime()) / (24 * 60 * 60 * 1000);
+        
+        
+        // const days = Math.abs(Math.round(diff))+1;
+        
+const d1 = new Date(start_date);
+const d2 = new Date( end_date);
+        const no_days=getDatesInRange(d1,d2);
+        const days=no_days.length-1;
+        
+        
         await EmployeeDetailsLogin.findOne({ emp_id: eid }, (err, employeeDetailsLogin) => {
 
 
@@ -276,17 +304,24 @@ exports.updateLeaveByManager = async (req, res) => {
         const sys_user = req.body.sys_user;
         const day1 = new Date(start_date);
         const day2 = new Date(end_date);
-
+        // const d1 = new Date('2022-01-18');
+        // const d2 = new Date('2022-01-24');
+        
         const eDataS = {
             eid: eid, ename: ename,
             reportingPerson: reportingPerson, l_reason: l_reason, l_reason2: l_reason2,
             start_date: date_format(start_date), end_date: date_format(end_date)
             , l_type: l_type, l_category: l_category, approvedBy: approvedBy, l_status: l_status
         }
-        const diff = (day2.getTime() - day1.getTime()) / (24 * 60 * 60 * 1000);
-        const days = Math.abs(Math.round(diff)) + 1;
-        // const diff = (day2.getDate() - day1.getDate())+((day2.getMonth() - day1.getMonth()))
+        // const diff = (day2.getTime() - day1.getTime()) / (24 * 60 * 60 * 1000);
+        // const days = Math.abs(Math.round(diff)) + 1;
+         // const diff = (day2.getDate() - day1.getDate())+((day2.getMonth() - day1.getMonth()))
 
+         const d1 = new Date(start_date);
+         const d2 = new Date( end_date);
+                 const no_days=getDatesInRange(d1,d2);
+                 const days=no_days.length-1;
+                 
         // (day2.getDate() - day1.getDate());
 
         // const days = Math.abs(Math.round(diff)) + 1;
