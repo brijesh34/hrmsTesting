@@ -99,7 +99,7 @@ require("./app/routes/Appraisal.routes")(app);
 require("./app/routes/Login.routes")(app);
 require("./app/routes/Files.routes")(app);
 require("./app/routes/Policy.routes")(app);
-
+require("./app/routes/Events.routes")(app);
 
 
 
