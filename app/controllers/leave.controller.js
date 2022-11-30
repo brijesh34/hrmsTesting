@@ -13,7 +13,7 @@ const date_format=(d)=>{
     var e=new Date(d)
     
     const day=e.getDate();
-    const mon=e.getMonth();
+    const mon=e.getMonth()+1;
     const year=e.getFullYear();
 
     return day+"/"+mon+"/"+year
@@ -440,7 +440,7 @@ exports.pendingLeave = async (req, res) => {
                         eid: data.eid, l_id: data.l_id, ename: data.ename, reportingPerson: data.reportingPerson,
                         l_reason: data.l_reason, l_reason2: data.l_reason2, start_date: date, end_date: date2, l_status: data.l_status
                         , l_type: data.l_type, l_category: data.l_category, s_date: data.start_date, e_date: data.end_date, approvedBy: data.approvedBy
-                    ,l_days:l_days}
+                    ,l_days:data.l_days}
                     )
                 }
             })
