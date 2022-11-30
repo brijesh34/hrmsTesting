@@ -38,7 +38,7 @@ exports.addProject = async (req, res) => {
         }
         else {
             const projectInfo = new ProjectInfo({
-                pid: "proj"+len,
+                pid: "PROJ"+len,
                 pname, pstatus, phead, pdescription,
                 createdBy: sys_user,
                 updatedBy: sys_user,
