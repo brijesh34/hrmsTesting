@@ -9,7 +9,7 @@ const userSchema8 = new mongoose.Schema({
     reportingPerson: String,
     l_reason: String,
     l_reason2: String,
-
+l_days:Number,
     start_date: Date,
     end_date: Date,
     l_status: String,

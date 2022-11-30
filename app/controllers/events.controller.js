@@ -51,13 +51,17 @@ exports.addEvent = async (req, res) => {
 
         } = req.body;
         const today = new Date();
-        const hour = today.getHours();
-        const min = today.getMinutes();
-        const sec = today.getSeconds();
-        const day = today.getDay();
-        const mont = today.getMonth();
-        const year = today.getFullYear();
-
+        // const hour = today.getHours();
+        // const min = today.getMinutes();
+        // const sec = today.getSeconds();
+        // const day = today.getDate();
+        // const mont = today.getMonth();
+        // const year = today.getFullYear();
+        var eventFormat;
+        if(event_type==="holiday"){
+ eventFormat="h"+date_format(today);}
+else{
+     eventFormat="n"+date_format(today);}
         const oldEvent = await EventsInfo.findOne({ event_name:event_name });
         const oldEvent2 = await EventsInfo.find({});
         
@@ -68,7 +72,7 @@ exports.addEvent = async (req, res) => {
  }
         else {
             const eventsInfo = new EventsInfo({
-                event_id: "eve" +len,
+                event_id: "eve" +eventFormat,
                 event_name,
         
             event_type,

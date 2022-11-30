@@ -1,5 +1,7 @@
 const db = require("../models");
 const EmployeeDetails1 = db.EmployeeDetails1;
+const EventsInfo = db.EventsInfo;
+
 const LeaveInfo = db.LeaveInfo;
 const EmployeeDetailsLogin = db.EmployeeDetailsLogin;
 const LeaveManage = db.LeaveManage;
@@ -35,7 +37,7 @@ exports.getPersonalLeave = async (req, res) => {
 
                 tempar.push({
                     eid: data.eid, l_id: data.l_id, ename: data.ename, reportingPerson: data.reportingPerson,
-                    l_reason: data.l_reason, l_reason2: data.l_reason2, start_date: date, end_date: date2, l_status: data.l_status
+                    l_reason: data.l_reason, l_reason2: data.l_reason2, start_date: date, end_date: date2, l_days:data.l_days,l_status: data.l_status
                     , l_type: data.l_type, l_category: data.l_category, s_date: data.start_date, e_date: data.end_date, approvedBy: data.approvedBy
                 })
             })
@@ -54,17 +56,18 @@ exports.addLeave = async (req, res) => {
     try {
         const {
             eid, l_id, ename, reportingPerson, l_reason, l_reason2, start_date, end_date, l_status
-            , l_type, l_category, userEmail, approvedBy,
+            , l_type, l_category, userEmail, approvedBy,l_days,
             sys_user } = req.body;
         const eDataS = {
             eid: eid, ename: ename,
             reportingPerson: reportingPerson, l_reason: l_reason, l_reason2: l_reason2,
             start_date: date_format(start_date), end_date: date_format(end_date)
             , l_type: l_type, l_category: l_category, approvedBy: approvedBy, l_status: l_status
+            ,l_days:l_days
         }
         const leaveManage = new LeaveManage({
             eid, l_id, ename, reportingPerson, l_reason, l_reason2: " ", start_date, end_date, l_status
-            , l_type, l_category, userEmail, approvedBy,
+            , l_type, l_category, userEmail, approvedBy,l_days,
             createdBy: sys_user,
             updatedBy: sys_user,
             cr_time: new Date(),
@@ -89,26 +92,38 @@ exports.addLeave = async (req, res) => {
 };
 
 
-function getDatesInRange(startDate, endDate) {
-    const date = new Date(startDate);
+// function getDatesInRange(startDate, endDate) {
+//     const date = new Date(startDate);
   
-    const dates = [];
-  
-    while (date <= endDate) {
-        let d = new Date(date);
-let day = d.getDay()
-if((day==5)||(day==6))
-{
+//     const dates = [];
+    
+//     const oldEvent =  EventsInfo.findOne({ event_id:format });
+//     console.log(oldEvent)
+//     while (date <= endDate) {
+//         let d = new Date(date);
+//         let format="eveh"+date_format(d);
+//         const oldEvent =  EventsInfo.findOne({ event_id:format });
+//         console.log(oldEvent)
+// let day = d.getDay()
+// if((day==5)||(day==6))
+// {
 
-    date.setDate(date.getDate() + 1);
-}else{
-      dates.push(day);
+//     date.setDate(date.getDate() + 1);
+// }else
+//     if(oldEvent){
+//         date.setDate(date.getDate() + 1);
 
-      date.setDate(date.getDate() + 1);
-    }}
-  console.log(dates.length+"--------------------------------------line 109")
-    return dates;
-  }
+//     }
+//     else{
+        
+//       dates.push(day);
+//       date.setDate(date.getDate() + 1);
+
+//     }
+//          }
+//   console.log(dates.length+"--------------------------------------line 109")
+//     return dates+1;
+//   }
 
 exports.updateLeaveBySelf = async (req, res) => {
     try {
@@ -125,6 +140,7 @@ exports.updateLeaveBySelf = async (req, res) => {
         const l_type = req.body.l_type;
         const l_category = req.body.l_category;
         const approvedBy = req.body.approvedBy;
+        const l_days=req.body.l_days;
         const sys_user = req.body.sys_user;
         const day1 = new Date(start_date);
         const day2 = new Date(end_date);
@@ -133,7 +149,7 @@ exports.updateLeaveBySelf = async (req, res) => {
             eid: eid, ename: ename,
             reportingPerson: reportingPerson, l_reason: l_reason, l_reason2: l_reason2,
             start_date: date_format(start_date), end_date: date_format(end_date)
-            , l_type: l_type, l_category: l_category, approvedBy: approvedBy, l_status: l_status
+            , l_type: l_type, l_category: l_category, approvedBy: approvedBy, l_status: l_status,l_days:l_days
         }
         // const diff = (day2.getTime() - day1.getTime()) / (24 * 60 * 60 * 1000);
         
@@ -142,8 +158,9 @@ exports.updateLeaveBySelf = async (req, res) => {
         
 const d1 = new Date(start_date);
 const d2 = new Date( end_date);
-        const no_days=getDatesInRange(d1,d2);
-        const days=no_days.length-1;
+        // const no_days=getDatesInRange(d1,d2);
+        const days=l_days;
+        // no_days.length-1;
         
         
         await EmployeeDetailsLogin.findOne({ emp_id: eid }, (err, employeeDetailsLogin) => {
@@ -170,6 +187,7 @@ const d2 = new Date( end_date);
                 leaveManage.l_type = l_type;
                 leaveManage.l_category = l_category;
                 leaveManage.approvedBy = approvedBy;
+                leaveManage.l_days=l_days;
                 leaveManage.createdBy = sys_user;
                 leaveManage.updatedBy = sys_user;
                 leaveManage.cr_time = new Date();
@@ -230,7 +248,7 @@ exports.delete_self_leave = async (req, res) => {
                     eid: data.eid, ename: data.ename,
                     reportingPerson: data.reportingPerson, l_reason: data.l_reason, l_reason2: data.l_reason2,
                     start_date: date_format(data.start_date), end_date: date_format(data.end_date)
-                    , l_type: data.l_type, l_category: data.l_category, approvedBy: data.approvedBy, l_status: data.l_status
+                    , l_type: data.l_type, l_category: data.l_category, approvedBy: data.approvedBy, l_status: data.l_status,l_days:data.l_days
                 }
 
 
@@ -269,7 +287,7 @@ exports.leaveManagementInfo = async (req, res) => {
                     eid: data.eid, l_id: data.l_id, ename: data.ename, reportingPerson: data.reportingPerson,
                     l_reason: data.l_reason, l_reason2: data.l_reason2, start_date: date, end_date: date2, l_status: data.l_status
                     , l_type: data.l_type, l_category: data.l_category, s_date: data.start_date, e_date: data.end_date, approvedBy: data.approvedBy
-                })
+               ,l_days:data.l_days })
             })
 
             res.send({ leave: tempar });
@@ -301,6 +319,7 @@ exports.updateLeaveByManager = async (req, res) => {
         const l_type = req.body.l_type;
         const l_category = req.body.l_category;
         const approvedBy = req.body.approvedBy;
+        const l_days=req.body.l_days;
         const sys_user = req.body.sys_user;
         const day1 = new Date(start_date);
         const day2 = new Date(end_date);
@@ -311,7 +330,7 @@ exports.updateLeaveByManager = async (req, res) => {
             eid: eid, ename: ename,
             reportingPerson: reportingPerson, l_reason: l_reason, l_reason2: l_reason2,
             start_date: date_format(start_date), end_date: date_format(end_date)
-            , l_type: l_type, l_category: l_category, approvedBy: approvedBy, l_status: l_status
+            , l_type: l_type, l_category: l_category, approvedBy: approvedBy, l_status: l_status,l_days:l_days
         }
         // const diff = (day2.getTime() - day1.getTime()) / (24 * 60 * 60 * 1000);
         // const days = Math.abs(Math.round(diff)) + 1;
@@ -319,8 +338,9 @@ exports.updateLeaveByManager = async (req, res) => {
 
          const d1 = new Date(start_date);
          const d2 = new Date( end_date);
-                 const no_days=getDatesInRange(d1,d2);
-                 const days=no_days.length-1;
+                //  const no_days=getDatesInRange(d1,d2);
+                 const days=l_days;
+                //  no_days.length-1;
                  
         // (day2.getDate() - day1.getDate());
 
@@ -350,6 +370,7 @@ exports.updateLeaveByManager = async (req, res) => {
                 leaveManage.l_type = l_type;
                 leaveManage.l_category = l_category;
                 leaveManage.approvedBy = approvedBy;
+                leaveManage.l_days=l_days;
                 leaveManage.createdBy = sys_user;
                 leaveManage.updatedBy = sys_user;
                 leaveManage.cr_time = new Date();
@@ -419,7 +440,7 @@ exports.pendingLeave = async (req, res) => {
                         eid: data.eid, l_id: data.l_id, ename: data.ename, reportingPerson: data.reportingPerson,
                         l_reason: data.l_reason, l_reason2: data.l_reason2, start_date: date, end_date: date2, l_status: data.l_status
                         , l_type: data.l_type, l_category: data.l_category, s_date: data.start_date, e_date: data.end_date, approvedBy: data.approvedBy
-                    }
+                    ,l_days:l_days}
                     )
                 }
             })
