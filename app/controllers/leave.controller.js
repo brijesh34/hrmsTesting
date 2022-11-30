@@ -66,7 +66,7 @@ exports.addLeave = async (req, res) => {
             ,l_days:l_days
         }
         const leaveManage = new LeaveManage({
-            eid, l_id, ename, reportingPerson, l_reason, l_reason2: " ", start_date, end_date, l_status
+            eid, l_id, ename, reportingPerson, l_reason, l_reason2: "", start_date, end_date, l_status
             , l_type, l_category, userEmail, approvedBy,l_days,
             createdBy: sys_user,
             updatedBy: sys_user,
