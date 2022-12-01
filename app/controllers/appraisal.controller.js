@@ -737,8 +737,13 @@ exports.updateAppraisal = async (req, res) => {
                                         total_average_MR2 = total_average_MR2,
                                 AppraisalInfo.save();
                         sendEmail3(em, "Appraisal  of " + EmpId, em2, em3, "Appraisal Information Updated, Please Chaeck on system");
+                       if(status=="submitted"){
+                        res.send({ message2: "data successfully submitted ", val2: "true",val: "false" })
+                       }
+                       else{
                         res.send({ message2: "data successfully saved ", val2: "true",val: "false" })
   
+                       }
 
                 });
         } catch (err) {
@@ -1386,8 +1391,13 @@ exports.editByEmployee = async (req, res) => {
                                 AppraisalInfo.save();
                         sendEmail3(em, "Appraisal  of " + EmpId, em2, em3, "Appraisal Information Updated, Please Chaeck on system");
 
-                        res.send({ message2: " Data updated successfully", val: "false", val2: "true" })
- 
+                        if(status=="submitted"){
+                                res.send({ message2: "data successfully submitted ", val2: "true",val: "false" })
+                               }
+                               else{
+                                res.send({ message2: "data successfully saved ", val2: "true",val: "false" })
+          
+                               }
                 });
         } catch (err) {
                 console.error(err)
@@ -2073,8 +2083,13 @@ exports.editByReportingPerson = async (req, res) => {
                                 AppraisalInfo.save();
                         sendEmail3(em, "Appraisal  of " + EmpId, em2, em3, "Appraisal Information Updated, Please Chaeck on system");
 
-                        res.send({ message: " Data updated successfully", val: false, val2: true })
-
+                        if(status=="submitted"){
+                                res.send({ message2: "data successfully submitted ", val2: "true",val: "false" })
+                               }
+                               else{
+                                res.send({ message2: "data successfully saved ", val2: "true",val: "false" })
+          
+                               }
                 });
         } catch (err) {
                 console.error(err)
