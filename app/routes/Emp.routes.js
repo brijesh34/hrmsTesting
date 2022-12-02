@@ -13,8 +13,10 @@ module.exports = function (app) {
 
   app.get("/api/emp/exemployeeDetail1", authJwt.verifyToken, controller.getAllExEmp);
   app.get(`/api/emp/employeeDetail1/:id`, authJwt.verifyToken, controller.getPersonal);
-
+  app.get("/api/emp/reportingManStatus/:id", authJwt.verifyToken, controller.reportingManStatus);
+    
   app.post("/api/emp/addNew", authJwt.verifyToken, controller.addNew);
   app.put("/api/emp/updateProfile", authJwt.verifyToken, controller.updateProfile);
 
 };
+//reportingManStatus

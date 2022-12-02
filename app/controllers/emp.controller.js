@@ -188,8 +188,8 @@ exports.addNew = async (req, res) => {
             const empTimesheet = new EmpTimesheet({
                 tid: "Tue Nov 15 9999 12:33:32 GMT+0530 (India Standard Time)",
                 emp_id:"inv0" + len,
-                start:"Tue Nov 15 2022 12:33:32 GMT+0530 (India Standard Time)",
-                end:"Tue Nov 15 2022 12:33:32 GMT+0530 (India Standard Time)",
+                start:"Tue Nov 30 9999 12:33:32 GMT+0530 (India Standard Time)",
+                end:"Tue Nov 30 9999 12:33:32 GMT+0530 (India Standard Time)",
     
                 id:"9/10/9999",
                 title:"9/10/9999",
@@ -340,3 +340,45 @@ exports.updateProfile = async (req, res) => {
         console.log(err);
     }
 };
+exports.reportingManStatus = async (req, res) => {
+    try {
+            const id = req.params.id;
+            // var user2;
+            // const oldUser = await EmployeeDetails1.find({ ReportingManager: id });
+
+            // const oldUser2 = await EmployeeDetails1.findOne({ EmpId: id });
+            // if (oldUser) {
+            //         user2 = id
+            // }
+            // else {
+            //         user2 = ""
+            // }
+            await EmployeeDetails1.find({ ReportingManager: id }, (err, employeeDetails1) => {
+                    if (err) {
+                            console.warn(err)
+                            // return next(err)
+                            // res.send({ user: "" });
+                    }
+                    else {
+                            // var as;
+                            // if (oldUser2) {
+                            //         as = oldUser2.EmpId;
+                            //         console.warn(oldUser2.EmpId + "--------------------------line 2216");
+
+                            // }
+                            // else {
+                            //         as = ""
+                            // }
+
+                            res.send({ rm:employeeDetails1});
+                            // res.send({ user: as, user2: user2 });
+                    }
+            })
+            // res.send({ rm:oldUser});
+            // }
+    } catch (err) {
+            console.error(err)
+    }
+
+};
+
