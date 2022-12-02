@@ -116,6 +116,7 @@ exports.addNew = async (req, res) => {
         //  encryptedPassword = await bcrypt.hash(password, 10);           EmployeeDetailsLogin
         const oldUser = await EmployeeDetails1.findOne({ offEmail });
         const oldUser2 = await EmployeeDetails1.find({});
+        
         const len = oldUser2.length + 1;
         if (oldUser) {
             // return res.status(409).send("User Already Exist. Please Login");

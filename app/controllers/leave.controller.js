@@ -304,6 +304,40 @@ exports.leaveManagementInfo = async (req, res) => {
 };
 
 
+exports.leaveManagementInfoAll = async (req, res) => {
+    try {
+        // const id = req.params.id;
+        const tempar = [
+        ]
+        LeaveManage.find({  }).then(function (leaveManage) {
+            var ar3 = leaveManage;
+            var sdate = new Date();
+            ar3.map((data) => {
+                var ndate = new Date(data.start_date);
+                var date = ndate.getDate() + '/' + (ndate.getMonth() + 1) + '/' + ndate.getFullYear();
+                var ndate2 = new Date(data.end_date);
+                var date2 = ndate2.getDate() + '/' + (ndate2.getMonth() + 1) + '/' + ndate2.getFullYear();
+
+                tempar.push({
+                    eid: data.eid, l_id: data.l_id, ename: data.ename, reportingPerson: data.reportingPerson,
+                    l_reason: data.l_reason, l_reason2: data.l_reason2, start_date: date, end_date: date2, l_status: data.l_status
+                    , l_type: data.l_type, l_category: data.l_category, s_date: data.start_date, e_date: data.end_date, approvedBy: data.approvedBy
+               ,l_days:data.l_days })
+            })
+
+            res.send({ leave: tempar });
+
+        })
+
+
+
+
+    } catch (err) {
+        console.error(err)
+    }
+
+};
+
 exports.updateLeaveByManager = async (req, res) => {
     try {
         const eid = req.body.eid;
@@ -454,6 +488,42 @@ exports.pendingLeave = async (req, res) => {
     }
 
 };
+exports.pendingLeaveAll = async (req, res) => {
+    try {
+
+
+        // const id = req.params.id;
+        const tempar = [
+        ]
+        LeaveManage.find({  }).then(function (leaveManage) {
+            var ar3 = leaveManage;
+            var sdate = new Date();
+            ar3.map((data) => {
+                if (data.l_status === "pending") {
+                    var ndate = new Date(data.start_date);
+                    var date = (ndate.getMonth() + 1) + '/' + ndate.getDate() + '/' + ndate.getFullYear();
+                    var ndate2 = new Date(data.end_date);
+                    var date2 = (ndate2.getMonth() + 1) + '/' + ndate2.getDate() + '/' + ndate2.getFullYear();
+
+                    tempar.push({
+                        eid: data.eid, l_id: data.l_id, ename: data.ename, reportingPerson: data.reportingPerson,
+                        l_reason: data.l_reason, l_reason2: data.l_reason2, start_date: date, end_date: date2, l_status: data.l_status
+                        , l_type: data.l_type, l_category: data.l_category, s_date: data.start_date, e_date: data.end_date, approvedBy: data.approvedBy
+                    ,l_days:data.l_days}
+                    )
+                }
+            })
+
+            res.send({ leave: tempar });
+
+        })
+
+    } catch (err) {
+        console.error(err)
+    }
+
+};
+
 exports.detailPersonal = async (req, res) => {
     try {
         const offId = req.params.id;
