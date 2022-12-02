@@ -343,35 +343,41 @@ exports.updateProfile = async (req, res) => {
 exports.reportingManStatus = async (req, res) => {
     try {
             const id = req.params.id;
-            // var user2;
+             var user2;
+             var user;
             // const oldUser = await EmployeeDetails1.find({ ReportingManager: id });
 
-            // const oldUser2 = await EmployeeDetails1.findOne({ EmpId: id });
-            // if (oldUser) {
-            //         user2 = id
-            // }
-            // else {
-            //         user2 = ""
-            // }
-            await EmployeeDetails1.find({ ReportingManager: id }, (err, employeeDetails1) => {
+            const oldUser = await EmployeeDetails1.findOne({ EmpId: id });
+            if (oldUser) {
+                    user = id
+            }
+            else {
+                    user = ""
+            }
+            let tempar=[];
+            await EmployeeDetails1.find({ReportingManager: id }, (err, employeeDetails1) => {
                     if (err) {
                             console.warn(err)
                             // return next(err)
                             // res.send({ user: "" });
                     }
                     else {
-                            // var as;
-                            // if (oldUser2) {
-                            //         as = oldUser2.EmpId;
-                            //         console.warn(oldUser2.EmpId + "--------------------------line 2216");
+                        var ar3 =  employeeDetails1;
+                        // var sdate = new Date();
+                        ar3.map((data) => {
+                            if (data.status === "Current") {
+                                tempar.push({
+                                    eid: data.offId}
+                                )
+                                }})
 
-                            // }
-                            // else {
-                            //         as = ""
-                            // }
+if(tempar.length>=1){
+user2="true"
 
-                            res.send({ rm:employeeDetails1});
-                            // res.send({ user: as, user2: user2 });
+}
+
+                        //     // res.send({ rm:employeeDetails1});
+                            res.send({ user: user, user2: user2 });
                     }
             })
             // res.send({ rm:oldUser});
@@ -382,3 +388,39 @@ exports.reportingManStatus = async (req, res) => {
 
 };
 
+exports.user_underReportingPersons = async (req, res) => {
+    try {
+            const id = req.params.id;
+             var user2;
+             var user;
+            // const oldUser = await EmployeeDetails1.find({ ReportingManager: id });
+
+            const oldUser = await EmployeeDetails1.findOne({ EmpId: id });
+            if (oldUser) {
+                    user = id
+            }
+            else {
+                    user = ""
+            }
+            await EmployeeDetails1.find({ $and: [
+                { ReportingManager: id },
+                { status:"Current" }
+             ]}, (err, employeeDetails1) => {
+                    if (err) {
+                            console.warn(err)
+                            console.log('------------------------------------------------line 411')
+                        
+                        }
+                    else {  
+                        
+                        console.log('------------------------------------------line 413')
+                        console.log(employeeDetails1)
+                        res.send( employeeDetails1 );
+                    }
+            })
+            
+    } catch (err) {
+            console.error(err)
+    }
+
+};

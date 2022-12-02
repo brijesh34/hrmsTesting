@@ -9,6 +9,8 @@ module.exports = function (app) {
   });
 
   app.get("/api/emp/getAllCurrentEmp", authJwt.verifyToken, controller.getAllCurrentEmp);
+  app.get(`/api/emp/user_underReportingPersons/:id`, authJwt.verifyToken, controller.user_underReportingPersons);
+  
   app.get("/api/emp/getAllEmp", authJwt.verifyToken, controller.getAllEmp);
 
   app.get("/api/emp/exemployeeDetail1", authJwt.verifyToken, controller.getAllExEmp);
