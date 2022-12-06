@@ -19,7 +19,7 @@ exports.login = async (req, res) => {
         await EmployeeDetailsLogin.findOne(
             { emp_id: email },
             (err, employeedetails) => {
-                const emp_policy_status= employeedetails.emp_policy_status;
+                // const emp_policy_status= employeedetails.emp_policy_status;
                 
                 
                 console.log("employeedetails1: ", employeedetails);
