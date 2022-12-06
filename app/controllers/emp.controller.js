@@ -23,6 +23,24 @@ exports.getAllCurrentEmp = async (req, res) => {
         return res.status(500).send({ success: false, message: error });
     }
 };
+exports.getHREmp = async (req, res) => {
+    try {
+
+        const status = "Current";
+        EmployeeDetails1.find({$and: [{status: status},
+        {jobType:'Human Resource' }] }, (err, employeedetails1) => {
+            if (err) {
+                console.warn(err)
+                return next(err)
+            }
+            console.warn(employeedetails1);
+            res.json(employeedetails1);
+        })
+    } catch (error) {
+        return res.status(500).send({ success: false, message: error });
+    }
+};
+
 exports.getAllExEmp = async (req, res) => {
     try {
         const status = "Ex-Employee";

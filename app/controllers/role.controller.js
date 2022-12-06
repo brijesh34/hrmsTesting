@@ -16,8 +16,6 @@ exports.getRole = async (req, res) => {
                 console.warn(err)
                 return next(err)
             }
-            console.warn(employeeRoles);
-            //res.json(employeedetails);
             res.send(employeeRoles);
         })
     } catch (err) {
