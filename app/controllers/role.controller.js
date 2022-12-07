@@ -23,6 +23,20 @@ exports.getRole = async (req, res) => {
     }
 
 };
+exports.getRole2 = async (req, res) => {
+    try {
+        EmployeeRoles.find({}, (err, employeeRoles) => {
+            if (err) {
+                console.warn(err)
+                return next(err)
+            }
+            res.send(employeeRoles);
+        })
+    } catch (err) {
+        console.error(err)
+    }
+
+};
 
 
 exports.addRole = async (req, res) => {

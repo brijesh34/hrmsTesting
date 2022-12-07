@@ -57,16 +57,8 @@ const fileStorageEngine = multer.diskStorage({
 const upload = multer({ storage: fileStorageEngine });
 
 app.post('/employeefiles', upload.single("highschoolPic"), async (req, res) => {
-    console.log(req.file + "single file uploadede successfully.........................>>>>>>>>>>>>>>>>");
     let profile = (req.file) ? req.file.filename : null;
-      console.log(profile);
-    //   const { policy_id,policy_name,policy_img } = req.body
-      
-    //   const { policy_id,policy_name } = req.body
-      
-    //   const policy = await Policy.create({
-    //     policy_id,policy_name,policy_img:profile});
-  
+    
     res.send("single file uploadede successfully.........................>>>>>>>>>>>>>>>>");
 })
 app.post("/multiple", upload.array("images", 3),
