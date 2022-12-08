@@ -1,4 +1,6 @@
 const db = require("../models");
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('myTotallySecretKey');
 const EmployeeDetailsLogin = db.EmployeeDetailsLogin;
 const EmployeeRoles = db.EmployeeRoles;
 
@@ -11,22 +13,16 @@ exports.login = async (req, res) => {
         let jwtSecretKey = process.env.JWT_SECRET_KEY;
         const { email, password } = req.body;
         const tab = EmployeeDetails1;
-        console.log("-----------------------------------email------------------>" + email);
-        console.log("-----------------------------------Pass------------------>" + password);
-        //////////////////////////////////
-        //////////////////////OR property not worked here
-        ////////////////////////
         await EmployeeDetailsLogin.findOne(
             { emp_id: email },
             (err, employeedetails) => {
-                // const emp_policy_status= employeedetails.emp_policy_status;
-                
-                
+
                 console.log("employeedetails1: ", employeedetails);
                 if (employeedetails) {
-
+                    const pass = employeedetails.emp_password;
                     console.log("292: Pass: ", employeedetails.emp_password);
-                    if (password === employeedetails.emp_password) {
+
+                    if (bcrypt.compare(password, employeedetails.emp_password)) {
                         const employeedetails2 = tab.findOne({ offId: email }, (err, employeedetails1) => {
 
                             const jobtype = employeedetails1.jobType;
@@ -39,20 +35,21 @@ exports.login = async (req, res) => {
 
 
                                 const offId = employeedetails1.offId;
-                                const emp_policy_status= employeedetails.emp_policy_status;
+                                const emp_policy_status = employeedetails.emp_policy_status;
 
                                 const token = jwt.sign(
                                     { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet },
                                     jwtSecretKey,
                                     {
-                                        // expiresIn: "2h",
+
+                                        algorithm: "HS256",
                                     }
                                 );
                                 employeedetails.emp_token = token;
 
                                 employeedetails.save();
-console.log(emp_policy_status+"-----------------line 53");
-                                res.send({ message: "Login successfully", user: employeedetails1, val: true, val2: token ,emp_policy_status:emp_policy_status})
+                                console.log(emp_policy_status + "-----------------line 53");
+                                res.send({ message: "Login successfully", user: employeedetails1, val: true, val2: token, emp_policy_status: emp_policy_status })
 
                             });
                         })

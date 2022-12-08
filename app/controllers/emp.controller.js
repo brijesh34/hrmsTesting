@@ -1,11 +1,15 @@
 const db = require("../models");
+// const Cryptr = require('cryptr');
+// const cryptr = new Cryptr('myTotallySecretKey');
+
+var bcrypt = require("bcryptjs");
 const EmployeeDetails1 = db.EmployeeDetails1;
 const LeaveInfo = db.LeaveInfo;
 const EmployeeDetailsLogin = db.EmployeeDetailsLogin;
 
 const EmpTimesheet = db.EmpTimesheet;
 var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
+// var bcrypt = require("bcryptjs");
 
 exports.getAllCurrentEmp = async (req, res) => {
     try {
@@ -134,7 +138,7 @@ exports.addNew = async (req, res) => {
         //  encryptedPassword = await bcrypt.hash(password, 10);           EmployeeDetailsLogin
         const oldUser = await EmployeeDetails1.findOne({ offEmail });
         const oldUser2 = await EmployeeDetails1.find({});
-        
+        const encryptedString = await bcrypt.hash(name, 12);
         const len = oldUser2.length + 1;
         if (oldUser) {
             // return res.status(409).send("User Already Exist. Please Login");
@@ -157,7 +161,7 @@ exports.addNew = async (req, res) => {
 
             const login = await EmployeeDetailsLogin.create({
                 emp_id: "inv0" + len,
-                emp_password: name,
+                emp_password: encryptedString,
                 emp_email: offEmail,
 
                 emp_status: status,
