@@ -112,9 +112,10 @@ exports.updatePassword = async (req, res) => {
         const newuser_HName = req.body.password;
 
         const id = req.body.id;
+        const encryptedString = await bcrypt.hash(newuser_HName, 12);
 
         await EmployeeDetailsLogin.findOne({ emp_email: id }, (err, employeeDetailsLogin) => {
-            employeeDetailsLogin.emp_password = newuser_HName;
+            employeeDetailsLogin.emp_password = encryptedString;
 
             employeeDetailsLogin.save();
             // res.send("Password updated");
