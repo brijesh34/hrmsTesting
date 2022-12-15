@@ -26,7 +26,7 @@ verifyToken = async (req, res, next) => {
       }
       else{
         next();
-
+console.log("-------------------------------line 29 token verified")
       }
     });
       // if (emp) {

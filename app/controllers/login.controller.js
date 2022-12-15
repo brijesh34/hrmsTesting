@@ -3,6 +3,7 @@ const Cryptr = require('cryptr');
 const cryptr = new Cryptr('myTotallySecretKey');
 const EmployeeDetailsLogin = db.EmployeeDetailsLogin;
 const EmployeeRoles = db.EmployeeRoles;
+const Designation = db.Designation; 
 
 const EmployeeDetails1 = db.EmployeeDetails1;
 const sendEmail = require("../../utils/sendEmail");
@@ -26,23 +27,35 @@ exports.login = async (req, res) => {
                         const employeedetails2 = tab.findOne({ offId: email }, (err, employeedetails1) => {
 
                             const jobtype = employeedetails1.jobType;
-                            const role = EmployeeRoles.findOne({ role_name: jobtype }, (err, role) => {
+                            // const role = EmployeeRoles.findOne({ role_name: jobtype }, (err, role) => {
+                                const role = Designation.findOne({ designation_id: jobtype }, (err, role) => {
+                           
                                 const offEmail = employeedetails1.offEmail;
                                 const name2 = employeedetails1.name;
                                 const jobtype = employeedetails1.jobType;
 
-                                const rolet = role.role_id;
+                                const rolet = role.designation_id;
 
-
+                                const m1 = role.m1;
+                                const m2 = role.m2;
+                                const m3 = role.m3;
+                                const m4 = role.m4;
+                                const m5 = role.m5;
+                                const m6 = role.m6;
+                                const m7 = role.m7;
+                                const m8 = role.m8;
+                                const m9 = role.m9;
+                                const m10 = role.m10;
+                    
                                 const offId = employeedetails1.offId;
                                 const emp_policy_status = employeedetails.emp_policy_status;
 
                                 const token = jwt.sign(
-                                    { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet },
+                                    { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10, },
                                     jwtSecretKey,
                                     {
 
-                                        algorithm: "HS256",
+                                        // algorithm: "HS256",
                                     }
                                 );
                                 employeedetails.emp_token = token;

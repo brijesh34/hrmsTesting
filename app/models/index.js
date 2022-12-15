@@ -18,6 +18,7 @@ db.LeaveTypes = require("./leaveTypes");
 db.ProjectInfo = require("./projectInfo");
 db.PolicyInfo = require("./policyInfo");
 db.EventsInfo = require("./event_holidayInfo");
+db.Designation = require("./designation");
 
 
 module.exports = db;
