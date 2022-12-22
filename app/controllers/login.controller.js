@@ -14,70 +14,139 @@ exports.login = async (req, res) => {
         let jwtSecretKey = process.env.JWT_SECRET_KEY;
         const { email, password } = req.body;
         const tab = EmployeeDetails1;
-        await EmployeeDetailsLogin.findOne(
-            { emp_id: email },
-            (err, employeedetails) => {
+        const employee = await EmployeeDetailsLogin.findOne({ emp_id: email });
 
-                console.log("employeedetails1: ", employeedetails);
-                if (employeedetails) {
-                    const pass = employeedetails.emp_password;
-                    console.log("292: Pass: ", employeedetails.emp_password);
+        if (employee) {
+            const isMatch = await bcrypt.compare(password, employee.emp_password);
+        
+            if (!isMatch) {
+              return res.status(201).json({
+                error: true,
+                message: "Invalid credentials.",
+                success: false,
+              });
+            } else {
+                const employeedetails2 = tab.findOne({ offId: email }, (err, employeedetails1) => {
 
-                    if (bcrypt.compare(password, employeedetails.emp_password)) {
-                        const employeedetails2 = tab.findOne({ offId: email }, (err, employeedetails1) => {
+                                        const jobtype = employeedetails1.jobType;
+                                        // const role = EmployeeRoles.findOne({ role_name: jobtype }, (err, role) => {
+                                            const role = Designation.findOne({ designation_id: jobtype }, (err, role) => {
+                                       
+                                            const offEmail = employeedetails1.offEmail;
+                                            const name2 = employeedetails1.name;
+                                            const jobtype = employeedetails1.jobType;
+            
+                                            const rolet = role.designation_id;
+            
+                                            const m1 = role.m1;
+                                            const m2 = role.m2;
+                                            const m3 = role.m3;
+                                            const m4 = role.m4;
+                                            const m5 = role.m5;
+                                            const m6 = role.m6;
+                                            const m7 = role.m7;
+                                            const m8 = role.m8;
+                                            const m9 = role.m9;
+                                            const m10 = role.m10;
+                                
+                                            const offId = employeedetails1.offId;
+                                            const emp_policy_status = employee.emp_policy_status;
+            
+                                            const token = jwt.sign(
+                                                { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10, },
+                                                jwtSecretKey,
+                                                {
+            
+                                                    // algorithm: "HS256",
+                                                }
+                                            );
+                                            employee.emp_token = token;
+            
+                                            employee.save();
+                                            console.log(emp_policy_status + "-----------------line 53");
+                                            res.send({ message: "Login successfully", user: employeedetails1, val: true, val2: token, emp_policy_status: emp_policy_status })
+            
+                                        });})
+            //   return res.status(200).json({
+            //     data: { role: employee.role, email: email ,name:employee.name},
+            //     message: "Login Successfull",
+            //     success: true,
+            //   });
+            // }
+        }
+          } else {
+            return res.status(201).json({
+              error: true,
+              message: "Invalid credentials",
+        
+              success: false,
+            });
+          }
+        // const oldUser = await EmployeeDetailsLogin.findOne({ $and: [ { emp_id: email }, { } ] });
+        // await EmployeeDetailsLogin.findOne(
+        //     { emp_id: email },
+        //     (err, employeedetails) => {
 
-                            const jobtype = employeedetails1.jobType;
-                            // const role = EmployeeRoles.findOne({ role_name: jobtype }, (err, role) => {
-                                const role = Designation.findOne({ designation_id: jobtype }, (err, role) => {
+        //         console.log("employeedetails1: ", employeedetails);
+        //         if (employeedetails) {
+        //             const pass = employeedetails.emp_password;
+        //             console.log("292: Pass: ", bcrypt.compare(password, employeedetails.emp_password));
+
+        //             if ( bcrypt.compare(password, employeedetails.emp_password)) {
+        //                 const employeedetails2 = tab.findOne({ offId: email }, (err, employeedetails1) => {
+
+        //                     const jobtype = employeedetails1.jobType;
+        //                     // const role = EmployeeRoles.findOne({ role_name: jobtype }, (err, role) => {
+        //                         const role = Designation.findOne({ designation_id: jobtype }, (err, role) => {
                            
-                                const offEmail = employeedetails1.offEmail;
-                                const name2 = employeedetails1.name;
-                                const jobtype = employeedetails1.jobType;
+        //                         const offEmail = employeedetails1.offEmail;
+        //                         const name2 = employeedetails1.name;
+        //                         const jobtype = employeedetails1.jobType;
 
-                                const rolet = role.designation_id;
+        //                         const rolet = role.designation_id;
 
-                                const m1 = role.m1;
-                                const m2 = role.m2;
-                                const m3 = role.m3;
-                                const m4 = role.m4;
-                                const m5 = role.m5;
-                                const m6 = role.m6;
-                                const m7 = role.m7;
-                                const m8 = role.m8;
-                                const m9 = role.m9;
-                                const m10 = role.m10;
+        //                         const m1 = role.m1;
+        //                         const m2 = role.m2;
+        //                         const m3 = role.m3;
+        //                         const m4 = role.m4;
+        //                         const m5 = role.m5;
+        //                         const m6 = role.m6;
+        //                         const m7 = role.m7;
+        //                         const m8 = role.m8;
+        //                         const m9 = role.m9;
+        //                         const m10 = role.m10;
                     
-                                const offId = employeedetails1.offId;
-                                const emp_policy_status = employeedetails.emp_policy_status;
+        //                         const offId = employeedetails1.offId;
+        //                         const emp_policy_status = employeedetails.emp_policy_status;
 
-                                const token = jwt.sign(
-                                    { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10, },
-                                    jwtSecretKey,
-                                    {
+        //                         const token = jwt.sign(
+        //                             { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10, },
+        //                             jwtSecretKey,
+        //                             {
 
-                                        // algorithm: "HS256",
-                                    }
-                                );
-                                employeedetails.emp_token = token;
+        //                                 // algorithm: "HS256",
+        //                             }
+        //                         );
+        //                         employeedetails.emp_token = token;
 
-                                employeedetails.save();
-                                console.log(emp_policy_status + "-----------------line 53");
-                                res.send({ message: "Login successfully", user: employeedetails1, val: true, val2: token, emp_policy_status: emp_policy_status })
+        //                         employeedetails.save();
+        //                         console.log(emp_policy_status + "-----------------line 53");
+        //                         res.send({ message: "Login successfully", user: employeedetails1, val: true, val2: token, emp_policy_status: emp_policy_status })
 
-                            });
-                        })
-                    }
-                    else {
-                        res.send({ message: "Invalid credentials, please recheck and enter again", val: false })
-                    }
-                }
-                else {
+        //                     });
+        //                 })
+        //             }
+        //             else {
+        //                 res.send({ message: "Invalid credentials, please recheck and enter again", val: false })
+        //             }
+        //         }
+        //         else {
 
 
-                    res.send({ message: "Invalid credentials, please recheck and enter again", val: false })
-                }
+        //             res.send({ message: "Invalid credentials, please recheck and enter again", val: false })
+        //         }
 
-            }).clone();
+        //     }).clone();
 
     } catch (err) {
         console.error(err)
