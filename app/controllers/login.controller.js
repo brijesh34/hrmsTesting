@@ -48,12 +48,12 @@ exports.login = async (req, res) => {
                                             const m8 = role.m8;
                                             const m9 = role.m9;
                                             const m10 = role.m10;
-                                
+                                const role_name=role.role_name;
                                             const offId = employeedetails1.offId;
                                             const emp_policy_status = employee.emp_policy_status;
             
                                             const token = jwt.sign(
-                                                { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10, },
+                                                { user_id: employeedetails1._id, offEmail, jobtype, offId, name2, rolet,m1,m2,m3,m4,m5,m6,m7,m8,m9,m10,role_name },
                                                 jwtSecretKey,
                                                 {
             
