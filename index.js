@@ -68,11 +68,20 @@ app.post("/multiple", upload.array("images", 3),
     });
 
 
-
+const DB='mongodb+srv://brijesh34:brijeshmaurya@cluster0.m72fiwl.mongodb.net/HrmsTesting?retryWrites=true&w=majority'
 //create database by mongoose
-mongoose.connect("mongodb://0.0.0.0:27017/HRMS_Database", {
+// mongoose.connect("mongodb://0.0.0.0:27017/HRMS_Database", {
+//     useNewUrlParser: "true",
+// })
+mongoose.connect(DB, {
     useNewUrlParser: "true",
-})
+    // useCreateIndex:true,
+    useUnifiedTopology:true,
+    // useFindAndModify:false
+}).then(()=>{console.log("mongoose is connected2")
+}).catch((err)=>console.log("not connected")
+)
+
 mongoose.connection.on("error", err => {
     console.log("err", err)
 })
