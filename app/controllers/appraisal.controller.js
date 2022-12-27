@@ -2084,10 +2084,10 @@ exports.editByReportingPerson = async (req, res) => {
                         sendEmail3(em, "Appraisal  of " + EmpId, em2, em3, "Appraisal Information Updated, Please Chaeck on system");
 
                         if(status=="submitted"){
-                                res.send({ message2: "data successfully submitted ", val2: "true",val: "false" })
+                                res.send({ message2: "data successfully  saved", val2: "true",val: "false" })
                                }
                                else{
-                                res.send({ message2: "data successfully saved ", val2: "true",val: "false" })
+                                res.send({ message2: "data successfully submitted ", val2: "true",val: "false" })
           
                                }
                 });
