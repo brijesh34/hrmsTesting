@@ -106,7 +106,7 @@ exports.addNewAppraisal = async (req, res) => {
                                 else {
                                         sendEmail3(em, "Appraisal  of " + EmpId, em2, em3, "Appraisal is started, Please Chaeck on system");
 
-                                        sendEmail3(em, "subject", em2, em3, "data")
+                                        sendEmail3(em2, "Appraisal  of "+ EmpId, em2, em3, '',"Appraisal is started, Please Chaeck on system")
                                         res.send({ message2: "successfully registered Appraisal", val2: "true",val: "false" })
   
                                 }

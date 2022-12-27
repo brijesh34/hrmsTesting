@@ -60,7 +60,7 @@ exports.addLeave = async (req, res) => {
             sys_user } = req.body;
         const eDataS = {
             eid: eid, ename: ename,
-            reportingPerson: reportingPerson, l_reason: l_reason, l_reason2: l_reason2,
+            reportingPerson: reportingPerson, l_reason: l_reason, l_reason2: l_reason2+"--wait for reply--",
             start_date: date_format(start_date), end_date: date_format(end_date)
             , l_type: l_type, l_category: l_category, approvedBy: approvedBy, l_status: l_status
             ,l_days:l_days
