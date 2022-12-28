@@ -83,7 +83,7 @@ exports.addNewAppraisal = async (req, res) => {
                                 EmpId: EmpId,
                                 doj: doh,
 
-                                department: departmen,
+                                department: 'IT',
                                 TotalExperience: TotalExperienc,
                                 experience: experienc,
                                 cycle,

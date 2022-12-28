@@ -60,7 +60,7 @@ exports.addLeave = async (req, res) => {
             sys_user } = req.body;
         const eDataS = {
             eid: eid, ename: ename,
-            reportingPerson: reportingPerson, l_reason: l_reason, l_reason2: l_reason2+"--wait for reply--",
+            reportingPerson: reportingPerson, l_reason: l_reason, l_reason2: "--wait for reply--",
             start_date: date_format(start_date), end_date: date_format(end_date)
             , l_type: l_type, l_category: l_category, approvedBy: approvedBy, l_status: l_status
             ,l_days:l_days
@@ -246,7 +246,7 @@ exports.delete_self_leave = async (req, res) => {
 
                 tempar = {
                     eid: data.eid, ename: data.ename,
-                    reportingPerson: data.reportingPerson, l_reason: data.l_reason, l_reason2: data.l_reason2,
+                    reportingPerson: data.reportingPerson, l_reason: data.l_reason, l_reason2:'--------------',
                     start_date: date_format(data.start_date), end_date: date_format(data.end_date)
                     , l_type: data.l_type, l_category: data.l_category, approvedBy: data.approvedBy, l_status: data.l_status,l_days:data.l_days
                 }
