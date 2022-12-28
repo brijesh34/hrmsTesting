@@ -57,8 +57,8 @@ const sendEmail3=(email,subject,email2,email3,data)=>{
           var mailOptions = {
             from: 'inevitableapptest@gmail.com',
                 to: email,
-                // cc:oldUser2.offEmail,
-                // bcc:oldUser3.offEmail,
+                cc:email2,
+                bcc:email3,
                 subject: subject,
                 // text: JSON.stringify(data),
 html: htmlToSend,
