@@ -4,7 +4,10 @@
   "description": "this is hrms server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server":"nodemon index.js",
+    "HRMS_WebPortal":"npm start --prefix HRMS_WebPortal ",
+    "dev": "concurrently \"npm start\" \"npm run HRMS_WebPortal\" "
   },
   "author": "Brijesh",
   "license": "ISC",
@@ -22,7 +25,7 @@
     "handlebars": "^4.7.7",
     "handlebars-loader": "^1.7.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.1.10",
+    "mongoose": "^6.8.1",
     "multer": "^1.4.4",
     "nodemailer": "^6.7.2",
     "nodemailer-express-handlebars": "^5.0.0",

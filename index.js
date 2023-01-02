@@ -1,5 +1,6 @@
 require('dotenv').config();
 const db = require("./app/models");
+const path=require("path")
 const controller = require("./app/controllers/emp.controller");
 const ProjectInfo = db.ProjectInfo;
 const AppraisalInfo = db.AppraisalInfo;
@@ -196,6 +197,10 @@ setInterval(() => {
     bachProcess2();
 }, 1000 * 60 * 60 * 24);
 // bachProcess2();
+app.use(express.static(path.join(__dirname,"./HRMS_WebPortal/build")));
+app.get("*",function(req,res){
+    res.sendFile(path.join(__dirname,"./HRMS_WebPortal/build/index.html"));
+})
 app.listen(port, () => {
     console.log("BE started at port 9001")
 })
